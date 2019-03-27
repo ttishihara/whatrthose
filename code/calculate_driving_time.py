@@ -1,5 +1,5 @@
 import datetime
-import simplejson
+import json
 import urllib.request
 
 from user_definition import *
@@ -11,7 +11,7 @@ url = "https://maps.googleapis.com/maps/api/distancematrix/json?" \
       "key={0}&origins={1}&destinations={2}&mode=driving&departure_time=now" \
       "&language=en-EN&sensor=false".\
     format(str(apikey), str(orig_coord), str(dest_coord))
-result = simplejson.load(urllib.request.urlopen(url))
+result = json.load(urllib.request.urlopen(url))
 driving_time = result['rows'][0]['elements'][0]['duration_in_traffic']['text']
 
 output_file.write(str(datetime.datetime.now()) + "\n")

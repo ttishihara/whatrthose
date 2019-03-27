@@ -1,0 +1,211 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>deploy &#8212; What R Those 0 documentation</title>
+    <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="../_static/language_data.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+   
+  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <h1>Source code for deploy</h1><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">paramiko</span>
+<span class="kn">from</span> <span class="nn">os.path</span> <span class="k">import</span> <span class="n">expanduser</span>
+<span class="kn">from</span> <span class="nn">user_definition</span> <span class="k">import</span> <span class="o">*</span>
+
+
+<span class="c1"># ## Assumption : Anaconda, Git (configured)</span>
+
+<div class="viewcode-block" id="ssh_client"><a class="viewcode-back" href="../api_reference.html#deploy.ssh_client">[docs]</a><span class="k">def</span> <span class="nf">ssh_client</span><span class="p">():</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Return SSH client object</span>
+
+<span class="sd">    :return: Paramiko SSH Client object</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">paramiko</span><span class="o">.</span><span class="n">SSHClient</span><span class="p">()</span></div>
+
+
+<div class="viewcode-block" id="ssh_connection"><a class="viewcode-back" href="../api_reference.html#deploy.ssh_connection">[docs]</a><span class="k">def</span> <span class="nf">ssh_connection</span><span class="p">(</span><span class="n">ssh</span><span class="p">,</span> <span class="n">ec2_address</span><span class="p">,</span> <span class="n">user</span><span class="p">,</span> <span class="n">key_file</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Estabish SSH connection with AWS EC2 instance</span>
+
+<span class="sd">    :param ssh: SSH object</span>
+<span class="sd">    :param ec2_address: EC2 Public DNS address</span>
+<span class="sd">    :type ec2_address: str</span>
+<span class="sd">    :param user: EC2 username</span>
+<span class="sd">    :type user: str</span>
+<span class="sd">    :param key_file: Path to PEM key file</span>
+<span class="sd">    :type key_file: str</span>
+<span class="sd">    :return: SSH object with credentials for connection</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">ssh</span><span class="o">.</span><span class="n">set_missing_host_key_policy</span><span class="p">(</span><span class="n">paramiko</span><span class="o">.</span><span class="n">AutoAddPolicy</span><span class="p">())</span>
+    <span class="n">ssh</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">ec2_address</span><span class="p">,</span> <span class="n">username</span><span class="o">=</span><span class="n">user</span><span class="p">,</span>
+                <span class="n">key_filename</span><span class="o">=</span><span class="n">expanduser</span><span class="p">(</span><span class="s2">&quot;~&quot;</span><span class="p">)</span> <span class="o">+</span> <span class="n">key_file</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">ssh</span></div>
+
+
+<div class="viewcode-block" id="create_or_update_environment"><a class="viewcode-back" href="../api_reference.html#deploy.create_or_update_environment">[docs]</a><span class="k">def</span> <span class="nf">create_or_update_environment</span><span class="p">(</span><span class="n">ssh</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Create or update environment within EC2 instance</span>
+
+<span class="sd">    :param ssh: SSH object</span>
+<span class="sd">    :return: None</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">create_command</span> <span class="o">=</span> <span class="n">f</span><span class="s2">&quot;conda env create -f ~/</span><span class="si">{git_repo_name}</span><span class="s2">/environment.yml&quot;</span>
+    <span class="n">_</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">stderr</span> <span class="o">=</span> <span class="n">ssh</span><span class="o">.</span><span class="n">exec_command</span><span class="p">(</span><span class="n">create_command</span><span class="p">)</span>
+    <span class="k">if</span> <span class="p">(</span><span class="sa">b</span><span class="s1">&#39;already exists&#39;</span> <span class="ow">in</span> <span class="n">stderr</span><span class="o">.</span><span class="n">read</span><span class="p">()):</span>
+        <span class="n">update_command</span> <span class="o">=</span> <span class="n">f</span><span class="s2">&quot;conda env update -f &quot;</span> \
+                         <span class="n">f</span><span class="s2">&quot;~/</span><span class="si">{git_repo_name}</span><span class="s2">/environment.yml&quot;</span>
+        <span class="n">_</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">ssh</span><span class="o">.</span><span class="n">exec_command</span><span class="p">(</span><span class="n">update_command</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="git_clone"><a class="viewcode-back" href="../api_reference.html#deploy.git_clone">[docs]</a><span class="k">def</span> <span class="nf">git_clone</span><span class="p">(</span><span class="n">ssh</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Clone Github repository of application or update if already exists</span>
+
+<span class="sd">    :param ssh: SSH object</span>
+<span class="sd">    :return: None</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">stdin</span><span class="p">,</span> <span class="n">stdout</span><span class="p">,</span> <span class="n">stderr</span> <span class="o">=</span> <span class="n">ssh</span><span class="o">.</span><span class="n">exec_command</span><span class="p">(</span><span class="s2">&quot;git --version&quot;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="p">(</span><span class="sa">b</span><span class="s2">&quot;&quot;</span> <span class="ow">is</span> <span class="n">stderr</span><span class="o">.</span><span class="n">read</span><span class="p">()):</span>
+        <span class="n">git_clone_command</span> <span class="o">=</span> <span class="n">f</span><span class="s2">&quot;git clone https://github.com/&quot;</span> \
+                            <span class="n">f</span><span class="s2">&quot;</span><span class="si">{git_repo_owner}</span><span class="s2">/</span><span class="si">{git_repo_name}</span><span class="s2">.git&quot;</span>
+        <span class="n">stdin</span><span class="p">,</span> <span class="n">stdout</span><span class="p">,</span> <span class="n">stderr</span> <span class="o">=</span> <span class="n">ssh</span><span class="o">.</span><span class="n">exec_command</span><span class="p">(</span><span class="n">git_clone_command</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="s2">&quot;already exists&quot;</span> <span class="ow">in</span> <span class="nb">str</span><span class="p">(</span><span class="n">stderr</span><span class="o">.</span><span class="n">read</span><span class="p">()):</span>
+        <span class="n">git_pull_command</span> <span class="o">=</span> <span class="n">f</span><span class="s2">&quot;cd </span><span class="si">{git_repo_name}</span><span class="s2">; git pull https://&quot;</span> \
+                           <span class="n">f</span><span class="s2">&quot;github.com/</span><span class="si">{git_repo_owner}</span><span class="s2">/</span><span class="si">{git_repo_name}</span><span class="s2">&quot;</span>
+        <span class="n">_</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">ssh</span><span class="o">.</span><span class="n">exec_command</span><span class="p">(</span><span class="n">git_pull_command</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="add_crontab"><a class="viewcode-back" href="../api_reference.html#deploy.add_crontab">[docs]</a><span class="k">def</span> <span class="nf">add_crontab</span><span class="p">(</span><span class="n">ssh</span><span class="p">,</span> <span class="n">filename</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Add crontab job to EC2 server to execute file every minute</span>
+
+<span class="sd">    :param ssh: SSH object</span>
+<span class="sd">    :param filename: Name of file to create crontab job for</span>
+<span class="sd">    :type filename: str</span>
+<span class="sd">    :return: None</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">command</span> <span class="o">=</span> <span class="n">f</span><span class="s1">&#39;echo &quot;* * * * * ~/miniconda3/envs/whatrthose/bin/python&#39;</span> \
+              <span class="n">f</span><span class="s1">&#39; ~/</span><span class="si">{git_repo_name}</span><span class="s1">/</span><span class="si">{filename}</span><span class="s1">&quot; &gt; mycron&#39;</span>
+    <span class="n">_</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">ssh</span><span class="o">.</span><span class="n">exec_command</span><span class="p">(</span><span class="n">command</span><span class="p">)</span>
+    <span class="n">_</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">ssh</span><span class="o">.</span><span class="n">exec_command</span><span class="p">(</span><span class="s1">&#39;crontab mycron&#39;</span><span class="p">)</span>
+    <span class="n">_</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">ssh</span><span class="o">.</span><span class="n">exec_command</span><span class="p">(</span><span class="s1">&#39;rm mycron&#39;</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="main"><a class="viewcode-back" href="../api_reference.html#deploy.main">[docs]</a><span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    With AWS EC2 crendentials, establish SSH connection and setup</span>
+<span class="sd">    development environment on EC2 instance. Then add crontab job</span>
+<span class="sd">    to execute calculate_driving_time.py every minute.</span>
+
+<span class="sd">    :return: None</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">ssh</span> <span class="o">=</span> <span class="n">ssh_client</span><span class="p">()</span>
+    <span class="n">ssh_connection</span><span class="p">(</span><span class="n">ssh</span><span class="p">,</span> <span class="n">ec2_address</span><span class="p">,</span> <span class="n">user</span><span class="p">,</span> <span class="n">key_file</span><span class="p">)</span>
+    <span class="n">git_clone</span><span class="p">(</span><span class="n">ssh</span><span class="p">)</span>
+    <span class="n">create_or_update_environment</span><span class="p">(</span><span class="n">ssh</span><span class="p">)</span>
+    <span class="n">add_crontab</span><span class="p">(</span><span class="n">ssh</span><span class="p">,</span> <span class="s1">&#39;calculate_driving_time.py&#39;</span><span class="p">)</span></div>
+
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+    <span class="n">main</span><span class="p">()</span>
+</pre></div>
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="../index.html">What R Those</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<p class="caption"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../authors.html">Authors</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../requirements.html">Requirements</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorial.html">Code Tutorial</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api_reference.html">Code Documentation</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../index.html">Documentation overview</a><ul>
+  <li><a href="index.html">Module code</a><ul>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2019, What R Those Team.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.8.5</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+    </div>
+
+    
+
+    
+  </body>
+</html>

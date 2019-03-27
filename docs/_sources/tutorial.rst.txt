@@ -1,0 +1,19 @@
+Code Tutorial
+=============
+The following will walk through the setup, deployment, and execution of the application on a remote server.
+
+Environment Setup
+-----------------
+1. Change working directory in terminal to git repository on local machine.
+#. Run :code:`conda env create -f environment.yml` in terminal on local machine.
+
+Deployment
+------------
+1. Specify in `code/user_definition.py`:
+
+   :ec2_address: EC2 Public DNS Address
+   :key_file: PEM Key file to access the EC2 instance
+   :git_user_id: Github User authorized to use repository
+
+#. Change working directory in terminal to git repository.
+#. Run :code:`python code/deply.py` in terminal.
