@@ -3,7 +3,6 @@ channels:
   - defaults
 dependencies:
   - alabaster=0.7.12
-  - appnope=0.1.0
   - asn1crypto=0.24.0
   - attrs=19.1.0
   - babel=2.6.0
@@ -102,4 +101,3 @@ dependencies:
   - xz=5.2.4
   - zeromq=4.3.1
   - zlib=1.2.11
-
