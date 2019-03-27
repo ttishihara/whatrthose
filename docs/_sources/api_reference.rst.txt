@@ -1,4 +1,4 @@
-Code Documentation
+API Reference
 ==================
 .. automodule:: deploy
     :members:
