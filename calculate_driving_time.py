@@ -5,9 +5,9 @@ import urllib.request
 from user_definition import *
 
 try:
-    output_file = open(git_repo_name + "/" + output_file_name, "a")
+    output_file = open('~/'+git_repo_name + "/" + output_file_name, "a")
 except FileNotFoundError:
-    output_file = open(git_repo_name+"/"+output_file_name, "w+")
+    output_file = open('~/'+git_repo_name+"/"+output_file_name, "w+")
 # https://developers.google.com/maps/documentation/javascript/get-api-key
 apikey = 'AIzaSyDr9YOisPC4G_HVRquGYihYvoi6uTgx65M'
 url = "https://maps.googleapis.com/maps/api/distancematrix/json?" \
