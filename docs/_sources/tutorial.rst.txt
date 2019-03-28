@@ -16,4 +16,4 @@ Deployment
    :git_user_id: Github User authorized to use repository
 
 #. Change working directory in terminal to git repository.
-#. Run :code:`python code/deply.py` in terminal.
+#. Run :code:`python code/deploy.py` in terminal.
