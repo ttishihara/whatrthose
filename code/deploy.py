@@ -42,7 +42,7 @@ def create_or_update_environment(ssh):
     """
     create_command = f"conda env create -f ~/{git_repo_name}/environment.yml"
     _, _, stderr = ssh.exec_command(create_command)
-    if (b'already exists' in stderr.read()):
+    if b'already exists' in stderr.read():
         update_command = f"conda env update -f " \
                          f"~/{git_repo_name}/environment.yml"
         _, _, _ = ssh.exec_command(update_command)
@@ -56,12 +56,12 @@ def git_clone(ssh):
     :return: None
     """
     stdin, stdout, stderr = ssh.exec_command("git --version")
-    if (b"" is stderr.read()):
+    if b"" is stderr.read():
         git_clone_command = f"git clone https://github.com/" \
                             f"{git_repo_owner}/{git_repo_name}.git"
         stdin, stdout, stderr = ssh.exec_command(git_clone_command)
 
-    if "already exists" in str(stderr.read()):
+    if b"already exists" in stderr.read():
         git_pull_command = f"cd {git_repo_name}; git pull https://" \
                            f"github.com/{git_repo_owner}/{git_repo_name}"
         _, _, _ = ssh.exec_command(git_pull_command)
@@ -77,7 +77,7 @@ def add_crontab(ssh, filename):
     :return: None
     """
     command = f'echo "* * * * * ~/miniconda3/envs/whatrthose/bin/python' \
-              f' ~/{git_repo_name}/{filename}" > mycron'
+              f' ~/{git_repo_name}/code/{filename}" > mycron'
     _, _, _ = ssh.exec_command(command)
     _, _, _ = ssh.exec_command('crontab mycron')
     _, _, _ = ssh.exec_command('rm mycron')
@@ -96,6 +96,9 @@ def main():
     git_clone(ssh)
     create_or_update_environment(ssh)
     add_crontab(ssh, 'calculate_driving_time.py')
+
+    # Logout
+    ssh.close()
 
 
 if __name__ == '__main__':
