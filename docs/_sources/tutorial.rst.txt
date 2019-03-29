@@ -9,7 +9,8 @@ Environment Setup
 
 Deployment
 ------------
-1. Specify in `code/user_definition.py`:
+1. Activate the development environment by running :code:`conda activate whatrthose`.
+#. Edit in `code/user_definition.py`:
 
    :ec2_address: EC2 Public DNS Address
    :key_file: PEM Key file to access the EC2 instance
