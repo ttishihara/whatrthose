@@ -15,4 +15,6 @@ dist/
 build/
 *.egg-info/
 
+*.swp
+
 user_definition.py
