@@ -31,22 +31,3 @@ def index():
 
         return redirect(url_for('index'))  # Redirect to / (/index) page.
     return render_template("index.html",  form=file)
-
-
-@application.route('/upload', methods=['GET', 'POST'])
-def upload():
-    """upload a file from a client machine."""
-    file = UploadFileForm()  # file : UploadFileForm class instance
-    if file.validate_on_submit():  # Check if it is a POST request and if it is valid.
-        f = file.file_selector.data  # f : Data of FileField
-        filename = secure_filename(f.filename)
-        # filename : filename of FileField
-        # secure_filename secures a filename before storing it directly on the filesystem.
-
-
-        file_dir_path = os.path.join(application.instance_path, 'files')
-        file_path = os.path.join(file_dir_path, filename)
-        f.save(file_path) # Save file to file_path (instance/ + 'files’ + filename)
-
-        return redirect(url_for('index'))  # Redirect to / (/index) page.
-    return render_template('upload.html', form=file)
