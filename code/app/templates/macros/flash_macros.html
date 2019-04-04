@@ -1,0 +1,17 @@
+{# Render a message for the form #}
+{% macro form_message(messages, header=none, class='') %}
+    {% if messages %}
+        <div class="alert alert-{{ class }}">
+            {% if header is not none %}
+                <div class="header">{{ header }}</div>
+            {% endif %}
+            {% if messages %}
+                <ul class="list">
+                    {% for message in messages %}
+                        <li>{{ message | safe }}</li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
+        </div>
+    {% endif %}
+{% endmacro %}

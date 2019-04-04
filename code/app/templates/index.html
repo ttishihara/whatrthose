@@ -1,5 +1,7 @@
 <!DOCTYPE html>
 {%- extends "base.html" %}
+{% import 'macros/flash_macros.html' as f %}
+
 
 {% block content %}
 <div class="container">
@@ -15,7 +17,20 @@
         {{ form.file_selector }}
         <br/>
         {{ form.submit }}
+        <br/>
+
     </form>
+    {% set flashes = {
+        'danger':  get_flashed_messages(category_filter=['form-error']),
+        'warning': get_flashed_messages(category_filter=['form-warning']),
+        'info':    get_flashed_messages(category_filter=['form-info']),
+        'success': get_flashed_messages(category_filter=['form-success'])
+    } %}
+
+    {{ f.form_message(flashes['danger'], header='Something went wrong.', class='danger') }}
+    {{ f.form_message(flashes['warning'], header='Check your email.', class='warning') }}
+    {{ f.form_message(flashes['info'], header='Information', class='info') }}
+    {{ f.form_message(flashes['success'], header='Success!', class='success') }}
 </div>
 {% endblock content %}
 

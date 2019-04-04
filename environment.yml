@@ -1,5 +1,6 @@
 name: whatrthose
 channels:
+  - derickl
   - defaults
 dependencies:
   - alabaster=0.7.12
@@ -22,6 +23,7 @@ dependencies:
   - entrypoints=0.3
   - expat=2.2.6
   - flask=1.0.2
+  - flask-wtf=0.14.2
   - fontconfig=2.13.0
   - freetype=2.9.1
   - gettext=0.19.8.1
@@ -85,6 +87,7 @@ dependencies:
   - pysocks=1.6.8
   - python=3.7.1
   - python-dateutil=2.8.0
+  - python-dotenv=0.10.1
   - pytz=2018.9
   - pyzmq=18.0.0
   - qt=5.9.7
@@ -112,7 +115,9 @@ dependencies:
   - werkzeug=0.14.1
   - wheel=0.33.1
   - widgetsnbextension=3.4.2
+  - wtforms=2.2.1
   - xz=5.2.4
   - zeromq=4.3.1
   - zlib=1.2.11
+prefix: /home/tomo/anaconda3/envs/whatrthose
 
