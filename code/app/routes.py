@@ -1,7 +1,7 @@
 from app import application
 from .helpers import *
 
-from flask import render_template, redirect, url_for, flash
+from flask import render_template, redirect, url_for, flash, send_from_directory
 from flask_wtf import FlaskForm
 from flask_wtf.file import FileField, FileRequired, FileAllowed
 from wtforms import SubmitField
@@ -16,6 +16,12 @@ class UploadFileForm(FlaskForm):
                                                               "Image files only!")]
                               )
     submit = SubmitField('Submit')
+
+
+@application.route('/favicon.ico')
+def favicon():
+    return send_from_directory(os.path.join(application.root_path, 'static'),
+                              'favicon.ico', mimetype='image/vnd.microsoft.icon')
 
 
 @application.route('/index', methods=['GET', 'POST'])

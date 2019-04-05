@@ -1,14 +1,14 @@
 <html>
     <head>
         <title>
-            {% block title %}WhatRThose{% endblock %}
+            {% block title %}What R Those{% endblock %}
         </title>
         <!-- Style sheets (.css) -->
-        <link rel="stylesheet" href="{{ url_for('static', filename='app.css') }}">
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
         <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
         <link href="https://fonts.googleapis.com/css?family=Amiri:400,800|Arvo:400,700|Gloria+Hallelujah|Indie+Flower|Nanum+Brush+Script|Shrikhand" rel="stylesheet">
+        <link rel="stylesheet" href="{{ url_for('static', filename='app.css') }}">
 
 
         <!-- Javascript files (.js) *ORDER MATTERS* -->
@@ -23,18 +23,9 @@
             <a class="navbar-brand" href="#">What R Those?</a>
             <div class="collapse navbar-collapse" id="navbarNav">
 				<ul class="navbar-nav mr-auto">
-					<ul class="nav navbar-nav navbar-right">
-						<li><a href="#">Hot 'n New </a></li>
-					</ul>
-					<ul class="nav navbar-nav navbar-right">
-						<li><a href="#">Just For You </a></li>
-					</ul>
-					<ul class="nav navbar-nav navbar-right">
-						<li><a href="#">Search </a></li>
-					</ul>
-					<ul class="nav navbar-nav navbar-right">
-						<li><a href="#">Home </a></li>
-					</ul>
+                    <li class="nav-item"><a class="nav-link" href="#">Hot 'n New </a></li>
+                    <li class="nav-item"><a class="nav-link" href="#">Just For You </a></li>
+                    <li class="nav-item"><a class="nav-link" href="#">Search </a></li>
 				</ul>
 			</div>
         </nav>
