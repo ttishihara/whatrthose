@@ -2,7 +2,6 @@
 {%- extends "base.html" %}
 {% import 'macros/flash_macros.html' as f %}
 
-
 {% block content %}
 <div class="jumbotron">
     <img id="logo" src="{{ url_for('static', filename='logo.png') }}" style="display:block; margin-right:auto; margin-left:auto">
@@ -10,26 +9,71 @@
 </div>
 
 <div class="container">
-    <form method="POST" enctype="multipart/form-data"> <!-- post : handle submission -->
-        <h2>Image Upload</h2>
-        {{ form.csrf_token }} <!--  render the form's CSRF field like normal. -->
-        {{ form.file_selector }}
-        <br/>
-        {{ form.submit }}
-        <br/>
+    <div class="row justify-content-md-center">
+        <div class="col-md-auto">
+            <h2>Image Upload</h2>
+            <form id="upload_form" method="POST" enctype="multipart/form-data"> <!-- post : handle submission -->
+                {{ form.csrf_token }} <!--  render the form's CSRF field like normal. -->
+                {{ form.file_selector }}
+                <br/>
+                {{ form.submit }}
+                <br/>
+            </form>
+            <form>
+                <input id="start_camera" type="button" value="Access Camera" onClick="setup_camera()">
+            </form>
+            <div id="my_camera" style="width: 320px; height: 240px; display:none;"></div>
+            <div id="my_result"></div>
+            <form>
+                <input id="cancel_camera" type="button" value="Cancel Camera" onClick="stop_camera();" style="display:none">
+                <input id="snapshot" type="button" value="Take Snapshot" onClick="take_snapshot();" style="display:none">
+                <input id="retake_snapshot" type="button" value="Retake Snapshot" onClick="setup_camera();" style="display:none">
+            </form>
+            {% set flashes = {
+            'danger':  get_flashed_messages(category_filter=['form-error']),
+            'warning': get_flashed_messages(category_filter=['form-warning']),
+            'info':    get_flashed_messages(category_filter=['form-info']),
+            'success': get_flashed_messages(category_filter=['form-success'])
+            } %}
 
-    </form>
-    {% set flashes = {
-        'danger':  get_flashed_messages(category_filter=['form-error']),
-        'warning': get_flashed_messages(category_filter=['form-warning']),
-        'info':    get_flashed_messages(category_filter=['form-info']),
-        'success': get_flashed_messages(category_filter=['form-success'])
-    } %}
-
-    {{ f.form_message(flashes['danger'], header='Something went wrong.', class='danger') }}
-    {{ f.form_message(flashes['warning'], header='Check your email.', class='warning') }}
-    {{ f.form_message(flashes['info'], header='Information', class='info') }}
-    {{ f.form_message(flashes['success'], header='Success!', class='success') }}
+            {{ f.form_message(flashes['danger'], header='Something went wrong.', class='danger') }}
+            {{ f.form_message(flashes['warning'], header='Check your email.', class='warning') }}
+            {{ f.form_message(flashes['info'], header='Information', class='info') }}
+            {{ f.form_message(flashes['success'], header='Success!', class='success') }}
+        </div>
+    </div>
 </div>
-{% endblock content %}
 
+<script language="JavaScript">
+    function setup_camera() {
+        $('#my_camera').show();
+        Webcam.reset();
+        Webcam.attach('#my_camera');
+
+        $('#start_camera').hide();  // Hide "Access Camera" button.
+        $('#cancel_camera').show();  // Show "Cancel Camera" and "Snapshot" buttons.
+        $('#snapshot').show();
+        $('#retake_snapshot').hide();  // Hide "Retake Snapshot" button.
+        $('#upload_form').hide();  // Hide Flask-wtf upload forms.
+    }
+
+    function stop_camera() {
+        $('#my_camera').hide();
+        Webcam.reset();
+        $('#cancel_camera').hide();
+        $('#snapshot').hide();
+        $('#retake_snapshot').hide();
+        $('#start_camera').show();
+        $('#upload_form').show();
+        $('#my_camera').html("");
+    }
+    
+    function take_snapshot() {
+        Webcam.snap( function(data_uri) {
+            $('#my_camera').html('<img src="'+data_uri+'"/>');
+        });
+        $('#snapshot').hide();
+        $('#retake_snapshot').show();
+    }
+</script>
+{% endblock content %}
