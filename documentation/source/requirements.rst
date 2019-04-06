@@ -8,11 +8,7 @@ The full Github repository is located at `here <https://github.com/MSDS698/whatr
 
 todo:: List steps to setup EC2 instance for deployment
 
-1. Anaconda3 installed on local machine with Python 3.7.x
-#. An Amazon Web Services (AWS) Elastic Compute Computer (EC2) instance running with:
-
-   a. Anaconda3 installed on the server instance with Python 3.7.x
-   #. Git installed
-   #. Github credentials for an authorized Github user are stored
+1. AWS CLI profile must beed setup on the local machine
+2. AWS EB CLI must be installed on the local machine
 
 
