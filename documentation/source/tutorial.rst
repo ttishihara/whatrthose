@@ -2,19 +2,9 @@ Setup Tutorial
 ==============
 The following will walk through the setup, deployment, and execution of the application on a remote server. These steps are performed after the requirements have been met.
 
-Environment Setup
------------------
-1. Change working directory in terminal to git repository on local machine.
-#. Run :code:`conda env create -f environment.yml` in terminal on local machine.
-
 Deployment
 ------------
-1. Activate the development environment by running :code:`conda activate whatrthose`.
-#. Edit in `code/user_definition.py`:
+1. Clone the github to your local machine OR copy the following file to your local machine:
+https://github.com/MSDS698/whatrthose/blob/master/code/deploy.sh
 
-   :ec2_address: EC2 Public DNS Address
-   :key_file: PEM Key file to access the EC2 instance
-   :git_user_id: Github User authorized to use repository
-
-#. Change working directory in terminal to git repository.
-#. Run :code:`python code/deploy.py` in terminal.
+2. From the directory in which "deploy.sh" exists, run "bash deploy.sh"
