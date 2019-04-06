@@ -37,33 +37,13 @@
             
   <div class="section" id="setup-tutorial">
 <h1>Setup Tutorial<a class="headerlink" href="#setup-tutorial" title="Permalink to this headline">¶</a></h1>
-<p>The following will walk through the setup, deployment, and execution of the application on a remote server.</p>
-<div class="section" id="environment-setup">
-<h2>Environment Setup<a class="headerlink" href="#environment-setup" title="Permalink to this headline">¶</a></h2>
-<ol class="arabic simple">
-<li>Change working directory in terminal to git repository on local machine.</li>
-<li>Run <code class="code docutils literal notranslate"><span class="pre">conda</span> <span class="pre">env</span> <span class="pre">create</span> <span class="pre">-f</span> <span class="pre">environment.yml</span></code> in terminal on local machine.</li>
-</ol>
-</div>
+<p>The following will walk through the setup, deployment, and execution of the application on a remote server. These steps are performed after the requirements have been met.</p>
 <div class="section" id="deployment">
 <h2>Deployment<a class="headerlink" href="#deployment" title="Permalink to this headline">¶</a></h2>
-<ol class="arabic simple">
-<li>Activate the development environment by running <code class="code docutils literal notranslate"><span class="pre">conda</span> <span class="pre">activate</span> <span class="pre">whatrthose</span></code>.</li>
-<li>Edit in <cite>code/user_definition.py</cite>:<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">ec2_address:</th><td class="field-body">EC2 Public DNS Address</td>
-</tr>
-<tr class="field-even field"><th class="field-name">key_file:</th><td class="field-body">PEM Key file to access the EC2 instance</td>
-</tr>
-<tr class="field-odd field"><th class="field-name">git_user_id:</th><td class="field-body">Github User authorized to use repository</td>
-</tr>
-</tbody>
-</table>
-</li>
-<li>Change working directory in terminal to git repository.</li>
-<li>Run <code class="code docutils literal notranslate"><span class="pre">python</span> <span class="pre">code/deploy.py</span></code> in terminal.</li>
+<p>1. Clone the github to your local machine OR copy the following file to your local machine:
+<a class="reference external" href="https://github.com/MSDS698/whatrthose/blob/master/code/deploy.sh">https://github.com/MSDS698/whatrthose/blob/master/code/deploy.sh</a></p>
+<ol class="arabic simple" start="2">
+<li>From the directory in which “deploy.sh” exists, run “bash deploy.sh”</li>
 </ol>
 </div>
 </div>
@@ -91,7 +71,6 @@
 <li class="toctree-l1"><a class="reference internal" href="authors.html">Authors</a></li>
 <li class="toctree-l1"><a class="reference internal" href="requirements.html">Requirements</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Setup Tutorial</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#environment-setup">Environment Setup</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#deployment">Deployment</a></li>
 </ul>
 </li>
