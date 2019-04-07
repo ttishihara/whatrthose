@@ -64,6 +64,8 @@ form {
 
 .container-cls {
     padding: 2rem 1rem;
+    padding-top: 100px;
+    margin-top: 2rem;
     margin-bottom: 2rem;
     background-color: #dcdcdc;
 }
