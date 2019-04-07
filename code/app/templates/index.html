@@ -11,23 +11,26 @@
 <div class="container">
     <div class="row justify-content-md-center">
         <div class="col-md-auto">
-            <h2>Image Upload</h2>
+            <h2>Upload your sneaker image</h2>
             <form id="upload_form" method="POST" enctype="multipart/form-data"> <!-- post : handle submission -->
                 {{ form.csrf_token }} <!--  render the form's CSRF field like normal. -->
-                {{ form.file_selector }}
-                <br/>
-                {{ form.submit }}
-                <br/>
-            </form>
-            <form>
-                <input id="start_camera" type="button" class="btn btn-secondary" value="Access Camera" onClick="setup_camera()">
+                <div class="custom-file">
+                    {{ form.file_selector(class_="custom-file-input", id_="image", value="Browse") }}
+                    <label class="custom-file-label" for="image" data-browse="Browse">Upload image</label>
+                </div>
+                <div class="submit-button submit-cls">
+                    {{ form.submit(class_="btn-success btn-lg btn-block") }}
+                </div>
+                <div class="submit-button submit-cls">
+                <input id="start_camera" type="button" class="btn btn-secondary btn-lg btn-block" value="Access Camera" onClick="setup_camera()">
+            </div>
             </form>
             <div id="my_camera" style="width: 320px; height: 240px; display:none;"></div>
             <div id="my_result"></div>
             <form>
-                <input id="cancel_camera" type="button" value="Cancel Camera" onClick="stop_camera();" style="display:none">
-                <input id="snapshot" type="button" value="Take Snapshot" onClick="take_snapshot();" style="display:none">
-                <input id="retake_snapshot" type="button" value="Retake Snapshot" onClick="setup_camera();" style="display:none">
+                <input id="cancel_camera" class="btn btn-outline-danger cam-button" type="button" value="Cancel Camera" onClick="stop_camera();" style="display:none">
+                <input id="snapshot" type="button" class="btn btn-outline-success cam-button" value="Take Snapshot" onClick="take_snapshot();" style="display:none">
+                <input id="retake_snapshot" type="button" class="btn btn-outline-success cam-button" value="Retake Snapshot" onClick="setup_camera();" style="display:none">
             </form>
             {% set flashes = {
             'danger':  get_flashed_messages(category_filter=['form-error']),
