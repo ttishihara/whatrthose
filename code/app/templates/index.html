@@ -11,23 +11,47 @@
 <div class="container">
     <div class="row justify-content-md-center">
         <div class="col-md-auto">
-            <h2>Image Upload</h2>
+            <h2>Upload your sneaker image</h2>
+            <div id="uploaded_image"></div>
+        </div>
+    </div>
+
+    <div class="row justify-content-md-center mt-3">
+        <div class="col-md-auto">
             <form id="upload_form" method="POST" enctype="multipart/form-data"> <!-- post : handle submission -->
                 {{ form.csrf_token }} <!--  render the form's CSRF field like normal. -->
-                {{ form.file_selector }}
-                <br/>
-                {{ form.submit }}
-                <br/>
+                <div class="custom-file">
+                    {{ form.file_selector(class_="custom-file-input") }}
+                    <label class="custom-file-label" for="file_selector" data-browse="Browse">Upload image</label>
+                </div>
+                <div class="submit-button submit-cls">
+                    {{ form.submit(class_="btn-success btn-lg btn-block") }}
+                </div>
+                <div class="submit-button submit-cls">
+                <input id="start_camera"
+                    type="button"
+                    class="btn btn-secondary btn-lg btn-block"
+                    value="Access Camera"
+                    onClick="setup_camera()">
+            </div>
             </form>
-            <form>
-                <input id="start_camera" type="button" value="Access Camera" onClick="setup_camera()">
-            </form>
-            <div id="my_camera" style="width: 320px; height: 240px; display:none;"></div>
+
             <div id="my_result"></div>
+        </div>
+    </div>
+    <div class="row justify-content-md-center">
+        <div class="col-md-auto">
+            <div id="my_camera" style="width: 320px; height: 240px; display:none;"></div>
+        </div>
+    </div>
+    <div class="row justify-content-md-center">
+        <div class="col-md-auto">
             <form>
-                <input id="cancel_camera" type="button" value="Cancel Camera" onClick="stop_camera();" style="display:none">
-                <input id="snapshot" type="button" value="Take Snapshot" onClick="take_snapshot();" style="display:none">
-                <input id="retake_snapshot" type="button" value="Retake Snapshot" onClick="setup_camera();" style="display:none">
+                <div class="btn-group justify-content-md-center mt-3" role="group" aria-label="Basic example">
+                    <input id="cancel_camera" class="btn btn-outline-danger cam-button" type="button" value="Cancel Camera" onClick="stop_camera();" style="display:none">
+                    <input id="snapshot" type="button" class="btn btn-outline-success cam-button" value="Take Snapshot" onClick="take_snapshot();" style="display:none">
+                    <input id="retake_snapshot" type="button" class="btn btn-outline-success cam-button" value="Retake Snapshot" onClick="setup_camera();" style="display:none">
+                </div>
             </form>
             {% set flashes = {
             'danger':  get_flashed_messages(category_filter=['form-error']),
@@ -44,6 +68,7 @@
     </div>
 </div>
 
+
 <script language="JavaScript">
     function setup_camera() {
         $('#my_camera').show();
@@ -55,6 +80,7 @@
         $('#snapshot').show();
         $('#retake_snapshot').hide();  // Hide "Retake Snapshot" button.
         $('#upload_form').hide();  // Hide Flask-wtf upload forms.
+        $('#uploaded_image').hide();
     }
 
     function stop_camera() {
@@ -67,7 +93,7 @@
         $('#upload_form').show();
         $('#my_camera').html("");
     }
-    
+
     function take_snapshot() {
         Webcam.snap( function(data_uri) {
             $('#my_camera').html('<img src="'+data_uri+'"/>');
@@ -76,4 +102,7 @@
         $('#retake_snapshot').show();
     }
 </script>
+
+<script type="text/javascript" src="static/image-upload.js"></script>
+
 {% endblock content %}
