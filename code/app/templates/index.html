@@ -20,7 +20,7 @@
                 <br/>
             </form>
             <form>
-                <input id="start_camera" type="button" value="Access Camera" onClick="setup_camera()">
+                <input id="start_camera" type="button" class="btn btn-secondary" value="Access Camera" onClick="setup_camera()">
             </form>
             <div id="my_camera" style="width: 320px; height: 240px; display:none;"></div>
             <div id="my_result"></div>
@@ -67,7 +67,7 @@
         $('#upload_form').show();
         $('#my_camera').html("");
     }
-    
+
     function take_snapshot() {
         Webcam.snap( function(data_uri) {
             $('#my_camera').html('<img src="'+data_uri+'"/>');

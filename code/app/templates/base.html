@@ -18,15 +18,20 @@
         <script src="{{ url_for('static', filename='webcam.min.js') }}"></script>
 
     </head>
-    
+
     <body>
-        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-            <a class="navbar-brand" href="#">What R Those?</a>
+        <nav class="navbar navbar-expand-lg navbar-dark bg-medium">
+            <a class="navbar-brand nav-text" href="#">
+                <img src="static/logo_no_text.png" width="30" class="d-inline-block align-top nav-logo" alt="">
+                WHAT R THOSE?
+            </a>
             <div class="collapse navbar-collapse" id="navbarNav">
-				<ul class="navbar-nav mr-auto">
-                    <li class="nav-item"><a class="nav-link" href="#">Hot 'n New </a></li>
-                    <li class="nav-item"><a class="nav-link" href="#">Just For You </a></li>
-                    <li class="nav-item"><a class="nav-link" href="#">Search </a></li>
+				<ul class="navbar-nav ml-auto justify-content-md-right">
+
+                    <li class="nav-item nav-text"><a class="nav-link" href="#">ABOUT</a></li>
+                    <li class="nav-item nav-text"><a class="nav-link" href="#">HOT 'N NEW</a></li>
+                    <li class="nav-item nav-text"><a class="nav-link" href="#">JUST FOR YOU</a></li>
+                    <li class="nav-item nav-text"><a class="nav-link" href="#">SEARCH</a></li>
 				</ul>
 			</div>
         </nav>
@@ -34,7 +39,5 @@
         {% block content %}
         {% endblock content %}
 
-    </body> 
+    </body>
 </html>
-
-   
