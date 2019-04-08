@@ -53,7 +53,7 @@ fi
 echo "Creating EB"
 mkdir ~/.elasticbeanstalk
 echo "deploy:
-   artifact: /home/ec2-user/whatrthose/code.zip" > ~/.elasticbeanstalk/config.yml
+   artifact: /home/ec2-user/whatrthose/code/code.zip" > ~/.elasticbeanstalk/config.yml
 ERR2=$((eb init -p python-3.6 $ENVNAME --region $REGION >&1) 2>&1)
 ERR=$((eb create $ENVNAME >&1) 2>&1)
 if [[ $ERR == *"already exists"* ]]; then

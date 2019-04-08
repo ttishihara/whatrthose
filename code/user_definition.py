@@ -1,4 +1,4 @@
-ec2_address = "ec2-34-214-164-175.us-west-2.compute.amazonaws.com"
+ec2_address = "ec2-18-236-148-86.us-west-2.compute.amazonaws.com"
 user = "ec2-user"
 key_file = "/.ssh/bpchivers_oregon.pem"
 git_repo_owner = "MSDS698"
