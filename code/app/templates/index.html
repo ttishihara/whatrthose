@@ -18,12 +18,13 @@
 
     <div class="row justify-content-md-center mt-3">
         <div class="col-md-auto">
-            <form id="upload_form" method="POST" enctype="multipart/form-data"> <!-- post : handle submission -->
+            <form id="upload_form drag_files" method="POST" class="drag-drop" enctype="multipart/form-data" novalidate> <!-- post : handle submission -->
                 {{ form.csrf_token }} <!--  render the form's CSRF field like normal. -->
                 <div class="custom-file">
                     {{ form.file_selector(class_="custom-file-input") }}
-                    <label class="custom-file-label" for="file_selector" data-browse="Browse">Upload image</label>
+                    <label class="custom-file-label drag-files-label" for="file_selector" data-browse="Browse">Upload image or drag it here</label>
                 </div>
+
                 <div class="submit-button submit-cls">
                     {{ form.submit(class_="btn-success btn-lg btn-block") }}
                 </div>
@@ -69,6 +70,7 @@
 </div>
 
 
+
 <script language="JavaScript">
     function setup_camera() {
         $('#my_camera').show();
@@ -101,6 +103,81 @@
         $('#snapshot').hide();
         $('#retake_snapshot').show();
     }
+
+    // drag and drop pictures
+    var form = document.getElementById("drag_files");
+    var input = form.querySelector('input[type="file"]');
+
+    window.addEventListener('load', function(){
+        ['drag', 'dragstart', 'dragend', 'dragover', 'dragenter', 'dragleave', 'drop'].forEach(function (event) {
+             form.addEventListener(event, function (e) {
+             // preventing the unwanted behaviours
+                     e.preventDefault();
+                     e.stopPropagation();
+                 });
+             });
+    });
+
+    ['dragover', 'dragenter'].forEach(function (event) {
+         form.addEventListener(event, function () {
+             form.classList.add('dragover');
+         });
+     });
+
+    ['dragleave', 'dragend', 'drop'].forEach(function (event) {
+        form.addEventListener(event, function () {
+            form.classList.remove('dragover');
+        });
+    });
+
+    var droppedFiles;
+
+    form.addEventListener('drop', function (e) {
+        droppedFiles = e.dataTransfer.files; // the files that were dropped
+
+        if (droppedFiles.length > 0)
+        {
+            form.querySelector(".drag-files-label").innerHTML = droppedFiles[0].name;
+
+            // optional - submit the form on drop
+            var event = document.createEvent('HTMLEvents');
+            event.initEvent('submit', true, false);
+            form.dispatchEvent(event);
+        }
+    });
+
+
+     form.addEventListener('submit', function (e) {
+         if (form.classList.contains('uploading'))
+             return false;
+
+             form.classList.add('uploading');
+             e.preventDefault();
+
+             // gathering the form data
+             var ajaxData = new FormData(form);
+             if (droppedFiles) {
+                 Array.prototype.forEach.call(droppedFiles, function (file) {
+                     ajaxData.append(input.getAttribute('name'), file);
+                 });
+             }
+
+             // ajax request
+             var ajax = new XMLHttpRequest();
+             ajax.open(form.getAttribute('method'), form.getAttribute('action'), true);
+
+             ajax.onload = function () {
+                 form.classList.remove('uploading');
+                 if (ajax.status >= 200 && ajax.status < 400) {
+                    // do what you will :)
+                 }
+                 else {
+                     alert('Error. Please, contact the webmaster!');
+                 }
+             };
+
+             ajax.send(ajaxData);
+     });
 </script>
 
 <script type="text/javascript" src="static/image-upload.js"></script>
