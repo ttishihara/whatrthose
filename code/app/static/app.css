@@ -78,3 +78,13 @@ form {
     background-repeat: no-repeat;
     background-position: center center;
 }
+
+.footer-cls {
+    background-color: #696969;
+    color: #FFFFFF;
+    text-align: center;
+}
+
+.footer-text {
+margin-bottom: 1rem;
+}
