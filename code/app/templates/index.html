@@ -106,7 +106,6 @@
 
     // drag and drop pictures
     var form = document.getElementById("drag_files");
-    var input = form.querySelector('input[type="file"]');
 
     window.addEventListener('load', function(){
         ['drag', 'dragstart', 'dragend', 'dragover', 'dragenter', 'dragleave', 'drop'].forEach(function (event) {
@@ -145,39 +144,6 @@
             form.dispatchEvent(event);
         }
     });
-
-
-     form.addEventListener('submit', function (e) {
-         if (form.classList.contains('uploading'))
-             return false;
-
-             form.classList.add('uploading');
-             e.preventDefault();
-
-             // gathering the form data
-             var ajaxData = new FormData(form);
-             if (droppedFiles) {
-                 Array.prototype.forEach.call(droppedFiles, function (file) {
-                     ajaxData.append(input.getAttribute('name'), file);
-                 });
-             }
-
-             // ajax request
-             var ajax = new XMLHttpRequest();
-             ajax.open(form.getAttribute('method'), form.getAttribute('action'), true);
-
-             ajax.onload = function () {
-                 form.classList.remove('uploading');
-                 if (ajax.status >= 200 && ajax.status < 400) {
-                    // do what you will :)
-                 }
-                 else {
-                     alert('Error. Please, contact the webmaster!');
-                 }
-             };
-
-             ajax.send(ajaxData);
-     });
 </script>
 
 <script type="text/javascript" src="static/image-upload.js"></script>
