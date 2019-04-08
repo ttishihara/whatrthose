@@ -79,6 +79,19 @@ form {
     background-position: center center;
 }
 
+
+/*body {
+    padding-bottom: 60px;
+}*/
+
+.footer {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: 40px;
+}
+
 .footer-cls {
     background-color: #696969;
     color: #FFFFFF;
