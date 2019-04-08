@@ -91,8 +91,8 @@ def main():
     """
     ssh = ssh_client()
     ssh_connection(ssh, ec2_address, user, key_file)
-    #git_clone(ssh)
-    #create_or_update_environment(ssh)
+    git_clone(ssh)
+    create_or_update_environment(ssh)
     deploy(ssh)
 
     # Logout

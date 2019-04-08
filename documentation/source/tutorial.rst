@@ -4,7 +4,9 @@ The following will walk through the setup, deployment, and execution of the appl
 
 Deployment
 ------------
-1. Clone the github to your local machine OR copy the following file to your local machine:
-https://github.com/MSDS698/whatrthose/blob/master/code/deploy.sh
-
-2. From the directory in which "deploy.sh" exists, run "bash deploy.sh"
+1. Be sure all the required configurations are met from the requirements page
+2. Clone the repo to your local machine
+3. Install the conda environment found in the root directory
+4. Run "python deploy.py" from the code directory. This will:
+  * Stand up an S3 bucket for photo logging
+  * Push the current code.zip file to an Elastic Beanstalk deployment

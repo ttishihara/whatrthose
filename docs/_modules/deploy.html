@@ -102,22 +102,20 @@
                            <span class="n">f</span><span class="s2">&quot;github.com/</span><span class="si">{git_repo_owner}</span><span class="s2">/</span><span class="si">{git_repo_name}</span><span class="s2">&quot;</span>
         <span class="n">_</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">ssh</span><span class="o">.</span><span class="n">exec_command</span><span class="p">(</span><span class="n">git_pull_command</span><span class="p">)</span></div>
 
-
-<div class="viewcode-block" id="add_crontab"><a class="viewcode-back" href="../api_reference.html#deploy.add_crontab">[docs]</a><span class="k">def</span> <span class="nf">add_crontab</span><span class="p">(</span><span class="n">ssh</span><span class="p">,</span> <span class="n">filename</span><span class="p">):</span>
+<div class="viewcode-block" id="deploy"><a class="viewcode-back" href="../api_reference.html#deploy.deploy">[docs]</a><span class="k">def</span> <span class="nf">deploy</span><span class="p">(</span><span class="n">ssh</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Add crontab job to EC2 server to execute file every minute</span>
+<span class="sd">    Run deploy bash script from EC2</span>
 
 <span class="sd">    :param ssh: SSH object</span>
-<span class="sd">    :param filename: Name of file to create crontab job for</span>
-<span class="sd">    :type filename: str</span>
 <span class="sd">    :return: None</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">command</span> <span class="o">=</span> <span class="n">f</span><span class="s1">&#39;echo &quot;* * * * * ~/miniconda3/envs/whatrthose/bin/python&#39;</span> \
-              <span class="n">f</span><span class="s1">&#39; ~/</span><span class="si">{git_repo_name}</span><span class="s1">/code/</span><span class="si">{filename}</span><span class="s1">&quot; &gt; mycron&#39;</span>
-    <span class="n">_</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">ssh</span><span class="o">.</span><span class="n">exec_command</span><span class="p">(</span><span class="n">command</span><span class="p">)</span>
-    <span class="n">_</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">ssh</span><span class="o">.</span><span class="n">exec_command</span><span class="p">(</span><span class="s1">&#39;crontab mycron&#39;</span><span class="p">)</span>
-    <span class="n">_</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">ssh</span><span class="o">.</span><span class="n">exec_command</span><span class="p">(</span><span class="s1">&#39;rm mycron&#39;</span><span class="p">)</span></div>
-
+    <span class="n">stdin</span><span class="p">,</span> <span class="n">stdout</span><span class="p">,</span> <span class="n">stderr</span> <span class="o">=</span> <span class="n">ssh</span><span class="o">.</span><span class="n">exec_command</span><span class="p">(</span><span class="s2">&quot;cd&quot;</span><span class="p">)</span>
+    <span class="n">stdin</span><span class="p">,</span> <span class="n">stdout</span><span class="p">,</span> <span class="n">stderr</span> <span class="o">=</span> <span class="n">ssh</span><span class="o">.</span><span class="n">exec_command</span><span class="p">(</span><span class="s2">&quot;conda activate whatrthose&quot;</span><span class="p">)</span>
+    <span class="c1">#print(stderr.read())</span>
+    <span class="n">deploy_command</span> <span class="o">=</span> <span class="n">f</span><span class="s2">&quot;bash ~/</span><span class="si">{git_repo_name}</span><span class="s2">/code/deploy.sh -bucket whatrthose&quot;</span> \
+                     <span class="n">f</span><span class="s2">&quot; -region us-west-2 -ebname whatrthose-dev&quot;</span>
+    <span class="n">stdin</span><span class="p">,</span> <span class="n">stdout</span><span class="p">,</span> <span class="n">stderr</span> <span class="o">=</span> <span class="n">ssh</span><span class="o">.</span><span class="n">exec_command</span><span class="p">(</span><span class="n">deploy_command</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">stdout</span><span class="o">.</span><span class="n">read</span><span class="p">()))</span></div>
 
 <div class="viewcode-block" id="main"><a class="viewcode-back" href="../api_reference.html#deploy.main">[docs]</a><span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
     <span class="sd">&quot;&quot;&quot;</span>
@@ -131,7 +129,7 @@
     <span class="n">ssh_connection</span><span class="p">(</span><span class="n">ssh</span><span class="p">,</span> <span class="n">ec2_address</span><span class="p">,</span> <span class="n">user</span><span class="p">,</span> <span class="n">key_file</span><span class="p">)</span>
     <span class="n">git_clone</span><span class="p">(</span><span class="n">ssh</span><span class="p">)</span>
     <span class="n">create_or_update_environment</span><span class="p">(</span><span class="n">ssh</span><span class="p">)</span>
-    <span class="n">add_crontab</span><span class="p">(</span><span class="n">ssh</span><span class="p">,</span> <span class="s1">&#39;calculate_driving_time.py&#39;</span><span class="p">)</span>
+    <span class="n">deploy</span><span class="p">(</span><span class="n">ssh</span><span class="p">)</span>
 
     <span class="c1"># Logout</span>
     <span class="n">ssh</span><span class="o">.</span><span class="n">close</span><span class="p">()</span></div>

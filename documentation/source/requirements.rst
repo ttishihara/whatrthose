@@ -6,9 +6,16 @@ The full Github repository is located at `here <https://github.com/MSDS698/whatr
 
 **Amazon Web Services Setup**
 
-todo:: List steps to setup EC2 instance for deployment
 
-1. AWS CLI profile must beed setup on the local machine
-2. AWS EB CLI must be installed on the local machine
-
+1. An EC2 instance must be stood up with:
+  * Git installed and user configured
+  * Anaconda installed
+  * An IAM role that allows full S3 and ElasticBeanstalk access
+2. The following must be configured in code/user_definition.py:
+  * ec2_address: The DNS name of the EC2 described above
+  * user: Which user to log into the EC2 with
+  * key_file: The identity file used to log into the EC2 with
+  * git_repo_owner: Owner of the git repo of the application
+  * git_repo_name: Name of the git repo of the application
+  * git_user_id: User ID configured in the EC2 mentioned above
 

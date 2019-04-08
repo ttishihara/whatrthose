@@ -40,11 +40,18 @@
 <p>The following will walk through the setup, deployment, and execution of the application on a remote server. These steps are performed after the requirements have been met.</p>
 <div class="section" id="deployment">
 <h2>Deployment<a class="headerlink" href="#deployment" title="Permalink to this headline">¶</a></h2>
-<p>1. Clone the github to your local machine OR copy the following file to your local machine:
-<a class="reference external" href="https://github.com/MSDS698/whatrthose/blob/master/code/deploy.sh">https://github.com/MSDS698/whatrthose/blob/master/code/deploy.sh</a></p>
-<ol class="arabic simple" start="2">
-<li>From the directory in which “deploy.sh” exists, run “bash deploy.sh”</li>
+<ol class="arabic simple">
+<li>Be sure all the required configurations are met from the requirements page</li>
+<li>Clone the repo to your local machine</li>
+<li>Install the conda environment found in the root directory</li>
+<li>Run “python deploy.py” from the code directory. This will:</li>
 </ol>
+<blockquote>
+<div><ul class="simple">
+<li>Stand up an S3 bucket for photo logging</li>
+<li>Push the current code.zip file to an Elastic Beanstalk deployment</li>
+</ul>
+</div></blockquote>
 </div>
 </div>
 

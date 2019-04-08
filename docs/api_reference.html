@@ -37,30 +37,25 @@
   <div class="section" id="module-deploy">
 <span id="api-reference"></span><h1>API Reference<a class="headerlink" href="#module-deploy" title="Permalink to this headline">¶</a></h1>
 <dl class="function">
-<dt id="deploy.add_crontab">
-<code class="descclassname">deploy.</code><code class="descname">add_crontab</code><span class="sig-paren">(</span><em>ssh</em>, <em>filename</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/deploy.html#add_crontab"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#deploy.add_crontab" title="Permalink to this definition">¶</a></dt>
-<dd><p>Add crontab job to EC2 server to execute file every minute</p>
+<dt id="deploy.create_or_update_environment">
+<code class="descclassname">deploy.</code><code class="descname">create_or_update_environment</code><span class="sig-paren">(</span><em>ssh</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/deploy.html#create_or_update_environment"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#deploy.create_or_update_environment" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create or update environment within EC2 instance</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>ssh</strong> – SSH object</li>
-<li><strong>filename</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – Name of file to create crontab job for</li>
-</ul>
-</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>ssh</strong> – SSH object</td>
 </tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">None</p>
-</td>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">None</td>
 </tr>
 </tbody>
 </table>
 </dd></dl>
 
 <dl class="function">
-<dt id="deploy.create_or_update_environment">
-<code class="descclassname">deploy.</code><code class="descname">create_or_update_environment</code><span class="sig-paren">(</span><em>ssh</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/deploy.html#create_or_update_environment"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#deploy.create_or_update_environment" title="Permalink to this definition">¶</a></dt>
-<dd><p>Create or update environment within EC2 instance</p>
+<dt id="deploy.deploy">
+<code class="descclassname">deploy.</code><code class="descname">deploy</code><span class="sig-paren">(</span><em>ssh</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/deploy.html#deploy"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#deploy.deploy" title="Permalink to this definition">¶</a></dt>
+<dd><p>Run deploy bash script from EC2</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
