@@ -66,22 +66,20 @@ def git_clone(ssh):
                            f"github.com/{git_repo_owner}/{git_repo_name}"
         _, _, _ = ssh.exec_command(git_pull_command)
 
-
-def add_crontab(ssh, filename):
+def deploy(ssh):
     """
-    Add crontab job to EC2 server to execute file every minute
+    Run deploy bash script from EC2
 
     :param ssh: SSH object
-    :param filename: Name of file to create crontab job for
-    :type filename: str
     :return: None
     """
-    command = f'echo "* * * * * ~/miniconda3/envs/whatrthose/bin/python' \
-              f' ~/{git_repo_name}/code/{filename}" > mycron'
-    _, _, _ = ssh.exec_command(command)
-    _, _, _ = ssh.exec_command('crontab mycron')
-    _, _, _ = ssh.exec_command('rm mycron')
-
+    stdin, stdout, stderr = ssh.exec_command("cd")
+    stdin, stdout, stderr = ssh.exec_command("conda activate whatrthose")
+    #print(stderr.read())
+    deploy_command = f"bash ~/{git_repo_name}/code/deploy.sh -bucket whatrthose" \
+                     f" -region us-west-2 -ebname whatrthose-dev"
+    stdin, stdout, stderr = ssh.exec_command(deploy_command)
+    print(str(stdout.read()))
 
 def main():
     """
@@ -93,9 +91,9 @@ def main():
     """
     ssh = ssh_client()
     ssh_connection(ssh, ec2_address, user, key_file)
-    git_clone(ssh)
-    create_or_update_environment(ssh)
-    add_crontab(ssh, 'calculate_driving_time.py')
+    #git_clone(ssh)
+    #create_or_update_environment(ssh)
+    deploy(ssh)
 
     # Logout
     ssh.close()
