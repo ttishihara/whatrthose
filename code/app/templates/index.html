@@ -3,18 +3,18 @@
 {% import 'macros/flash_macros.html' as f %}
 
 {% block content %}
-<div class="jumbotron">
-    <img id="logo" src="{{ url_for('static', filename='logo.png') }}" style="display:block; margin-right:auto; margin-left:auto">
-    <!--<h1>What R Those</h1>-->
-</div>
 
-<div class="container">
-    <div class="row justify-content-md-center">
-        <div class="col-md-auto">
-            <h2>Upload your sneaker image</h2>
+
+
+    <div id="fh5co-services-section">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6 col-md-offset-3 text-center fh5co-heading animate-box">
+            <h2>Upload Your Sneaker Image</h2>
             <div id="uploaded_image"></div>
+            </div>
         </div>
-    </div>
+
 
     <div class="row justify-content-md-center mt-3">
         <div class="col-md-auto">
@@ -24,7 +24,6 @@
                     {{ form.file_selector(class_="custom-file-input") }}
                     <label id="drag-files-label" class="custom-file-label drag-files-label" for="file_selector" data-browse="Browse">Upload image or drag it here</label>
                 </div>
-
                 <div class="submit-button submit-cls">
                     {{ form.submit(class_="btn-success btn-lg btn-block") }}
                 </div>
@@ -41,7 +40,9 @@
 
             <div id="my_result"></div>
         </div>
+
     </div>
+
     <div class="row justify-content-md-center">
         <div class="col-md-auto">
             <div id="my_camera" style="width: 320px; height: 240px; display:none;">
@@ -148,8 +149,12 @@
     //        form.dispatchEvent(event);
     //    }
     //});
-</script>
+    </script>
+    
+    <!-- image upload JS -->
+    <script type="text/javascript" src="static/js/image-upload.js"></script>
+    
 
-<script type="text/javascript" src="static/image-upload.js"></script>
+
 
 {% endblock content %}
