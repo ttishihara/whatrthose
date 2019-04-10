@@ -20,6 +20,7 @@ class UploadFileForm(FlaskForm):
 
 @application.route('/favicon.ico')
 def favicon():
+    """Display favicon in browser tab"""
     return send_from_directory(os.path.join(application.root_path, 'static'),
                               'favicon.ico', mimetype='image/vnd.microsoft.icon')
 

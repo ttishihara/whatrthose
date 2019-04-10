@@ -56,6 +56,7 @@
 
 <div class="viewcode-block" id="favicon"><a class="viewcode-back" href="../../api_reference.html#app.routes.favicon">[docs]</a><span class="nd">@application</span><span class="o">.</span><span class="n">route</span><span class="p">(</span><span class="s1">&#39;/favicon.ico&#39;</span><span class="p">)</span>
 <span class="k">def</span> <span class="nf">favicon</span><span class="p">():</span>
+    <span class="sd">&quot;&quot;&quot;Display favicon in browser tab&quot;&quot;&quot;</span>
     <span class="k">return</span> <span class="n">send_from_directory</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">application</span><span class="o">.</span><span class="n">root_path</span><span class="p">,</span> <span class="s1">&#39;static&#39;</span><span class="p">),</span>
                               <span class="s1">&#39;favicon.ico&#39;</span><span class="p">,</span> <span class="n">mimetype</span><span class="o">=</span><span class="s1">&#39;image/vnd.microsoft.icon&#39;</span><span class="p">)</span></div>
 
@@ -63,7 +64,7 @@
 <div class="viewcode-block" id="index"><a class="viewcode-back" href="../../api_reference.html#app.routes.index">[docs]</a><span class="nd">@application</span><span class="o">.</span><span class="n">route</span><span class="p">(</span><span class="s1">&#39;/index&#39;</span><span class="p">,</span> <span class="n">methods</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;GET&#39;</span><span class="p">,</span> <span class="s1">&#39;POST&#39;</span><span class="p">])</span>
 <span class="nd">@application</span><span class="o">.</span><span class="n">route</span><span class="p">(</span><span class="s1">&#39;/&#39;</span><span class="p">,</span> <span class="n">methods</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;GET&#39;</span><span class="p">,</span> <span class="s1">&#39;POST&#39;</span><span class="p">])</span>
 <span class="k">def</span> <span class="nf">index</span><span class="p">():</span>
-    <span class="sd">&quot;&quot;&quot;Index Page : Renders index.html with author name.&quot;&quot;&quot;</span>
+    <span class="sd">&quot;&quot;&quot;Index Page : Renders index.html where users can upload files&quot;&quot;&quot;</span>
 
     <span class="n">file</span> <span class="o">=</span> <span class="n">UploadFileForm</span><span class="p">()</span>  <span class="c1"># file : UploadFileForm class instance</span>
     <span class="k">if</span> <span class="n">file</span><span class="o">.</span><span class="n">validate_on_submit</span><span class="p">():</span>  <span class="c1"># Check if it is a POST request and if it is valid.</span>
