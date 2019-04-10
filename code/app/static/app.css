@@ -74,9 +74,12 @@ form {
     display: none;
     width: 500px;
     height: 500px;
-    background-size: cover;
-    background-repeat: no-repeat;
-    background-position: center center;
+}
+
+img {
+    max-height: 100%;
+    max-width: 100%;
+    object-fit: contain;
 }
 
 

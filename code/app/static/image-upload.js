@@ -8,8 +8,11 @@ function readURL(input) {
     var reader = new FileReader();
 
     reader.onload = function (e) {
-      $uploadedImg.css('background-image', 'url('+e.target.result+')');
-      $uploadedImg.css('display', 'table-cell');
+      $uploadedImg.html('<img src="'+e.target.result+'"/>');
+      $uploadedImg.show();
+      $("#drag-files-label").html(input.files[0].name);
+      //$uploadedImg.css('background-image', 'url('+e.target.result+')');
+      //$uploadedImg.css('display', 'table-cell');
     };
 
     reader.readAsDataURL(input.files[0]);
