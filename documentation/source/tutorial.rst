@@ -6,7 +6,7 @@ Deployment
 ------------
 1. On AWS, create an IAM role:
  * The role should be from EC2 as the trusted entity
- * It should have full S3, ElasticBeanstalk and Lambda access
+ * It should have full S3, ElasticBeanstalk, ElasticLoadBalancing and Lambda access
  * No tags are necessary
  * Name it whatever you want - just remember the name
 2. Launch EC2 instance.  Any instance type is fine.  
