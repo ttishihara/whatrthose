@@ -1,0 +1,156 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>app.routes &#8212; What R Those 0 documentation</title>
+    <link rel="stylesheet" href="../../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <script type="text/javascript" src="../../_static/language_data.js"></script>
+    <link rel="shortcut icon" href="../../_static/shoe.ico"/>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+   
+  <link rel="stylesheet" href="../../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <h1>Source code for app.routes</h1><div class="highlight"><pre>
+<span></span><span class="kn">from</span> <span class="nn">app</span> <span class="k">import</span> <span class="n">application</span>
+<span class="kn">from</span> <span class="nn">.helpers</span> <span class="k">import</span> <span class="o">*</span>
+
+<span class="kn">from</span> <span class="nn">flask</span> <span class="k">import</span> <span class="n">render_template</span><span class="p">,</span> <span class="n">redirect</span><span class="p">,</span> <span class="n">url_for</span><span class="p">,</span> <span class="n">flash</span><span class="p">,</span> <span class="n">send_from_directory</span>
+<span class="kn">from</span> <span class="nn">flask_wtf</span> <span class="k">import</span> <span class="n">FlaskForm</span>
+<span class="kn">from</span> <span class="nn">flask_wtf.file</span> <span class="k">import</span> <span class="n">FileField</span><span class="p">,</span> <span class="n">FileRequired</span><span class="p">,</span> <span class="n">FileAllowed</span>
+<span class="kn">from</span> <span class="nn">wtforms</span> <span class="k">import</span> <span class="n">SubmitField</span>
+<span class="kn">from</span> <span class="nn">werkzeug</span> <span class="k">import</span> <span class="n">secure_filename</span>
+<span class="kn">import</span> <span class="nn">os</span>
+
+
+<div class="viewcode-block" id="UploadFileForm"><a class="viewcode-back" href="../../api_reference.html#app.routes.UploadFileForm">[docs]</a><span class="k">class</span> <span class="nc">UploadFileForm</span><span class="p">(</span><span class="n">FlaskForm</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Class for uploading file when submitted&quot;&quot;&quot;</span>
+    <span class="n">file_selector</span> <span class="o">=</span> <span class="n">FileField</span><span class="p">(</span><span class="s1">&#39;File&#39;</span><span class="p">,</span> <span class="n">validators</span><span class="o">=</span><span class="p">[</span><span class="n">FileRequired</span><span class="p">(),</span>
+                                                  <span class="n">FileAllowed</span><span class="p">([</span><span class="s1">&#39;jpg&#39;</span><span class="p">,</span> <span class="s1">&#39;jpe&#39;</span><span class="p">,</span> <span class="s1">&#39;jpeg&#39;</span><span class="p">,</span> <span class="s1">&#39;png&#39;</span><span class="p">,</span> <span class="s1">&#39;svg&#39;</span><span class="p">,</span> <span class="s1">&#39;gif&#39;</span><span class="p">,</span> <span class="s1">&#39;bmp&#39;</span><span class="p">],</span>
+                                                              <span class="s2">&quot;Image files only!&quot;</span><span class="p">)]</span>
+                              <span class="p">)</span>
+    <span class="n">submit</span> <span class="o">=</span> <span class="n">SubmitField</span><span class="p">(</span><span class="s1">&#39;Submit&#39;</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="favicon"><a class="viewcode-back" href="../../api_reference.html#app.routes.favicon">[docs]</a><span class="nd">@application</span><span class="o">.</span><span class="n">route</span><span class="p">(</span><span class="s1">&#39;/favicon.ico&#39;</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">favicon</span><span class="p">():</span>
+    <span class="k">return</span> <span class="n">send_from_directory</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">application</span><span class="o">.</span><span class="n">root_path</span><span class="p">,</span> <span class="s1">&#39;static&#39;</span><span class="p">),</span>
+                              <span class="s1">&#39;favicon.ico&#39;</span><span class="p">,</span> <span class="n">mimetype</span><span class="o">=</span><span class="s1">&#39;image/vnd.microsoft.icon&#39;</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="index"><a class="viewcode-back" href="../../api_reference.html#app.routes.index">[docs]</a><span class="nd">@application</span><span class="o">.</span><span class="n">route</span><span class="p">(</span><span class="s1">&#39;/index&#39;</span><span class="p">,</span> <span class="n">methods</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;GET&#39;</span><span class="p">,</span> <span class="s1">&#39;POST&#39;</span><span class="p">])</span>
+<span class="nd">@application</span><span class="o">.</span><span class="n">route</span><span class="p">(</span><span class="s1">&#39;/&#39;</span><span class="p">,</span> <span class="n">methods</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;GET&#39;</span><span class="p">,</span> <span class="s1">&#39;POST&#39;</span><span class="p">])</span>
+<span class="k">def</span> <span class="nf">index</span><span class="p">():</span>
+    <span class="sd">&quot;&quot;&quot;Index Page : Renders index.html with author name.&quot;&quot;&quot;</span>
+
+    <span class="n">file</span> <span class="o">=</span> <span class="n">UploadFileForm</span><span class="p">()</span>  <span class="c1"># file : UploadFileForm class instance</span>
+    <span class="k">if</span> <span class="n">file</span><span class="o">.</span><span class="n">validate_on_submit</span><span class="p">():</span>  <span class="c1"># Check if it is a POST request and if it is valid.</span>
+        <span class="n">f</span> <span class="o">=</span> <span class="n">file</span><span class="o">.</span><span class="n">file_selector</span><span class="o">.</span><span class="n">data</span>  <span class="c1"># f : Data of FileField</span>
+        <span class="n">filename</span> <span class="o">=</span> <span class="n">secure_filename</span><span class="p">(</span><span class="n">f</span><span class="o">.</span><span class="n">filename</span><span class="p">)</span>
+        <span class="c1"># filename : filename of FileField</span>
+        <span class="c1"># secure_filename secures a filename before storing it directly on the filesystem.</span>
+
+
+        <span class="n">file_dir_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">application</span><span class="o">.</span><span class="n">instance_path</span><span class="p">,</span> <span class="s1">&#39;files&#39;</span><span class="p">)</span>
+        <span class="n">file_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">file_dir_path</span><span class="p">,</span> <span class="n">filename</span><span class="p">)</span>
+        <span class="n">f</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="n">file_path</span><span class="p">)</span> <span class="c1"># Save file to file_path (instance/ + &#39;files’ + filename)</span>
+        <span class="k">return</span> <span class="n">redirect</span><span class="p">(</span><span class="n">url_for</span><span class="p">(</span><span class="s1">&#39;index&#39;</span><span class="p">))</span>  <span class="c1"># Redirect to / (/index) page.</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">flash_errors</span><span class="p">(</span><span class="n">file</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">render_template</span><span class="p">(</span><span class="s2">&quot;index.html&quot;</span><span class="p">,</span>  <span class="n">form</span><span class="o">=</span><span class="n">file</span><span class="p">)</span></div>
+</pre></div>
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="../../index.html">What R Those</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<p class="caption"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../authors.html">Authors</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../requirements.html">Requirements</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../tutorial.html">Setup Tutorial</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../api_reference.html">API Reference</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../../index.html">Documentation overview</a><ul>
+  <li><a href="../index.html">Module code</a><ul>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2019, What R Those Team.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.8.5</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+    </div>
+
+    
+
+    
+  </body>
+</html>

@@ -34,8 +34,10 @@
 
           <div class="body" role="main">
             
-  <div class="section" id="module-deploy">
-<span id="api-reference"></span><h1>API Reference<a class="headerlink" href="#module-deploy" title="Permalink to this headline">¶</a></h1>
+  <div class="section" id="api-reference">
+<h1>API Reference<a class="headerlink" href="#api-reference" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="module-deploy">
+<span id="deploy-script"></span><h2>Deploy Script<a class="headerlink" href="#module-deploy" title="Permalink to this headline">¶</a></h2>
 <dl class="function">
 <dt id="deploy.create_or_update_environment">
 <code class="descclassname">deploy.</code><code class="descname">create_or_update_environment</code><span class="sig-paren">(</span><em>ssh</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/deploy.html#create_or_update_environment"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#deploy.create_or_update_environment" title="Permalink to this definition">¶</a></dt>
@@ -138,6 +140,38 @@ to execute calculate_driving_time.py every minute.</p>
 </dd></dl>
 
 </div>
+<div class="section" id="module-app.routes">
+<span id="routes-module"></span><h2>Routes Module<a class="headerlink" href="#module-app.routes" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="app.routes.UploadFileForm">
+<em class="property">class </em><code class="descclassname">app.routes.</code><code class="descname">UploadFileForm</code><span class="sig-paren">(</span><em>formdata=&lt;object object&gt;</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/app/routes.html#UploadFileForm"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#app.routes.UploadFileForm" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">flask_wtf.form.FlaskForm</span></code></p>
+<p>Class for uploading file when submitted</p>
+<dl class="attribute">
+<dt id="app.routes.UploadFileForm.file_selector">
+<code class="descname">file_selector</code><em class="property"> = &lt;UnboundField(FileField, ('File',), {'validators': [&lt;flask_wtf.file.FileRequired object&gt;, &lt;flask_wtf.file.FileAllowed object&gt;]})&gt;</em><a class="headerlink" href="#app.routes.UploadFileForm.file_selector" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="app.routes.UploadFileForm.submit">
+<code class="descname">submit</code><em class="property"> = &lt;UnboundField(SubmitField, ('Submit',), {})&gt;</em><a class="headerlink" href="#app.routes.UploadFileForm.submit" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="function">
+<dt id="app.routes.favicon">
+<code class="descclassname">app.routes.</code><code class="descname">favicon</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/app/routes.html#favicon"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#app.routes.favicon" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="app.routes.index">
+<code class="descclassname">app.routes.</code><code class="descname">index</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/app/routes.html#index"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#app.routes.index" title="Permalink to this definition">¶</a></dt>
+<dd><p>Index Page : Renders index.html with author name.</p>
+</dd></dl>
+
+</div>
+</div>
 
 
           </div>
@@ -162,7 +196,11 @@ to execute calculate_driving_time.py every minute.</p>
 <li class="toctree-l1"><a class="reference internal" href="authors.html">Authors</a></li>
 <li class="toctree-l1"><a class="reference internal" href="requirements.html">Requirements</a></li>
 <li class="toctree-l1"><a class="reference internal" href="tutorial.html">Setup Tutorial</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">API Reference</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">API Reference</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#module-deploy">Deploy Script</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#module-app.routes">Routes Module</a></li>
+</ul>
+</li>
 </ul>
 
 <div class="relations">

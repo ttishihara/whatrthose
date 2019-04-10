@@ -15,6 +15,7 @@
 import os
 import sys
 sys.path.insert(0, os.path.abspath('../../code'))
+sys.path.insert(1, os.path.abspath('../../code/app'))
 
 
 # -- Project information -----------------------------------------------------

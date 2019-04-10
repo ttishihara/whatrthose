@@ -9,7 +9,7 @@ What R Those App Documentation!
 ===============================
 
 .. toctree::
-   :maxdepth: 2
+   :maxdepth: 3
    :caption: Contents:
 
    introduction
