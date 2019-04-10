@@ -22,5 +22,5 @@ Deployment
  * EC2 user (user)
  * PEM Key file (key_file)
  * Git user ID with credentials stored on EC2 (git_user_id)
-6. Create or update conda environment whatrthose with environment.yml in the root folder of this repo
+6. Activate a virtual environment with paramiko installed (whatrthose in environment.yml will work)
 7. Run deploy.py in the code directory
