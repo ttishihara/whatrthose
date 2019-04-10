@@ -27,7 +27,7 @@ def favicon():
 @application.route('/index', methods=['GET', 'POST'])
 @application.route('/', methods=['GET', 'POST'])
 def index():
-    """Index Page : Renders index.html with author name."""
+    """Index Page : Renders index.html where users can upload files"""
 
     file = UploadFileForm()  # file : UploadFileForm class instance
     if file.validate_on_submit():  # Check if it is a POST request and if it is valid.
