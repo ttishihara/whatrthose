@@ -79,7 +79,7 @@ def deploy(ssh):
     deploy_command = f"bash ~/{git_repo_name}/code/deploy.sh -bucket whatrthose" \
                      f" -region us-west-2 -ebname whatrthose-dev"
     stdin, stdout, stderr = ssh.exec_command(deploy_command)
-    print(str(stdout.read()))
+    print(stdout.read().decode("utf-8"))
 
 def main():
     """

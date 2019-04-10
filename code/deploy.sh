@@ -49,6 +49,7 @@ else
 		echo "Bucket "$BUCKETNAME" created successfully"
 	fi
 fi
+echo "bucket = 's3://"$BUCKETNAME"'" > ~/whatrthose/code/config.py
 
 echo "Creating EB"
 mkdir ~/.elasticbeanstalk
