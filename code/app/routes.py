@@ -20,6 +20,7 @@ class UploadFileForm(FlaskForm):
 
 @application.route('/favicon.ico')
 def favicon():
+    """Display favicon in browser tab"""
     return send_from_directory(os.path.join(application.root_path, 'static'),
                               'favicon.ico', mimetype='image/vnd.microsoft.icon')
 
@@ -27,7 +28,7 @@ def favicon():
 @application.route('/index', methods=['GET', 'POST'])
 @application.route('/', methods=['GET', 'POST'])
 def index():
-    """Index Page : Renders index.html with author name."""
+    """Index Page : Renders index.html where users can upload files"""
 
     file = UploadFileForm()  # file : UploadFileForm class instance
     if file.validate_on_submit():  # Check if it is a POST request and if it is valid.

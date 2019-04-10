@@ -41,17 +41,44 @@
 <div class="section" id="deployment">
 <h2>Deployment<a class="headerlink" href="#deployment" title="Permalink to this headline">¶</a></h2>
 <ol class="arabic simple">
-<li>Be sure all the required configurations are met from the requirements page</li>
-<li>Clone the repo to your local machine</li>
-<li>Install the conda environment found in the root directory</li>
-<li>Run “python deploy.py” from the code directory. This will:</li>
+<li>On AWS, create an IAM role:</li>
 </ol>
 <blockquote>
 <div><ul class="simple">
-<li>Stand up an S3 bucket for photo logging</li>
-<li>Push the current code.zip file to an Elastic Beanstalk deployment</li>
+<li>The role should be from EC2 as the trusted entity</li>
+<li>It should have full S3, ElasticBeanstalk, ElasticLoadBalancing and Lambda access</li>
+<li>No tags are necessary</li>
+<li>Name it whatever you want - just remember the name</li>
 </ul>
 </div></blockquote>
+<ol class="arabic simple" start="2">
+<li>Launch EC2 instance.  Any instance type is fine.</li>
+<li>The EC2 should be setup with:</li>
+</ol>
+<blockquote>
+<div><ul class="simple">
+<li>Git installed</li>
+<li>Git user credentials stored with access to repo</li>
+<li>Conda installed</li>
+<li>IAM role created in 1) must be attached (this can be done during launch or after)</li>
+</ul>
+</div></blockquote>
+<ol class="arabic simple" start="4">
+<li>Download the whatrthose repo to your local machine</li>
+<li>Update user_definition.py in the code folder with:</li>
+</ol>
+<blockquote>
+<div><ul class="simple">
+<li>EC2 address (ec2_address)</li>
+<li>EC2 user (user)</li>
+<li>PEM Key file (key_file)</li>
+<li>Git user ID with credentials stored on EC2 (git_user_id)</li>
+</ul>
+</div></blockquote>
+<ol class="arabic simple" start="6">
+<li>Activate a virtual environment with paramiko installed (whatrthose in environment.yml will work)</li>
+<li>Run deploy.py in the code directory</li>
+</ol>
 </div>
 </div>
 
