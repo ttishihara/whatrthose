@@ -6,21 +6,21 @@ Deployment
 ------------
 1. On AWS, create an IAM role:
  * The role should be from EC2 as the trusted entity
- *It should have full S3, ElasticBeanstalk and Lambda access
- *No tags are necessary
- *Name it whatever you want - just remember the name
+ * It should have full S3, ElasticBeanstalk and Lambda access
+ * No tags are necessary
+ * Name it whatever you want - just remember the name
 2. Launch EC2 instance.  Any instance type is fine.  
 3. The EC2 should be setup with:
- *Git installed
- *Git user credentials stored with access to repo 
- *Conda installed
- *IAM role created in 1) must be attached (this can be done during launch or after)
+ * Git installed
+ * Git user credentials stored with access to repo 
+ * Conda installed
+ * IAM role created in 1) must be attached (this can be done during launch or after)
  
 4. Download the whatrthose repo to your local machine
 5. Update user_definition.py in the code folder with:
- *EC2 address (ec2_address)
- *EC2 user (user)
- *PEM Key file (key_file)
- *Git user ID with credentials stored on EC2 (git_user_id)
+ * EC2 address (ec2_address)
+ * EC2 user (user)
+ * PEM Key file (key_file)
+ * Git user ID with credentials stored on EC2 (git_user_id)
 6. Create or update conda environment whatrthose with environment.yml in the root folder of this repo
 7. Run deploy.py in the code directory
