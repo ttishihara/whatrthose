@@ -51,6 +51,11 @@ else
 fi
 echo "bucket = 's3://"$BUCKETNAME"'" > ~/whatrthose/code/config.py
 
+
+cd ~/whatrthose/code
+zip -r code.zip .
+cd
+
 echo "Creating EB"
 mkdir ~/.elasticbeanstalk
 echo "deploy:
