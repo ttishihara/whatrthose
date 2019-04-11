@@ -1,15 +1,18 @@
 .separator-type, .title-type, .intro-type, .content-type .intro-type p {
     position: relative;
 }
+
 .intro-type .container {
     padding: 107px 0px 102px 0px !important;
 }
 #product-header-section, .intro-type .container {
     padding: 68px 15px 72px !important;
+    height: 400px;
 }
+
 @media (min-width: 1630px)
 .container {
-    width: 1630px;
+    width: 2000px;
 }
 .parallax {
     background-attachment: inherit !important;
