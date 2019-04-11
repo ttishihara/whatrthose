@@ -53,7 +53,7 @@ echo "bucket = 's3://"$BUCKETNAME"'" > ~/whatrthose/code/config.py
 
 
 cd ~/whatrthose/code
-zip -r code.zip .
+zip -r  -q code.zip .
 cd
 
 echo "Creating EB"
