@@ -5,13 +5,13 @@ Below list the requirements needed to run the application.
 The full Github repository is located at `here <https://github.com/MSDS698/whatrthose>`_ where all necessary files for this application resides.
 
 **Amazon Web Services Setup**
-
+The process for deployment is detailed in the tutorial.  Here is what is required:
 
 1. An EC2 instance must be stood up with:
 
   * Git installed and user configured
   * Anaconda installed
-  * An IAM role that allows full S3 and ElasticBeanstalk access
+  * An IAM role that allows full S3, ElasticBeanstalk, Elastic Load Balancing, and Lambda access
 
 2. The following must be configured in code/user_definition.py:
 
