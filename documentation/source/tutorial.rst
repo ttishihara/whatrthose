@@ -37,4 +37,4 @@ This deployment will take several minutes while it waits for Elastic Beanstalk t
 
 
 .. image:: output_url.png
-   :width: 40pt
+   :width: 1000pt

@@ -9,11 +9,10 @@
     <title>API Reference &#8212; What R Those 0 documentation</title>
     <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
-    <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script type="text/javascript" src="_static/documentation_options.js"></script>
     <script type="text/javascript" src="_static/jquery.js"></script>
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
-    <script type="text/javascript" src="_static/language_data.js"></script>
     <link rel="shortcut icon" href="_static/shoe.ico"/>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
@@ -30,169 +29,32 @@
     <div class="document">
       <div class="documentwrapper">
         <div class="bodywrapper">
-          
-
           <div class="body" role="main">
             
   <div class="section" id="api-reference">
 <h1>API Reference<a class="headerlink" href="#api-reference" title="Permalink to this headline">¶</a></h1>
-<div class="section" id="module-deploy">
-<span id="deploy-script"></span><h2>Deploy Script<a class="headerlink" href="#module-deploy" title="Permalink to this headline">¶</a></h2>
-<dl class="function">
-<dt id="deploy.create_or_update_environment">
-<code class="descclassname">deploy.</code><code class="descname">create_or_update_environment</code><span class="sig-paren">(</span><em>ssh</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/deploy.html#create_or_update_environment"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#deploy.create_or_update_environment" title="Permalink to this definition">¶</a></dt>
-<dd><p>Create or update environment within EC2 instance</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>ssh</strong> – SSH object</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">None</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-<dl class="function">
-<dt id="deploy.deploy">
-<code class="descclassname">deploy.</code><code class="descname">deploy</code><span class="sig-paren">(</span><em>ssh</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/deploy.html#deploy"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#deploy.deploy" title="Permalink to this definition">¶</a></dt>
-<dd><p>Run deploy bash script from EC2</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>ssh</strong> – SSH object</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">None</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-<dl class="function">
-<dt id="deploy.git_clone">
-<code class="descclassname">deploy.</code><code class="descname">git_clone</code><span class="sig-paren">(</span><em>ssh</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/deploy.html#git_clone"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#deploy.git_clone" title="Permalink to this definition">¶</a></dt>
-<dd><p>Clone Github repository of application or update if already exists</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>ssh</strong> – SSH object</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">None</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-<dl class="function">
-<dt id="deploy.main">
-<code class="descclassname">deploy.</code><code class="descname">main</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/deploy.html#main"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#deploy.main" title="Permalink to this definition">¶</a></dt>
-<dd><p>With AWS EC2 crendentials, establish SSH connection and setup
-development environment on EC2 instance. Then add crontab job
-to execute calculate_driving_time.py every minute.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">None</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-<dl class="function">
-<dt id="deploy.ssh_client">
-<code class="descclassname">deploy.</code><code class="descname">ssh_client</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/deploy.html#ssh_client"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#deploy.ssh_client" title="Permalink to this definition">¶</a></dt>
-<dd><p>Return SSH client object</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">Paramiko SSH Client object</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-<dl class="function">
-<dt id="deploy.ssh_connection">
-<code class="descclassname">deploy.</code><code class="descname">ssh_connection</code><span class="sig-paren">(</span><em>ssh</em>, <em>ec2_address</em>, <em>user</em>, <em>key_file</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/deploy.html#ssh_connection"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#deploy.ssh_connection" title="Permalink to this definition">¶</a></dt>
-<dd><p>Estabish SSH connection with AWS EC2 instance</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>ssh</strong> – SSH object</li>
-<li><strong>ec2_address</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – EC2 Public DNS address</li>
-<li><strong>user</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – EC2 username</li>
-<li><strong>key_file</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – Path to PEM key file</li>
-</ul>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">SSH object with credentials for connection</p>
-</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
+<div class="section" id="deploy-script">
+<h2>Deploy Script<a class="headerlink" href="#deploy-script" title="Permalink to this headline">¶</a></h2>
 </div>
-<div class="section" id="module-app.routes">
-<span id="routes-module"></span><h2>Routes Module<a class="headerlink" href="#module-app.routes" title="Permalink to this headline">¶</a></h2>
-<dl class="class">
-<dt id="app.routes.UploadFileForm">
-<em class="property">class </em><code class="descclassname">app.routes.</code><code class="descname">UploadFileForm</code><span class="sig-paren">(</span><em>formdata=&lt;object object&gt;</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/app/routes.html#UploadFileForm"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#app.routes.UploadFileForm" title="Permalink to this definition">¶</a></dt>
-<dd><p>Class for uploading file when submitted</p>
-</dd></dl>
-
-<dl class="function">
-<dt id="app.routes.favicon">
-<code class="descclassname">app.routes.</code><code class="descname">favicon</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/app/routes.html#favicon"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#app.routes.favicon" title="Permalink to this definition">¶</a></dt>
-<dd><p>Display favicon in browser tab</p>
-</dd></dl>
-
-<dl class="function">
-<dt id="app.routes.index">
-<code class="descclassname">app.routes.</code><code class="descname">index</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/app/routes.html#index"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#app.routes.index" title="Permalink to this definition">¶</a></dt>
-<dd><p>Index Page : Renders index.html where users can upload files</p>
-</dd></dl>
-
+<div class="section" id="routes-module">
+<h2>Routes Module<a class="headerlink" href="#routes-module" title="Permalink to this headline">¶</a></h2>
 </div>
 </div>
 
 
           </div>
-          
         </div>
       </div>
       <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
         <div class="sphinxsidebarwrapper">
-<h1 class="logo"><a href="index.html">What R Those</a></h1>
-
-
-
-
-
-
-
-
-<h3>Navigation</h3>
-<p class="caption"><span class="caption-text">Contents:</span></p>
-<ul class="current">
-<li class="toctree-l1"><a class="reference internal" href="introduction.html">Introduction</a></li>
-<li class="toctree-l1"><a class="reference internal" href="authors.html">Authors</a></li>
-<li class="toctree-l1"><a class="reference internal" href="requirements.html">Requirements</a></li>
-<li class="toctree-l1"><a class="reference internal" href="tutorial.html">Setup Tutorial</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">API Reference</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#module-deploy">Deploy Script</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#module-app.routes">Routes Module</a></li>
+  <h3><a href="index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">API Reference</a><ul>
+<li><a class="reference internal" href="#deploy-script">Deploy Script</a></li>
+<li><a class="reference internal" href="#routes-module">Routes Module</a></li>
 </ul>
 </li>
 </ul>
-
 <div class="relations">
 <h3>Related Topics</h3>
 <ul>
@@ -201,6 +63,13 @@ to execute calculate_driving_time.py every minute.</p>
   </ul></li>
 </ul>
 </div>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/api_reference.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
 <div id="searchbox" style="display: none" role="search">
   <h3>Quick search</h3>
     <div class="searchformwrapper">
@@ -213,14 +82,6 @@ to execute calculate_driving_time.py every minute.</p>
     </div>
 </div>
 <script type="text/javascript">$('#searchbox').show(0);</script>
-
-
-
-
-
-
-
-
         </div>
       </div>
       <div class="clearer"></div>
@@ -229,8 +90,8 @@ to execute calculate_driving_time.py every minute.</p>
       &copy;2019, What R Those Team.
       
       |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.8.5</a>
-      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.7.4</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.10</a>
       
       |
       <a href="_sources/api_reference.rst.txt"

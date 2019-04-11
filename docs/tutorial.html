@@ -9,11 +9,10 @@
     <title>Setup Tutorial &#8212; What R Those 0 documentation</title>
     <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
-    <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script type="text/javascript" src="_static/documentation_options.js"></script>
     <script type="text/javascript" src="_static/jquery.js"></script>
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
-    <script type="text/javascript" src="_static/language_data.js"></script>
     <link rel="shortcut icon" href="_static/shoe.ico"/>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
@@ -31,8 +30,6 @@
     <div class="document">
       <div class="documentwrapper">
         <div class="bodywrapper">
-          
-
           <div class="body" role="main">
             
   <div class="section" id="setup-tutorial">
@@ -60,7 +57,7 @@
 <li>Git installed</li>
 <li>Git user credentials stored with access to repo</li>
 <li>Conda installed</li>
-<li>IAM role created in 1) must be attached (this can be done during launch or after)</li>
+<li>IAM role created in 1) must be attached</li>
 </ul>
 </div></blockquote>
 <ol class="arabic simple" start="4">
@@ -79,38 +76,24 @@
 <li>Activate a virtual environment with paramiko installed (whatrthose in environment.yml will work)</li>
 <li>Run deploy.py in the code directory</li>
 </ol>
+<p>This deployment will take several minutes while it waits for Elastic Beanstalk to allocate resources.  When finished, the script will output the URL to the app:</p>
+<a class="reference internal image-reference" href="_images/output_url.png"><img alt="_images/output_url.png" src="_images/output_url.png" style="width: 1000pt;" /></a>
 </div>
 </div>
 
 
           </div>
-          
         </div>
       </div>
       <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
         <div class="sphinxsidebarwrapper">
-<h1 class="logo"><a href="index.html">What R Those</a></h1>
-
-
-
-
-
-
-
-
-<h3>Navigation</h3>
-<p class="caption"><span class="caption-text">Contents:</span></p>
-<ul class="current">
-<li class="toctree-l1"><a class="reference internal" href="introduction.html">Introduction</a></li>
-<li class="toctree-l1"><a class="reference internal" href="authors.html">Authors</a></li>
-<li class="toctree-l1"><a class="reference internal" href="requirements.html">Requirements</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">Setup Tutorial</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#deployment">Deployment</a></li>
+  <h3><a href="index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Setup Tutorial</a><ul>
+<li><a class="reference internal" href="#deployment">Deployment</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="api_reference.html">API Reference</a></li>
 </ul>
-
 <div class="relations">
 <h3>Related Topics</h3>
 <ul>
@@ -120,6 +103,13 @@
   </ul></li>
 </ul>
 </div>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/tutorial.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
 <div id="searchbox" style="display: none" role="search">
   <h3>Quick search</h3>
     <div class="searchformwrapper">
@@ -132,14 +122,6 @@
     </div>
 </div>
 <script type="text/javascript">$('#searchbox').show(0);</script>
-
-
-
-
-
-
-
-
         </div>
       </div>
       <div class="clearer"></div>
@@ -148,8 +130,8 @@
       &copy;2019, What R Those Team.
       
       |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.8.5</a>
-      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.7.4</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.10</a>
       
       |
       <a href="_sources/tutorial.rst.txt"

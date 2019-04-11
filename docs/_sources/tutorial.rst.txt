@@ -18,7 +18,7 @@ Deployment
  * Git installed
  * Git user credentials stored with access to repo 
  * Conda installed
- * IAM role created in 1) must be attached (this can be done during launch or after)
+ * IAM role created in 1) must be attached 
  
 4. Download the whatrthose repo to your local machine
 
@@ -32,3 +32,9 @@ Deployment
 6. Activate a virtual environment with paramiko installed (whatrthose in environment.yml will work)
 
 7. Run deploy.py in the code directory
+
+This deployment will take several minutes while it waits for Elastic Beanstalk to allocate resources.  When finished, the script will output the URL to the app:
+
+
+.. image:: output_url.png
+   :width: 1000pt
