@@ -45,3 +45,10 @@ def index():
     else:
         flash_errors(file)
     return render_template("index.html",  form=file)
+
+@application.route('/about', methods=['GET'])
+def about():
+    """
+    About Us Page: Renders about.html where introduces the company and the team
+    """
+    return render_template("about.html")

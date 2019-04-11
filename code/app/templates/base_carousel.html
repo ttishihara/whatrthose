@@ -10,6 +10,9 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.css') }}">
     <!-- Flexslider  -->
     <link rel="stylesheet" href="{{ url_for('static', filename='css/flexslider.css') }}">
+    <!-- Owl Carousel: for auto navi and autoplay  -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/owl.carousel.min.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/owl.theme.default.min.css') }}">
 
     <!-- Theme style  -->
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
@@ -60,7 +63,7 @@
 
     </div>
 
-    <!-- <aside id="fh5co-hero" class="js-fullheight">
+    <aside id="fh5co-hero" class="js-fullheight">
         <div class="flexslider js-fullheight">
             <ul class="slides">
 
@@ -86,7 +89,7 @@
             </li>
             </ul>
         </div>
-    </aside> -->
+    </aside>
 
     <main role="main" class="flex-shrik-0">
             {% block content %}
