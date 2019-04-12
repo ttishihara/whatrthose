@@ -33,7 +33,7 @@ def s3_upload(source_file, bucket_name='s3://whatrthose', upload_dir=None, acl='
     try:
         s3.upload_fileobj(source_file.data,
                           bucket_name,
-                          os.path.join(upload_dir, destination_filename),
+                          destination_filename,
                           ExtraArgs={
                               "ACL": acl
                           })
@@ -41,4 +41,4 @@ def s3_upload(source_file, bucket_name='s3://whatrthose', upload_dir=None, acl='
     except Exception as e:
         print(e)
 
-    return "s3://" + os.path.join(bucket_name, upload_dir, destination_filename)
+    return "s3://" + os.path.join(bucket_name, destination_filename)
