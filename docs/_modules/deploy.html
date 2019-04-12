@@ -115,7 +115,7 @@
     <span class="n">deploy_command</span> <span class="o">=</span> <span class="n">f</span><span class="s2">&quot;bash ~/</span><span class="si">{git_repo_name}</span><span class="s2">/code/deploy.sh -bucket whatrthose&quot;</span> \
                      <span class="n">f</span><span class="s2">&quot; -region us-west-2 -ebname whatrthose-dev&quot;</span>
     <span class="n">stdin</span><span class="p">,</span> <span class="n">stdout</span><span class="p">,</span> <span class="n">stderr</span> <span class="o">=</span> <span class="n">ssh</span><span class="o">.</span><span class="n">exec_command</span><span class="p">(</span><span class="n">deploy_command</span><span class="p">)</span>
-    <span class="nb">print</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">stdout</span><span class="o">.</span><span class="n">read</span><span class="p">()))</span></div>
+    <span class="nb">print</span><span class="p">(</span><span class="n">stdout</span><span class="o">.</span><span class="n">read</span><span class="p">()</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s2">&quot;utf-8&quot;</span><span class="p">))</span></div>
 
 <div class="viewcode-block" id="main"><a class="viewcode-back" href="../api_reference.html#deploy.main">[docs]</a><span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
     <span class="sd">&quot;&quot;&quot;</span>

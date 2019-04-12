@@ -36,6 +36,7 @@
   <h1>Source code for app.routes</h1><div class="highlight"><pre>
 <span></span><span class="kn">from</span> <span class="nn">app</span> <span class="k">import</span> <span class="n">application</span>
 <span class="kn">from</span> <span class="nn">.helpers</span> <span class="k">import</span> <span class="o">*</span>
+<span class="kn">from</span> <span class="nn">.config</span> <span class="k">import</span> <span class="o">*</span>
 
 <span class="kn">from</span> <span class="nn">flask</span> <span class="k">import</span> <span class="n">render_template</span><span class="p">,</span> <span class="n">redirect</span><span class="p">,</span> <span class="n">url_for</span><span class="p">,</span> <span class="n">flash</span><span class="p">,</span> <span class="n">send_from_directory</span>
 <span class="kn">from</span> <span class="nn">flask_wtf</span> <span class="k">import</span> <span class="n">FlaskForm</span>
@@ -43,7 +44,6 @@
 <span class="kn">from</span> <span class="nn">wtforms</span> <span class="k">import</span> <span class="n">SubmitField</span>
 <span class="kn">from</span> <span class="nn">werkzeug</span> <span class="k">import</span> <span class="n">secure_filename</span>
 <span class="kn">import</span> <span class="nn">os</span>
-
 
 <div class="viewcode-block" id="UploadFileForm"><a class="viewcode-back" href="../../api_reference.html#app.routes.UploadFileForm">[docs]</a><span class="k">class</span> <span class="nc">UploadFileForm</span><span class="p">(</span><span class="n">FlaskForm</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Class for uploading file when submitted&quot;&quot;&quot;</span>
@@ -68,19 +68,19 @@
 
     <span class="n">file</span> <span class="o">=</span> <span class="n">UploadFileForm</span><span class="p">()</span>  <span class="c1"># file : UploadFileForm class instance</span>
     <span class="k">if</span> <span class="n">file</span><span class="o">.</span><span class="n">validate_on_submit</span><span class="p">():</span>  <span class="c1"># Check if it is a POST request and if it is valid.</span>
-        <span class="n">f</span> <span class="o">=</span> <span class="n">file</span><span class="o">.</span><span class="n">file_selector</span><span class="o">.</span><span class="n">data</span>  <span class="c1"># f : Data of FileField</span>
-        <span class="n">filename</span> <span class="o">=</span> <span class="n">secure_filename</span><span class="p">(</span><span class="n">f</span><span class="o">.</span><span class="n">filename</span><span class="p">)</span>
-        <span class="c1"># filename : filename of FileField</span>
-        <span class="c1"># secure_filename secures a filename before storing it directly on the filesystem.</span>
-
-
-        <span class="n">file_dir_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">application</span><span class="o">.</span><span class="n">instance_path</span><span class="p">,</span> <span class="s1">&#39;files&#39;</span><span class="p">)</span>
-        <span class="n">file_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">file_dir_path</span><span class="p">,</span> <span class="n">filename</span><span class="p">)</span>
-        <span class="n">f</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="n">file_path</span><span class="p">)</span> <span class="c1"># Save file to file_path (instance/ + &#39;files’ + filename)</span>
+        <span class="n">upload_destination</span> <span class="o">=</span> <span class="n">s3_upload</span><span class="p">(</span><span class="n">file</span><span class="o">.</span><span class="n">file_selector</span><span class="p">,</span> <span class="n">bucket</span><span class="p">,</span> <span class="s1">&#39;images&#39;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">upload_destination</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">redirect</span><span class="p">(</span><span class="n">url_for</span><span class="p">(</span><span class="s1">&#39;index&#39;</span><span class="p">))</span>  <span class="c1"># Redirect to / (/index) page.</span>
     <span class="k">else</span><span class="p">:</span>
         <span class="n">flash_errors</span><span class="p">(</span><span class="n">file</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">render_template</span><span class="p">(</span><span class="s2">&quot;index.html&quot;</span><span class="p">,</span>  <span class="n">form</span><span class="o">=</span><span class="n">file</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="about"><a class="viewcode-back" href="../../api_reference.html#app.routes.about">[docs]</a><span class="nd">@application</span><span class="o">.</span><span class="n">route</span><span class="p">(</span><span class="s1">&#39;/about&#39;</span><span class="p">,</span> <span class="n">methods</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;GET&#39;</span><span class="p">])</span>
+<span class="k">def</span> <span class="nf">about</span><span class="p">():</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    About Us Page: Renders about.html where introduces the company and the team</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">render_template</span><span class="p">(</span><span class="s2">&quot;about.html&quot;</span><span class="p">)</span></div>
 </pre></div>
 
           </div>

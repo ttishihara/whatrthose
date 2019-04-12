@@ -20,7 +20,7 @@ Deployment
  * Conda installed
  * IAM role created in 1) must be attached 
  
-4. Download the whatrthose repo to your local machine
+4. Download the whatrthose `GitHub repository <https://github.com/MSDS698/whatrthose>`_ to your local machine.
 
 5. Update user_definition.py in the code folder with:
 
@@ -31,7 +31,7 @@ Deployment
 
 6. Activate a virtual environment with paramiko installed (whatrthose in environment.yml will work)
 
-7. Run deploy.py in the code directory
+7. Run :code:`python deploy.py` on the local machine's terminal in the code directory.
 
 This deployment will take several minutes while it waits for Elastic Beanstalk to allocate resources.  When finished, the script will output the URL to the app:
 
