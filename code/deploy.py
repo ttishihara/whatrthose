@@ -66,6 +66,7 @@ def git_clone(ssh):
                            f"github.com/{git_repo_owner}/{git_repo_name}"
         _, _, _ = ssh.exec_command(git_pull_command)
 
+
 def deploy(ssh):
     """
     Run deploy bash script from EC2
@@ -75,11 +76,12 @@ def deploy(ssh):
     """
     stdin, stdout, stderr = ssh.exec_command("cd")
     stdin, stdout, stderr = ssh.exec_command("conda activate whatrthose")
-    #print(stderr.read())
-    deploy_command = f"bash ~/{git_repo_name}/code/deploy.sh -bucket whatrthose" \
-                     f" -region us-west-2 -ebname whatrthose-dev"
+    # print(stderr.read())
+    deploy_command = f"bash ~/{git_repo_name}/code/deploy.sh -bucket " \
+                     f"whatrthose -region us-west-2 -ebname whatrthose-dev"
     stdin, stdout, stderr = ssh.exec_command(deploy_command)
     print(stdout.read().decode("utf-8"))
+
 
 def main():
     """

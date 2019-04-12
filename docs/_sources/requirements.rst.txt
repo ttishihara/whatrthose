@@ -2,9 +2,11 @@ Requirements
 ============
 Below list the requirements needed to run the application.
 
-The full Github repository is located at `here <https://github.com/MSDS698/whatrthose>`_ where all necessary files for this application resides.
+The full Github repository is located at `here <https://github.com/MSDS698/whatrthose>`_ where all necessary files for
+this application resides.
 
-**Amazon Web Services Setup**
+Amazon Web Services Setup
+-------------------------
 The process for deployment is detailed in the tutorial.  Here is what is required:
 
 1. An EC2 instance must be stood up with:
@@ -21,3 +23,11 @@ The process for deployment is detailed in the tutorial.  Here is what is require
   * git_repo_owner: Owner of the git repo of the application
   * git_repo_name: Name of the git repo of the application
   * git_user_id: User ID configured in the EC2 mentioned above
+
+Local Machine Setup
+-------------------
+1. Clone the What R Those `GitHub repository <https://github.com/MSDS698/whatrthose>`_ to your local machine, using
+:code:`git clone` on the terminal.
+
+2. Create the What R Those virtual environment by running :code:`conda create -f environment.yml` on the terminal on
+the local machine, inside the `whatrthose` directory.

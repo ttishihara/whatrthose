@@ -8,6 +8,11 @@ Deploy Script
     :undoc-members:
     :show-inheritance:
 
+Helpers Module
+--------------
+.. automodule:: app.helpers
+    :members:
+
 Routes Module
 -------------
 .. automodule:: app.routes

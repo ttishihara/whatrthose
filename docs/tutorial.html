@@ -37,7 +37,8 @@
             
   <div class="section" id="setup-tutorial">
 <h1>Setup Tutorial<a class="headerlink" href="#setup-tutorial" title="Permalink to this headline">¶</a></h1>
-<p>The following will walk through the setup, deployment, and execution of the application on a remote server. These steps are performed after the requirements have been met.</p>
+<p>The following will walk through the setup, deployment, and execution of the application on a remote server. These steps
+are performed after the requirements have been met.</p>
 <div class="section" id="deployment">
 <h2>Deployment<a class="headerlink" href="#deployment" title="Permalink to this headline">¶</a></h2>
 <ol class="arabic simple">
@@ -64,7 +65,6 @@
 </ul>
 </div></blockquote>
 <ol class="arabic simple" start="4">
-<li>Download the whatrthose <a class="reference external" href="https://github.com/MSDS698/whatrthose">GitHub repository</a> to your local machine.</li>
 <li>Update user_definition.py in the code folder with:</li>
 </ol>
 <blockquote>
@@ -75,11 +75,12 @@
 <li>Git user ID with credentials stored on EC2 (git_user_id)</li>
 </ul>
 </div></blockquote>
-<ol class="arabic simple" start="6">
-<li>Activate a virtual environment with paramiko installed (whatrthose in environment.yml will work)</li>
+<ol class="arabic simple" start="5">
+<li>On the local machine, activate the What R Those virtual environment by executing <code class="code docutils literal notranslate"><span class="pre">conda</span> <span class="pre">activate</span> <span class="pre">whatrthose</span></code>.</li>
 <li>Run <code class="code docutils literal notranslate"><span class="pre">python</span> <span class="pre">deploy.py</span></code> on the local machine’s terminal in the code directory.</li>
 </ol>
-<p>This deployment will take several minutes while it waits for Elastic Beanstalk to allocate resources.  When finished, the script will output the URL to the app:</p>
+<p>This deployment will take several minutes while it waits for Elastic Beanstalk to allocate resources.  When finished,
+the script will output the URL to the app:</p>
 <a class="reference internal image-reference" href="_images/output_url.png"><img alt="_images/output_url.png" src="_images/output_url.png" style="width: 1000pt;" /></a>
 </div>
 </div>

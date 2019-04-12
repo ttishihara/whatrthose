@@ -1,6 +1,7 @@
 Setup Tutorial
 ==============
-The following will walk through the setup, deployment, and execution of the application on a remote server. These steps are performed after the requirements have been met.
+The following will walk through the setup, deployment, and execution of the application on a remote server. These steps
+are performed after the requirements have been met.
 
 Deployment
 ----------
@@ -18,22 +19,21 @@ Deployment
  * Git installed
  * Git user credentials stored with access to repo 
  * Conda installed
- * IAM role created in 1) must be attached 
- 
-4. Download the whatrthose `GitHub repository <https://github.com/MSDS698/whatrthose>`_ to your local machine.
+ * IAM role created in 1) must be attached
 
-5. Update user_definition.py in the code folder with:
+4. Update user_definition.py in the code folder with:
 
  * EC2 address (ec2_address)
  * EC2 user (user)
  * PEM Key file (key_file)
  * Git user ID with credentials stored on EC2 (git_user_id)
 
-6. Activate a virtual environment with paramiko installed (whatrthose in environment.yml will work)
+5. On the local machine, activate the What R Those virtual environment by executing :code:`conda activate whatrthose`.
 
-7. Run :code:`python deploy.py` on the local machine's terminal in the code directory.
+6. Run :code:`python deploy.py` on the local machine's terminal in the code directory.
 
-This deployment will take several minutes while it waits for Elastic Beanstalk to allocate resources.  When finished, the script will output the URL to the app:
+This deployment will take several minutes while it waits for Elastic Beanstalk to allocate resources.  When finished,
+the script will output the URL to the app:
 
 
 .. image:: output_url.png
