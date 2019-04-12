@@ -13,6 +13,7 @@ Deployment
  * Name it whatever you want - just remember the name
 
 2. Attach new policy for s3 access to the default AWS elastic beanstalk ec2 IAM role:
+
  * Create a new policy (Service: S3, Actions: List(All), Read(All), Write(All), Permissions Management(PutObjectAcl))
  * Attach new policy to IAM role aws-elasticbeanstalk-ec2-role
 

@@ -53,7 +53,16 @@ are performed after the requirements have been met.</p>
 </ul>
 </div></blockquote>
 <ol class="arabic simple" start="2">
-<li>Launch EC2 instance.  Any instance type is fine.</li>
+<li>Attach new policy for s3 access to the default AWS elastic beanstalk ec2 IAM role:</li>
+</ol>
+<blockquote>
+<div><ul class="simple">
+<li>Create a new policy (Service: S3, Actions: List(All), Read(All), Write(All), Permissions Management(PutObjectAcl))</li>
+<li>Attach new policy to IAM role aws-elasticbeanstalk-ec2-role</li>
+</ul>
+</div></blockquote>
+<ol class="arabic simple" start="3">
+<li>Launch EC2 instance.  Any instance type is fine (Anaconda with Python3 AMI recommended).</li>
 <li>The EC2 should be setup with:</li>
 </ol>
 <blockquote>
@@ -64,7 +73,7 @@ are performed after the requirements have been met.</p>
 <li>IAM role created in 1) must be attached</li>
 </ul>
 </div></blockquote>
-<ol class="arabic simple" start="4">
+<ol class="arabic simple" start="5">
 <li>Update user_definition.py in the code folder with:</li>
 </ol>
 <blockquote>
@@ -75,7 +84,7 @@ are performed after the requirements have been met.</p>
 <li>Git user ID with credentials stored on EC2 (git_user_id)</li>
 </ul>
 </div></blockquote>
-<ol class="arabic simple" start="5">
+<ol class="arabic simple" start="6">
 <li>On the local machine, activate the What R Those virtual environment by executing <code class="code docutils literal notranslate"><span class="pre">conda</span> <span class="pre">activate</span> <span class="pre">whatrthose</span></code>.</li>
 <li>Run <code class="code docutils literal notranslate"><span class="pre">python</span> <span class="pre">deploy.py</span></code> on the local machine’s terminal in the code directory.</li>
 </ol>
