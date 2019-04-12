@@ -62,7 +62,7 @@
     height: 16px;
 }
 .company-sections p {
-    margin-top: 20px;
+    margin-top: 8px;
 }
 .ct-u-size22 {
     font-size: 22px;
@@ -77,9 +77,10 @@
     padding: 100px 15px;
 }
 .culture-section {
-    background: linear-gradient(rgba(0, 0, 0, 0.45),rgba(0, 0, 0, 0.45)), url(https://www.solodev.com/assets/culture.jpg) top no-repeat;
+    /*background: linear-gradient(rgba(0, 0, 0, 0.45),rgba(0, 0, 0, 0.45)), url(https://images.unsplash.com/photo-1511184150666-9bb7d41a88f4?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1500&q=80) top no-repeat;*/
     /* background-color: #095c87; */
     /* color: #fff; */
+    /*background-image: url(https://images.unsplash.com/photo-1511184150666-9bb7d41a88f4?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1500&q=80);*/
 }
 .company-sections, .careers-sections, .left-headquarter-section-img, .right-headquarter-section-img {
     text-align: center;
@@ -236,7 +237,8 @@ section.clients-home .clients-logos .client-logos-repeater img {
 .ct-u-paddingBottom100 {
   margin-top: 40px;
 }
-.culture-section {
+/*.culture-section {
   background-size: cover;
   color: #fff;
-}
+  
+}*/
