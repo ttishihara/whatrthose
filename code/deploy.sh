@@ -49,7 +49,7 @@ else
 		echo "Bucket "$BUCKETNAME" created successfully"
 	fi
 fi
-echo "bucket = 's3://"$BUCKETNAME"'" > ~/whatrthose/code/config.py
+echo "bucket = '"$BUCKETNAME"'" > ~/whatrthose/code/app/config.py
 
 
 cd ~/whatrthose/code
