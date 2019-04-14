@@ -2,6 +2,8 @@ from app import application
 from .helpers import *
 from .config import *
 
+from fastai.vision import Path, load_learner, open_image
+
 from flask import render_template, redirect, url_for, flash, send_from_directory
 from flask_wtf import FlaskForm
 from flask_wtf.file import FileField, FileRequired, FileAllowed
@@ -32,8 +34,17 @@ def index():
 
     file = UploadFileForm()  # file : UploadFileForm class instance
     if file.validate_on_submit():  # Check if it is a POST request and if it is valid.
-        upload_destination = s3_upload(file.file_selector, bucket, 'images')
-        print(upload_destination)
+        # upload_destination = s3_upload(file.file_selector, bucket, 'images')
+        # print(upload_destination)
+
+        path = Path("app/models/cnn_classifier/")
+        classifier = load_learner(path)
+
+        img = open_image(file.file_selector.data)
+        pred_class, pred_idx, outputs = classifier.predict(img)
+        print(str(pred_class).replace("_", " "))
+        print(max(outputs))
+
         return redirect(url_for('index'))  # Redirect to / (/index) page.
     else:
         flash_errors(file)
