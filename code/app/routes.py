@@ -56,3 +56,10 @@ def about():
     About Us Page: Renders about.html where introduces the company and the team
     """
     return render_template("about.html")
+
+@application.route('/results')
+def results():
+    """
+    Results Page: Renders results.html where users see the results of their search
+    """
+    return render_template("results.html")
