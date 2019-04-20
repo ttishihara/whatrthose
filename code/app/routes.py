@@ -37,13 +37,21 @@ def index():
         # upload_destination = s3_upload(file.file_selector, bucket, 'images')
         # print(upload_destination)
 
-        path = Path("app/models/cnn_classifier/")
+        classes = ['Air_Force_1', 'Air_Max_1', 'Air_Max_90', 'Air_Jordan_1']
+
+        path = "app/models/cnn_classifier/"
         classifier = load_learner(path)
 
         img = open_image(file.file_selector.data)
         pred_class, pred_idx, outputs = classifier.predict(img)
-        print(str(pred_class).replace("_", " "))
-        print(max(outputs))
+
+        # If probability of predicted class is under 90%, don't give prediction
+        prob = max(outputs)
+        if prob < 0.9:
+            print("Not sure of shoe. Please try again.")
+        else:
+            print(str(pred_class).replace("_", " "))
+            print(prob)
 
         return redirect(url_for('index'))  # Redirect to / (/index) page.
     else:
