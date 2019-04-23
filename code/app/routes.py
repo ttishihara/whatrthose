@@ -4,7 +4,7 @@ from .config import *
 
 from fastai.vision import Path, load_learner, open_image
 
-from flask import render_template, redirect, url_for, flash, send_from_directory
+from flask import render_template, redirect, url_for, flash, send_from_directory, request
 from flask_wtf import FlaskForm
 from flask_wtf.file import FileField, FileRequired, FileAllowed
 from wtforms import SubmitField
@@ -13,9 +13,10 @@ import os
 
 class UploadFileForm(FlaskForm):
     """Class for uploading file when submitted"""
-    file_selector = FileField('File', validators=[FileRequired(),
-                                                  FileAllowed(['jpg', 'jpe', 'jpeg', 'png', 'svg', 'gif', 'bmp'],
-                                                              "Image files only!")]
+    file_selector = FileField('File', 
+                              validators=[FileRequired(),
+                                          FileAllowed(['jpg', 'jpe', 'jpeg', 'png', 'svg', 'gif', 'bmp'],
+                                                      "Image files only!")]
                               )
     submit = SubmitField('Submit')
 
@@ -36,24 +37,31 @@ def index():
     if file.validate_on_submit():  # Check if it is a POST request and if it is valid.
         # upload_destination = s3_upload(file.file_selector, bucket, 'images')
         # print(upload_destination)
+        source_filename = secure_filename(file.file_selector.data.filename)
+        source_extension = os.path.splitext(source_filename)[1]  # e.g. '.png', '.jpg'
+        destination_filename = uuid4().hex + source_extension
+        destination = os.path.join('app/static/img', destination_filename)
+        file.file_selector.data.save(destination)
 
-        classes = ['Air_Force_1', 'Air_Max_1', 'Air_Max_90', 'Air_Jordan_1']
-
-        path = "app/models/cnn_classifier/"
-        classifier = load_learner(path)
+        classifier_path = Path("app/models/cnn_classifier/")
+        classifier = load_learner(classifier_path)
 
         img = open_image(file.file_selector.data)
         pred_class, pred_idx, outputs = classifier.predict(img)
+        print(outputs)
 
-        # If probability of predicted class is under 90%, don't give prediction
-        prob = max(outputs)
-        if prob < 0.9:
-            print("Not sure of shoe. Please try again.")
+        classes = ['Air_Force_1', 'Air_Max_1', 'Air_Max_90', 'Air_Jordan_1']
+        # If probability of classifying the image is less than 92%, ask user to
+        # resubmit a different picture.
+        if max(outputs) < 0.92:
+            flash("We are unsure about What Those R. Please try another image.", "form-warning")
+            return redirect(url_for('index'))
+        
         else:
-            print(str(pred_class).replace("_", " "))
-            print(prob)
-
-        return redirect(url_for('index'))  # Redirect to / (/index) page.
+            return render_template('results.html',
+                                   pred_class=str(pred_class).replace('_', ' '),
+                                   pred_prob=round(max(outputs).item(), 4),
+                                   img=os.path.join('img', destination_filename))
     else:
         flash_errors(file)
     return render_template("index.html",  form=file)
@@ -65,9 +73,13 @@ def about():
     """
     return render_template("about.html")
 
-@application.route('/results')
+@application.route('/results', methods=['POST'])
 def results():
     """
     Results Page: Renders results.html where users see the results of their search
     """
-    return render_template("results.html")
+    pred_class = request.args.get("pred_class")
+    pred_prob = request.args.get("pred_prob")
+    img = request.args.get("img")
+
+    return render_template("results.html", pred_class=pred_class, pred_prob=pred_prob, img=img)
