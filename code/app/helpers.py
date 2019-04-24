@@ -5,7 +5,6 @@ import boto3
 import os.path
 
 
-
 def flash_errors(form):
     """
     Flashes form errors.
@@ -17,16 +16,18 @@ def flash_errors(form):
     return
 
 
-def s3_upload(source_file, bucket_name='s3://whatrthose', upload_dir=None, acl='public-read'):
+def s3_upload(source_file, bucket_name='s3://whatrthose', upload_dir=None,
+              acl='public-read'):
     """
     Uploads WTForm File Objects to Amazon S3.
     """
-    
+
     if upload_dir is None:
         upload_dir = "images"
 
     source_filename = secure_filename(source_file.data.filename)
-    source_extension = os.path.splitext(source_filename)[1]  # e.g. '.png', '.jpg'
+    source_extension = os.path.splitext(source_filename)[
+        1]  # e.g. '.png', '.jpg'
 
     destination_filename = uuid4().hex + source_extension
 
@@ -40,7 +41,7 @@ def s3_upload(source_file, bucket_name='s3://whatrthose', upload_dir=None, acl='
                           ExtraArgs={
                               "ACL": acl
                           })
-    
+
     except Exception as e:
         print(e)
 

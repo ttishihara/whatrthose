@@ -44,7 +44,7 @@ def create_or_update_environment(ssh):
     _, _, stderr = ssh.exec_command(create_command)
     if b'already exists' in stderr.read():
         update_command = f"conda env update -f " \
-                         f"~/{git_repo_name}/environment.yml"
+            f"~/{git_repo_name}/environment.yml"
         _, _, _ = ssh.exec_command(update_command)
 
 
@@ -58,12 +58,12 @@ def git_clone(ssh):
     stdin, stdout, stderr = ssh.exec_command("git --version")
     if b"" is stderr.read():
         git_clone_command = f"git clone https://github.com/" \
-                            f"{git_repo_owner}/{git_repo_name}.git"
+            f"{git_repo_owner}/{git_repo_name}.git"
         stdin, stdout, stderr = ssh.exec_command(git_clone_command)
 
     if b"already exists" in stderr.read():
         git_pull_command = f"cd {git_repo_name}; git pull https://" \
-                           f"github.com/{git_repo_owner}/{git_repo_name}"
+            f"github.com/{git_repo_owner}/{git_repo_name}"
         _, _, _ = ssh.exec_command(git_pull_command)
 
 
@@ -78,7 +78,7 @@ def deploy(ssh):
     stdin, stdout, stderr = ssh.exec_command("conda activate whatrthose")
     # print(stderr.read())
     deploy_command = f"bash ~/{git_repo_name}/code/deploy.sh -bucket " \
-                     f"whatrthose -region us-west-2 -ebname whatrthose-dev"
+        f"whatrthose -region us-west-2 -ebname whatrthose-dev"
     stdin, stdout, stderr = ssh.exec_command(deploy_command)
     print(stdout.read().decode("utf-8"))
 
