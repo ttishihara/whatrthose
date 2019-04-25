@@ -12,13 +12,15 @@ from flask import send_from_directory, request
 
 
 class UploadFileForm(FlaskForm):
-    """Class for uploading file when submitted"""
+    """
+    Class for Flask-WTF form for uploading photo.
+    """
     file_selector = FileField('File',
                               validators=[FileRequired(),
-                                          FileAllowed(['jpg', 'jpe', 'jpeg',
-                                                       'png', 'svg', 'gif',
-                                                       'bmp'
-                                                       ],
+                                          FileAllowed(['jpg', 'jpe',
+                                                       'jpeg', 'png',
+                                                       'svg', 'gif',
+                                                       'bmp'],
                                                       "Image files only!")]
                               )
     submit = SubmitField('Submit')
@@ -45,7 +47,7 @@ def index():
         # e.g. '.png', '.jpg'
         source_extension = os.path.splitext(source_filename)[1]
         destination_filename = uuid4().hex + source_extension
-        destination = os.path.join('app/static/img', destination_filename)
+        destination = os.path.join('app/static/img/tmp', destination_filename)
         file.file_selector.data.save(destination)
 
         classifier_path = Path("app/models/cnn_classifier/")
@@ -53,12 +55,13 @@ def index():
 
         img = open_image(file.file_selector.data)
         pred_class, pred_idx, outputs = classifier.predict(img)
-        print(outputs)
 
         classes = ['Air_Force_1', 'Air_Max_1', 'Air_Max_90', 'Air_Jordan_1']
+
         # If probability of classifying the image is less than 92%, ask user to
         # Resubmit a different picture.
         if max(outputs) < 0.92:
+            print(f"{pred_class}: {max(outputs)}")
             flash(
                 "We are unsure about What Those R. Please try another image.",
                 "form-warning"
@@ -69,9 +72,12 @@ def index():
             return render_template('results.html',
                                    pred_class=str(
                                        pred_class).replace('_', ' '),
-                                   pred_prob=round(max(outputs).item(), 4),
-                                   img=os.path.join('img',
-                                                    destination_filename))
+                                   pred_prob=round(
+                                       max(outputs).item()*100, 4),
+                                   img=os.path.join(
+                                       'img/tmp',
+                                       destination_filename)
+                                   )
     else:
         flash_errors(file)
     return render_template("index.html",  form=file)
@@ -88,7 +94,8 @@ def about():
 @application.route('/results', methods=['POST'])
 def results():
     """
-    Results Page: Renders results.html where users see the results of their search
+    Results Page: Renders results.html where users see
+    the results of their search
     """
     pred_class = request.args.get("pred_class")
     pred_prob = request.args.get("pred_prob")
