@@ -88,7 +88,8 @@ def about():
 @application.route('/results', methods=['POST'])
 def results():
     """
-    Results Page: Renders results.html where users see the results of their search
+    Results Page:
+    Renders results.html where users see the results of their search
     """
     pred_class = request.args.get("pred_class")
     pred_prob = request.args.get("pred_prob")
