@@ -145,14 +145,38 @@ to execute calculate_driving_time.py every minute.</p>
 <dl class="function">
 <dt id="app.helpers.flash_errors">
 <code class="descclassname">app.helpers.</code><code class="descname">flash_errors</code><span class="sig-paren">(</span><em>form</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/app/helpers.html#flash_errors"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#app.helpers.flash_errors" title="Permalink to this definition">¶</a></dt>
-<dd><p>Flashes form errors.
-Choices are ‘form-error’, ‘form-warning’, ‘form-info’ and ‘form-success’.</p>
+<dd><p>Flashes Flask-WTF form errors.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>form</strong> (<a class="reference internal" href="#app.routes.UploadFileForm" title="app.routes.UploadFileForm"><em>UploadFileForm</em></a>) – Form object that contains errors.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">None</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 <dl class="function">
 <dt id="app.helpers.s3_upload">
 <code class="descclassname">app.helpers.</code><code class="descname">s3_upload</code><span class="sig-paren">(</span><em>source_file</em>, <em>bucket_name='s3://whatrthose'</em>, <em>upload_dir=None</em>, <em>acl='public-read'</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/app/helpers.html#s3_upload"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#app.helpers.s3_upload" title="Permalink to this definition">¶</a></dt>
-<dd><p>Uploads WTForm File Objects to Amazon S3.</p>
+<dd><p>Uploads data within Flask-WTForm File Objects to Amazon S3.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>source_file</strong> (<em>flask_wtf.file.FileField</em>) – File to be uploaded to s3 bucket.</li>
+<li><strong>bucket_name</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – Name of s3 bucket.</li>
+<li><strong>upload_dir</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – Directory within the s3 bucket to upload the file into.</li>
+<li><strong>acl</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – Access Control List.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<p>:return Location of uploaded s3 object.</p>
 </dd></dl>
 
 </div>

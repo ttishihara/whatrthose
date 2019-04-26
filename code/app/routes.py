@@ -42,7 +42,8 @@ def index():
     file = UploadFileForm()  # File : UploadFileForm class instance
     if file.validate_on_submit():
         # Check if it is a POST request and if it is valid.
-        # Upload_destination = s3_upload(file.file_selector, bucket, 'images')
+        # upload_destination = s3_upload(file.file_selector, bucket, 'images')
+        print(type(file.file_selector))
         source_filename = secure_filename(file.file_selector.data.filename)
         # e.g. '.png', '.jpg'
         source_extension = os.path.splitext(source_filename)[1]

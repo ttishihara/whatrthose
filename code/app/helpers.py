@@ -7,19 +7,32 @@ import os.path
 
 def flash_errors(form):
     """
-    Flashes form errors.
-    Choices are 'form-error', 'form-warning', 'form-info' and 'form-success'.
+    Flashes Flask-WTF form errors.
+
+    :param form: Form object that contains errors.
+    :type form: UploadFileForm
+    :return: None
     """
     for field, errors in form.errors.items():
         for error in errors:
             flash(u"%s" % (error), 'form-error')
-    return
 
 
 def s3_upload(source_file, bucket_name='s3://whatrthose', upload_dir=None,
               acl='public-read'):
     """
-    Uploads WTForm File Objects to Amazon S3.
+    Uploads data within Flask-WTForm File Objects to Amazon S3.
+
+    :param source_file: File to be uploaded to s3 bucket.
+    :type source_file: flask_wtf.file.FileField
+    :param bucket_name: Name of s3 bucket.
+    :type bucket_name: str
+    :param upload_dir: Directory within the s3 bucket to upload the file into.
+    :type upload_dir: str
+    :param acl: Access Control List.
+    :type acl: str
+
+    :return Location of uploaded s3 object.
     """
 
     if upload_dir is None:

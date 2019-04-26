@@ -43,19 +43,32 @@
 
 <div class="viewcode-block" id="flash_errors"><a class="viewcode-back" href="../../api_reference.html#app.helpers.flash_errors">[docs]</a><span class="k">def</span> <span class="nf">flash_errors</span><span class="p">(</span><span class="n">form</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Flashes form errors.</span>
-<span class="sd">    Choices are &#39;form-error&#39;, &#39;form-warning&#39;, &#39;form-info&#39; and &#39;form-success&#39;.</span>
+<span class="sd">    Flashes Flask-WTF form errors.</span>
+
+<span class="sd">    :param form: Form object that contains errors.</span>
+<span class="sd">    :type form: UploadFileForm</span>
+<span class="sd">    :return: None</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">for</span> <span class="n">field</span><span class="p">,</span> <span class="n">errors</span> <span class="ow">in</span> <span class="n">form</span><span class="o">.</span><span class="n">errors</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
         <span class="k">for</span> <span class="n">error</span> <span class="ow">in</span> <span class="n">errors</span><span class="p">:</span>
-            <span class="n">flash</span><span class="p">(</span><span class="sa">u</span><span class="s2">&quot;</span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">error</span><span class="p">),</span> <span class="s1">&#39;form-error&#39;</span><span class="p">)</span>
-    <span class="k">return</span></div>
+            <span class="n">flash</span><span class="p">(</span><span class="sa">u</span><span class="s2">&quot;</span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">error</span><span class="p">),</span> <span class="s1">&#39;form-error&#39;</span><span class="p">)</span></div>
 
 
 <div class="viewcode-block" id="s3_upload"><a class="viewcode-back" href="../../api_reference.html#app.helpers.s3_upload">[docs]</a><span class="k">def</span> <span class="nf">s3_upload</span><span class="p">(</span><span class="n">source_file</span><span class="p">,</span> <span class="n">bucket_name</span><span class="o">=</span><span class="s1">&#39;s3://whatrthose&#39;</span><span class="p">,</span> <span class="n">upload_dir</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
               <span class="n">acl</span><span class="o">=</span><span class="s1">&#39;public-read&#39;</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Uploads WTForm File Objects to Amazon S3.</span>
+<span class="sd">    Uploads data within Flask-WTForm File Objects to Amazon S3.</span>
+
+<span class="sd">    :param source_file: File to be uploaded to s3 bucket.</span>
+<span class="sd">    :type source_file: flask_wtf.file.FileField</span>
+<span class="sd">    :param bucket_name: Name of s3 bucket.</span>
+<span class="sd">    :type bucket_name: str</span>
+<span class="sd">    :param upload_dir: Directory within the s3 bucket to upload the file into.</span>
+<span class="sd">    :type upload_dir: str</span>
+<span class="sd">    :param acl: Access Control List.</span>
+<span class="sd">    :type acl: str</span>
+
+<span class="sd">    :return Location of uploaded s3 object.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="k">if</span> <span class="n">upload_dir</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
