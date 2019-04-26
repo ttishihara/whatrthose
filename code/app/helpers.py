@@ -32,7 +32,7 @@ def s3_upload(source_file, bucket_name='s3://whatrthose', upload_dir=None,
     :param acl: Access Control List.
     :type acl: str
 
-    :return Location of uploaded s3 object.
+    :return: Location of uploaded s3 object.
     """
 
     if upload_dir is None:

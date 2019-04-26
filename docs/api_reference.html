@@ -166,7 +166,7 @@ to execute calculate_driving_time.py every minute.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
 <li><strong>source_file</strong> (<em>flask_wtf.file.FileField</em>) – File to be uploaded to s3 bucket.</li>
 <li><strong>bucket_name</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – Name of s3 bucket.</li>
 <li><strong>upload_dir</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – Directory within the s3 bucket to upload the file into.</li>
@@ -174,9 +174,11 @@ to execute calculate_driving_time.py every minute.</p>
 </ul>
 </td>
 </tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">Location of uploaded s3 object.</p>
+</td>
+</tr>
 </tbody>
 </table>
-<p>:return Location of uploaded s3 object.</p>
 </dd></dl>
 
 </div>
