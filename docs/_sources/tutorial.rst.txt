@@ -17,7 +17,7 @@ Deployment
  * Create a new policy (Service: S3, Actions: List(All), Read(All), Write(All), Permissions Management(PutObjectAcl))
  * Attach new policy to IAM role aws-elasticbeanstalk-ec2-role
 
-3. Launch EC2 instance.  Any instance type is fine (Anaconda with Python3 AMI recommended).
+3. Launch EC2 instance. Make sure to add at least 50GB of storage.  Any instance type is fine (Anaconda with Python3 AMI recommended).
 
 4. The EC2 should be setup with:
 
