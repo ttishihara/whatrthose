@@ -11,6 +11,7 @@ The process for deployment is detailed in the tutorial.  Here is what is require
 
 1. An EC2 instance must be stood up with:
 
+  * At least 50GB of storage
   * Git installed and user configured
   * Anaconda installed
   * An IAM role that allows full S3, ElasticBeanstalk, Elastic Load Balancing, and Lambda access
