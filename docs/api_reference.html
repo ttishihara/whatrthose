@@ -145,7 +145,8 @@ to execute calculate_driving_time.py every minute.</p>
 <dl class="function">
 <dt id="app.helpers.flash_errors">
 <code class="descclassname">app.helpers.</code><code class="descname">flash_errors</code><span class="sig-paren">(</span><em>form</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/app/helpers.html#flash_errors"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#app.helpers.flash_errors" title="Permalink to this definition">¶</a></dt>
-<dd><p>Flashes form errors</p>
+<dd><p>Flashes form errors.
+Choices are ‘form-error’, ‘form-warning’, ‘form-info’ and ‘form-success’.</p>
 </dd></dl>
 
 <dl class="function">
@@ -160,7 +161,7 @@ to execute calculate_driving_time.py every minute.</p>
 <dl class="class">
 <dt id="app.routes.UploadFileForm">
 <em class="property">class </em><code class="descclassname">app.routes.</code><code class="descname">UploadFileForm</code><span class="sig-paren">(</span><em>formdata=&lt;object object&gt;</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/app/routes.html#UploadFileForm"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#app.routes.UploadFileForm" title="Permalink to this definition">¶</a></dt>
-<dd><p>Class for uploading file when submitted</p>
+<dd><p>Class for Flask-WTF form for uploading photo.</p>
 </dd></dl>
 
 <dl class="function">
@@ -179,6 +180,13 @@ to execute calculate_driving_time.py every minute.</p>
 <dt id="app.routes.index">
 <code class="descclassname">app.routes.</code><code class="descname">index</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/app/routes.html#index"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#app.routes.index" title="Permalink to this definition">¶</a></dt>
 <dd><p>Index Page : Renders index.html where users can upload files</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="app.routes.results">
+<code class="descclassname">app.routes.</code><code class="descname">results</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/app/routes.html#results"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#app.routes.results" title="Permalink to this definition">¶</a></dt>
+<dd><p>Results Page: Renders results.html where users see
+the results of their search</p>
 </dd></dl>
 
 </div>

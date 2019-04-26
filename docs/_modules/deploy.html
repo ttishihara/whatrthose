@@ -80,7 +80,7 @@
     <span class="n">_</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">stderr</span> <span class="o">=</span> <span class="n">ssh</span><span class="o">.</span><span class="n">exec_command</span><span class="p">(</span><span class="n">create_command</span><span class="p">)</span>
     <span class="k">if</span> <span class="sa">b</span><span class="s1">&#39;already exists&#39;</span> <span class="ow">in</span> <span class="n">stderr</span><span class="o">.</span><span class="n">read</span><span class="p">():</span>
         <span class="n">update_command</span> <span class="o">=</span> <span class="n">f</span><span class="s2">&quot;conda env update -f &quot;</span> \
-                         <span class="n">f</span><span class="s2">&quot;~/</span><span class="si">{git_repo_name}</span><span class="s2">/environment.yml&quot;</span>
+            <span class="n">f</span><span class="s2">&quot;~/</span><span class="si">{git_repo_name}</span><span class="s2">/environment.yml&quot;</span>
         <span class="n">_</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">ssh</span><span class="o">.</span><span class="n">exec_command</span><span class="p">(</span><span class="n">update_command</span><span class="p">)</span></div>
 
 
@@ -94,12 +94,12 @@
     <span class="n">stdin</span><span class="p">,</span> <span class="n">stdout</span><span class="p">,</span> <span class="n">stderr</span> <span class="o">=</span> <span class="n">ssh</span><span class="o">.</span><span class="n">exec_command</span><span class="p">(</span><span class="s2">&quot;git --version&quot;</span><span class="p">)</span>
     <span class="k">if</span> <span class="sa">b</span><span class="s2">&quot;&quot;</span> <span class="ow">is</span> <span class="n">stderr</span><span class="o">.</span><span class="n">read</span><span class="p">():</span>
         <span class="n">git_clone_command</span> <span class="o">=</span> <span class="n">f</span><span class="s2">&quot;git clone https://github.com/&quot;</span> \
-                            <span class="n">f</span><span class="s2">&quot;</span><span class="si">{git_repo_owner}</span><span class="s2">/</span><span class="si">{git_repo_name}</span><span class="s2">.git&quot;</span>
+            <span class="n">f</span><span class="s2">&quot;</span><span class="si">{git_repo_owner}</span><span class="s2">/</span><span class="si">{git_repo_name}</span><span class="s2">.git&quot;</span>
         <span class="n">stdin</span><span class="p">,</span> <span class="n">stdout</span><span class="p">,</span> <span class="n">stderr</span> <span class="o">=</span> <span class="n">ssh</span><span class="o">.</span><span class="n">exec_command</span><span class="p">(</span><span class="n">git_clone_command</span><span class="p">)</span>
 
     <span class="k">if</span> <span class="sa">b</span><span class="s2">&quot;already exists&quot;</span> <span class="ow">in</span> <span class="n">stderr</span><span class="o">.</span><span class="n">read</span><span class="p">():</span>
         <span class="n">git_pull_command</span> <span class="o">=</span> <span class="n">f</span><span class="s2">&quot;cd </span><span class="si">{git_repo_name}</span><span class="s2">; git pull https://&quot;</span> \
-                           <span class="n">f</span><span class="s2">&quot;github.com/</span><span class="si">{git_repo_owner}</span><span class="s2">/</span><span class="si">{git_repo_name}</span><span class="s2">&quot;</span>
+            <span class="n">f</span><span class="s2">&quot;github.com/</span><span class="si">{git_repo_owner}</span><span class="s2">/</span><span class="si">{git_repo_name}</span><span class="s2">&quot;</span>
         <span class="n">_</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">ssh</span><span class="o">.</span><span class="n">exec_command</span><span class="p">(</span><span class="n">git_pull_command</span><span class="p">)</span></div>
 
 
@@ -114,7 +114,7 @@
     <span class="n">stdin</span><span class="p">,</span> <span class="n">stdout</span><span class="p">,</span> <span class="n">stderr</span> <span class="o">=</span> <span class="n">ssh</span><span class="o">.</span><span class="n">exec_command</span><span class="p">(</span><span class="s2">&quot;conda activate whatrthose&quot;</span><span class="p">)</span>
     <span class="c1"># print(stderr.read())</span>
     <span class="n">deploy_command</span> <span class="o">=</span> <span class="n">f</span><span class="s2">&quot;bash ~/</span><span class="si">{git_repo_name}</span><span class="s2">/code/deploy.sh -bucket &quot;</span> \
-                     <span class="n">f</span><span class="s2">&quot;whatrthose -region us-west-2 -ebname whatrthose-dev&quot;</span>
+        <span class="n">f</span><span class="s2">&quot;whatrthose -region us-west-2 -ebname whatrthose-dev&quot;</span>
     <span class="n">stdin</span><span class="p">,</span> <span class="n">stdout</span><span class="p">,</span> <span class="n">stderr</span> <span class="o">=</span> <span class="n">ssh</span><span class="o">.</span><span class="n">exec_command</span><span class="p">(</span><span class="n">deploy_command</span><span class="p">)</span>
     <span class="nb">print</span><span class="p">(</span><span class="n">stdout</span><span class="o">.</span><span class="n">read</span><span class="p">()</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s2">&quot;utf-8&quot;</span><span class="p">))</span></div>
 
