@@ -173,7 +173,8 @@ def format_img_channels(img, C):
     return img
 
 
-def save_crop(final_predictions, save_img_path):
+def save_crop(final_predictions, save_base_path):
+    img_paths = []
     for i in range(len(final_predictions)):
         img = final_predictions[i][0]
         data = final_predictions[i][1]
@@ -183,7 +184,8 @@ def save_crop(final_predictions, save_img_path):
             y1 = data_['y1']
             x2 = data_['x2']
             y2 = data_['y2']           	   
-            file_path = os.path.join(save_img_path, data_['path'])
             cropped_img = img[y1:y2,x1:x2]
-            cv2.imwrite(file_path, cropped_img)
-
+            save_img_path = save_base_path.split('.')[0]+f'{j}.jpg'
+            img_paths.append(save_img_path)
+            cv2.imwrite(save_img_path, cropped_img)
+    return img_paths

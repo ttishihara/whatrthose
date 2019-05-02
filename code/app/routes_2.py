@@ -1,4 +1,6 @@
 import os
+import cv2
+import tensorflow as tf
 from werkzeug import secure_filename
 from wtforms import SubmitField
 from flask_wtf.file import FileField, FileRequired, FileAllowed
@@ -9,9 +11,14 @@ from .config import *
 from fastai.vision import Path, load_learner, open_image
 from flask import render_template, redirect, url_for, flash
 from flask import send_from_directory, request
-from app.models.frcnn_detector.config import Config
 from app.models.frcnn_detector import frcnn
-import pickle
+
+
+# Load Detector Model
+detector_weights = "app/models/frcnn_detector/weights/model_frcnn_vgg.hdf5"
+detector = frcnn.detector_model()
+detector.load_model(detector_weights) 
+global_graph = tf.get_default_graph() 
 
 class UploadFileForm(FlaskForm):
     """
@@ -55,31 +62,30 @@ def index():
         classifier_path = Path("app/models/cnn_classifier/")
         classifier = load_learner(classifier_path)
 
-        img = open_image(file.file_selector.data)
-
         #################################################
         # Detector Model Start 
-        # detector_weights = "app/models/frcnn_detector/weights/model_frcnn_vgg.hdf5"
-        detector_config = "app/models/frcnn_detector/weights/model_vgg_config.pickle"
+        # Detector model saves image to save_path for classfiier to read
+        img_data = cv2.imread(destination)
 
-        test = Config()
-        print(test.network)
-
-        with open(detector_config, 'rb') as f_in:
-          config = pickle.load(f_in)  
-
-        # detector = frcnn.detector_model()
-        # detector.load_model(detector_weights, detector_config) 
+        with global_graph.as_default():
+            img_paths = detector.predict(img_data, destination)
+        img_paths.append(destination)
         
-
-
-
-
-
         # Detector Model End 
         #################################################
+        classifier_outputs = []
 
-        pred_class, pred_idx, outputs = classifier.predict(img)
+        for path in img_paths:
+            img = open_image(path)
+            pred_class, pred_idx, outputs = classifier.predict(img)
+            classifier_outputs.append([max(outputs), pred_class, pred_idx, outputs])
+        classifier_outputs.sort(key = lambda x: x[0], reverse=True)
+
+        print(classifier_outputs)
+
+        pred_class = classifier_outputs[0][1]
+        pred_idx = classifier_outputs[0][2]
+        outputs = classifier_outputs[0][3]
 
         classes = ['Air_Force_1', 'Air_Max_1', 'Air_Max_90', 'Air_Jordan_1']
 
