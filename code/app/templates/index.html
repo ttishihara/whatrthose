@@ -63,59 +63,67 @@
     </div>
 
 
-    <div class="row justify-content-md-center mt-3">
-        <div class="col-md-auto">
-            <form id="upload_form" method="POST" class="drag-drop" enctype="multipart/form-data" novalidate> <!-- post : handle submission -->
-                {{ form.csrf_token }} <!--  render the form's CSRF field like normal. -->
-                <div class="custom-file">
-                    {{ form.file_selector(class_="custom-file-input") }}
-                    <label id="drag-files-label" class="custom-file-label drag-files-label" for="file_selector" data-browse="Browse">Upload image or drag it here</label>
-                </div>
-                <div class="submit-button submit-cls">
-                    {{ form.submit(class_="btn-success btn-lg btn-block") }}
-                </div>
-            </form>
-            <form id="camera_form" method="POST" enctype="multipart/form-data novalidate">
-                <div class="submit-button submit-cls">
-                    <input id="start_camera"
-                        type="button"
-                        class="btn btn-secondary btn-lg btn-block"
-                        value="Access Camera"
-                        onClick="setup_camera()">
-                </div>
-            </form>
-
-            <div id="my_result"></div>
-        </div>
-
-    </div>
-
-    <div class="row justify-content-md-center">
-        <div class="col-md-auto">
-            <div id="my_camera" style="width: 320px; height: 240px; display:none;">
+    <div class="container">
+        <div class="row justify-content-md-center mt-3">
+            <div class="col-md-auto">
+                <form id="upload_form" method="POST" class="drag-drop" enctype="multipart/form-data" novalidate> <!-- post : handle submission -->
+                    {{ form.csrf_token }} <!--  render the form's CSRF field like normal. -->
+                    <div class="custom-file">
+                        {{ form.file_selector(class_="custom-file-input") }}
+                        <label id="drag-files-label" class="custom-file-label drag-files-label" for="file_selector" data-browse="Browse">Upload image or drag it here</label>
+                    </div>
+                    <div class="submit-button submit-cls">
+                        {{ form.submit(class_="btn-success btn-lg btn-block") }}
+                    </div>
+                </form>
+                <form id="camera_form" method="POST" enctype="multipart/form-data novalidate">
+                    <div class="submit-button submit-cls">
+                        <input id="start_camera"
+                            type="button"
+                            class="btn btn-secondary btn-lg btn-block"
+                            value="Access Camera"
+                            onClick="setup_camera()">
+                    </div>
+                </form>
+                <div id="my_result"></div>
             </div>
         </div>
-    </div>
-    <div class="row justify-content-md-center">
-        <div class="col-md-auto">
-            <form>
-                <div class="btn-group justify-content-md-center mt-3" role="group" aria-label="Basic example">
-                    <input id="cancel_camera" class="btn btn-outline-danger cam-button" type="button" value="Cancel Camera" onClick="stop_camera();" style="display:none">
-                    <input id="snapshot" type="button" class="btn btn-outline-success cam-button" value="Take Snapshot" onClick="take_snapshot();" style="display:none">
-                    <input id="retake_snapshot" type="button" class="btn btn-outline-success cam-button" value="Retake Snapshot" onClick="setup_camera();" style="display:none">
-                </div>
-            </form>
-            {% set flashes = {
-            'danger':  get_flashed_messages(category_filter=['form-error']),
-            'warning': get_flashed_messages(category_filter=['form-warning']),
-            'info':    get_flashed_messages(category_filter=['form-info']),
-            'success': get_flashed_messages(category_filter=['form-success'])
-            } %}
 
-            {{ f.form_message(flashes['danger'], header='Something went wrong.', class='danger') }}
-            {{ f.form_message(flashes['warning'], header='Hmmm...', class='warning') }}
-            {{ f.form_message(flashes['info'], header='Information', class='info') }}
-            {{ f.form_message(flashes['success'], header='Success!', class='success') }}
+        <!-- Webcam -->
+        <div class="row">
+            <div class="container">
+                <div class="row justify-content-md-center col-md-auto">
+                    <div id="my_camera" style="width: 320px; height: 240px; display:none;">
+                    </div>
+                </div>
+                <div class="row justify-content-md-center col-md-auto">
+                    <form>
+                        <div class="btn-group justify-content-md-center mt-3" role="group" aria-label="Basic example">
+                            <input id="cancel_camera" class="btn btn-outline-danger cam-button" type="button" value="Cancel Camera" onClick="stop_camera();" style="display:none">
+                            <input id="snapshot" type="button" class="btn btn-outline-success cam-button" value="Take Snapshot" onClick="take_snapshot();" style="display:none">
+                            <input id="retake_snapshot" type="button" class="btn btn-outline-success cam-button" value="Retake Snapshot" onClick="setup_camera();" style="display:none">
+                        </div>
+                    </form>
+                </div>
+                <div id="webcam_submit_div" class="row justify-content-md-center col-md-auto">
+                    <form>
+                        <input id="webcam_submit_button" class="btn btn-success cam-button" value="webcam_submit" onClick="webcam_submit();" style="display:none">
+                    </form>
+                </div>
+                <div class="row justify-content-md-center col-md-auto">
+                    {% set flashes = {
+                    'danger':  get_flashed_messages(category_filter=['form-error']),
+                    'warning': get_flashed_messages(category_filter=['form-warning']),
+                    'info':    get_flashed_messages(category_filter=['form-info']),
+                    'success': get_flashed_messages(category_filter=['form-success'])
+                    } %}
+
+                    {{ f.form_message(flashes['danger'], header='Something went wrong.', class='danger') }}
+                    {{ f.form_message(flashes['warning'], header='Hmmm...', class='warning') }}
+                    {{ f.form_message(flashes['info'], header='Information', class='info') }}
+                    {{ f.form_message(flashes['success'], header='Success!', class='success') }}
+                </div>
+            </div>
         </div>
     </div>
 </div>
@@ -148,6 +156,7 @@
         $('#start_camera').show();
         $('#upload_form').show();
         $('#my_camera').html("");
+        $('#webcam_submit_button').hide();
     }
 
     function take_snapshot() {
@@ -156,7 +165,12 @@
         });
         $('#snapshot').hide();
         $('#retake_snapshot').show();
+        $('#webcam_submit_button').show();
     }
+
+    function webcam_submit() {
+
+
 
     // drag and drop pictures
     //var form = document.getElementById("drag_files");
