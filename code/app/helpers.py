@@ -92,7 +92,7 @@ def classify_photo(pic):
     :return: Prediction class, Prediction class index, Output probabilities.
     """
     img = open_image(pic)
-    classifier_path = Path("app/models/cnn_classifier/")
+    classifier_path = "app/models/cnn_classifier/"
     classifier = load_learner(classifier_path)
     pred_class, pred_idx, outputs = classifier.predict(img)
 

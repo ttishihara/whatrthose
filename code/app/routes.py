@@ -44,7 +44,10 @@ def index():
         destination_filename = save_photo(file.file_selector.data)
         pred_class, pred_idx, outputs = classify_photo(file.file_selector.data)
 
-        classes = ['Air_Force_1', 'Air_Max_1', 'Air_Max_90', 'Air_Jordan_1']
+        classes = ["Addidas_Dame_5", "Addidas_Harden", "Addidas_Superstar",
+                   "Addidas_Ultraboost",
+                   "Nike_Air_Force_1", "Nike_Air_Max_1", "Nike_Air_Max_90",
+                   "Nike_Air_Jordan_1"]
 
         # If probability of classifying the image is less than 92%, ask user to
         # resubmit a different picture.
