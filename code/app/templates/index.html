@@ -62,7 +62,6 @@
         </div>
     </div>
 
-
     <div class="container">
         <div class="row justify-content-md-center mt-3">
             <div class="col-md-auto">
@@ -106,8 +105,8 @@
                     </form>
                 </div>
                 <div id="webcam_submit_div" class="row justify-content-md-center col-md-auto">
-                    <form>
-                        <input id="webcam_submit_button" class="btn btn-success cam-button" value="webcam_submit" onClick="webcam_submit();" style="display:none">
+                    <form method="POST" enctype="multipart/form-data">
+                        <input id="webcam_submit_button" class="btn btn-success cam-button btn-lg btn-block" type="button" value="Submit" onClick="webcam_submit();" style="display:none">
                     </form>
                 </div>
                 <div class="row justify-content-md-center col-md-auto">
@@ -127,97 +126,5 @@
         </div>
     </div>
 </div>
-
-<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
-
-<script language="JavaScript">
-    function setup_camera() {
-        $('#my_camera').show();
-        Webcam.reset();
-        Webcam.attach('#my_camera');
-
-        $('#start_camera').hide();  // Hide "Access Camera" button.
-        $('#cancel_camera').show();  // Show "Cancel Camera" and "Snapshot" buttons.
-        $('#snapshot').show();
-        $('#retake_snapshot').hide();  // Hide "Retake Snapshot" button.
-        $('#upload_form').replaceWith($('#upload_form').clone());  // Reset drag-and-drop form.
-        $('#upload_form').hide();  // Hide Flask-wtf upload forms.
-        $('#uploaded_image').hide();
-    }
-
-    function stop_camera() {
-        $('#my_camera').hide();
-        Webcam.reset();
-        $('#cancel_camera').hide();
-        $('#snapshot').hide();
-        $('#retake_snapshot').hide();
-        $('#start_camera').show();
-        $('#upload_form').show();
-        $('#my_camera').html("");
-        $('#webcam_submit_button').hide();
-    }
-
-    function take_snapshot() {
-        Webcam.snap( function(data_uri) {
-            $('#my_camera').html('<img src="'+data_uri+'"/>');
-        });
-        $('#snapshot').hide();
-        $('#retake_snapshot').show();
-        $('#webcam_submit_button').show();
-    }
-
-    function webcam_submit() {
-
-
-
-    // drag and drop pictures
-    //var form = document.getElementById("drag_files");
-
-    //window.addEventListener('load', function(){
-    //    ['drag', 'dragstart', 'dragend', 'dragover', 'dragenter', 'dragleave', 'drop'].forEach(function (event) {
-    //         form.addEventListener(event, function (e) {
-    //         // preventing the unwanted behaviours
-    //                 e.preventDefault();
-    //                 e.stopPropagation();
-    //             });
-    //         });
-    //});
-
-    //['dragover', 'dragenter'].forEach(function (event) {
-    //     form.addEventListener(event, function () {
-    //         form.classList.add('dragover');
-    //     });
-    // });
-
-    //['dragleave', 'dragend', 'drop'].forEach(function (event) {
-    //    form.addEventListener(event, function () {
-    //        form.classList.remove('dragover');
-    //    });
-    //});
-
-    //var droppedFiles;
-
-    //form.addEventListener('drop', function (e) {
-    //    droppedFiles = e.dataTransfer.files; // the files that were dropped
-
-    //    if (droppedFiles.length > 0)
-    //    {
-    //        form.querySelector(".drag-files-label").innerHTML = droppedFiles[0].name;
-
-    //        // optional - submit the form on drop
-    //        var event = document.createEvent('HTMLEvents');
-    //        event.initEvent('submit', true, false);
-    //        form.dispatchEvent(event);
-    //    }
-    //});
-    </script>
-    
-    <!-- image upload JS -->
-    <script type="text/javascript" src="static/js/image-upload.js"></script>
-    
-
-
 
 {% endblock content %}

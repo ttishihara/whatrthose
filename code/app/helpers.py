@@ -5,6 +5,7 @@ import boto3
 from fastai.vision import Path, load_learner, open_image
 from flask import flash
 from werkzeug.utils import secure_filename
+from werkzeug.datastructures import FileStorage
 
 
 def flash_errors(form):
@@ -69,15 +70,21 @@ def save_photo(pic):
     generated name.
 
     :param pic: Picture of a sneakers to be classified.
-    :type pic: werkzeug.datastructures.FileStorage
+    :type pic: werkzeug.datastructures.FileStorage or bytes object
 
     :return: Filename of saved picture.
     """
-    source_filename = secure_filename(pic.filename)
-    source_extension = os.path.splitext(source_filename)[1]
-    destination_filename = uuid4().hex + source_extension
-    destination = os.path.join('app/static/img/tmp', destination_filename)
-    pic.save(destination)
+    if isinstance(pic, FileStorage):
+        source_filename = secure_filename(pic.filename)
+        source_extension = os.path.splitext(source_filename)[1]
+        destination_filename = uuid4().hex + source_extension
+        destination = os.path.join('app/static/img/tmp', destination_filename)
+        pic.save(destination)
+    elif isinstance(pic, bytes):
+        destination_filename = uuid4().hex + '.jpeg'
+        destination = os.path.join('app/static/img/tmp', destination_filename)
+        with open(destination, 'wb') as f:
+            f.write(pic)
 
     return destination_filename
 
@@ -87,7 +94,7 @@ def classify_photo(pic):
     Feeds a picture through the sneaker detection pipeline.
 
     :param pic: Picture of a sneakers to be classified.
-    :type pic: werkzeug.datastructures.FileStorage
+    :type pic: werkzeug.datastructures.FileStorage or Pathstr
 
     :return: Prediction class, Prediction class index, Output probabilities.
     """

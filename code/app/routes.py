@@ -1,5 +1,7 @@
+import base64
 import os
 from werkzeug import secure_filename
+from werkzeug.datastructures import FileStorage
 from wtforms import SubmitField
 from flask_wtf.file import FileField, FileRequired, FileAllowed
 from flask_wtf import FlaskForm
@@ -7,7 +9,7 @@ from app import application
 from .helpers import *
 from .config import *
 from flask import render_template, redirect, url_for, flash
-from flask import send_from_directory, request
+from flask import send_from_directory, request, jsonify
 
 
 class UploadFileForm(FlaskForm):
@@ -76,11 +78,16 @@ def index():
 
 @application.route('/webcam_submit', methods=['POST'])
 def webcam_submit():
-    pic = request.files['file']
-    print(pic.filename)
-    destination_filename = save_photo(pic)
+    # Base64 string of image.
+    pic_64 = request.form['file'].partition('base64,')[2]
 
-    pred_class, pred_idx, outputs = classify_photo(pic)
+    # Convert base64 string to bytes object.
+    pic = base64.b64decode(pic_64)
+
+    # Save bytes object to storage and predict.
+    destination_filename = save_photo(pic)
+    pred_class, pred_idx, outputs = classify_photo(
+        os.path.join('app/static/img/tmp', destination_filename))
 
     classes = ['Air_Force_1', 'Air_Max_1', 'Air_Max_90', 'Air_Jordan_1']
 
@@ -92,18 +99,28 @@ def webcam_submit():
             "We are unsure about What Those R. Please try another image.",
             "form-warning"
         )
-        return redirect(url_for('index'))
+        print(render_template('results.html',
+                              pred_class=str(
+                                  pred_class).replace('_', ' '),
+                              pred_prob=round(
+                                  max(outputs).item()*100, 4),
+                              img=os.path.join(
+                                  'img/tmp',
+                                  destination_filename)
+                              )
+              )
+        return jsonify({"redirect": url_for('index')})
 
     else:
-        return render_template('results.html',
-                               pred_class=str(
-                                   pred_class).replace('_', ' '),
-                               pred_prob=round(
-                                   max(outputs).item()*100, 4),
-                               img=os.path.join(
-                                   'img/tmp',
-                                   destination_filename)
-                               )
+        return jsonify({"results": 
+                        url_for('results',
+                                pred_class=str(pred_class).replace('_', ' '),
+                                pred_prob=round(max(outputs).item()*100, 4),
+                                img=os.path.join(
+                                    'img/tmp',
+                                    destination_filename)
+                                )
+                        })
 
 
 @application.route('/about', methods=['GET'])
@@ -114,7 +131,7 @@ def about():
     return render_template("about.html")
 
 
-@application.route('/results', methods=['POST'])
+@application.route('/results', methods=['GET', 'POST'])
 def results():
     """
     Results Page: Renders results.html where users see
