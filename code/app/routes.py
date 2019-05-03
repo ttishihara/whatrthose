@@ -89,8 +89,6 @@ def webcam_submit():
     pred_class, pred_idx, outputs = classify_photo(
         os.path.join('app/static/img/tmp', destination_filename))
 
-    classes = ['Air_Force_1', 'Air_Max_1', 'Air_Max_90', 'Air_Jordan_1']
-
     # If probability of classifying the image is less than 92%, ask user to
     # resubmit a different picture.
     if max(outputs) < 0.92:
@@ -99,16 +97,6 @@ def webcam_submit():
             "We are unsure about What Those R. Please try another image.",
             "form-warning"
         )
-        print(render_template('results.html',
-                              pred_class=str(
-                                  pred_class).replace('_', ' '),
-                              pred_prob=round(
-                                  max(outputs).item()*100, 4),
-                              img=os.path.join(
-                                  'img/tmp',
-                                  destination_filename)
-                              )
-              )
         return jsonify({"redirect": url_for('index')})
 
     else:
