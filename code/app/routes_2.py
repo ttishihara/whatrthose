@@ -13,22 +13,26 @@ from flask import render_template, redirect, url_for, flash
 from flask import send_from_directory, request
 from app.models.frcnn_detector import frcnn
 from app.download_weights import *
+import time
 
 # Download Weights
-print('Downloading weights...')
-weight_path = 'app/models/frcnn_detector/weights'
-weight_name = 'model_frcnn_vgg2.hdf5'
-assert os.path.isdir(weight_path), f'{weight_path} does not exist, please create'
-download_frcnn_weights(os.path.join(weight_path,weight_name))
-print('Done!')
+# print('Downloading weights...')
+# weight_path = 'app/models/frcnn_detector/weights'
+# weight_name = 'model_frcnn_vgg2.hdf5'
+# assert os.path.isdir(weight_path), f'{weight_path} does not exist, please create'
+# download_frcnn_weights(os.path.join(weight_path,weight_name))
+# print('Done!')
 
 
 # Load Detector Model
+start = time.time()
 assert os.path.isfile(os.path.join(weight_path,weight_name)), f'File was not downloaded, please retry'
 detector_weights = "app/models/frcnn_detector/weights/model_frcnn_vgg2.hdf5"
 detector = frcnn.detector_model()
 detector.load_model(detector_weights) 
 global_graph = tf.get_default_graph() 
+end = time.time()
+print(end-start)
 
 class UploadFileForm(FlaskForm):
     """
