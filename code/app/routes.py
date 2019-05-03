@@ -44,7 +44,8 @@ def index():
     if file.validate_on_submit():
         # upload_destination = s3_upload(file.file_selector, bucket, 'images')
         destination_filename = save_photo(file.file_selector.data)
-        pred_class, pred_idx, outputs = classify_photo(file.file_selector.data)
+        destination = os.path.join('app/static/img/tmp', destination_filename)
+        pred_class, pred_idx, outputs = classify_photo(file.file_selector.data, destination)
 
         classes = ["Addidas_Dame_5", "Addidas_Harden", "Addidas_Superstar",
                    "Addidas_Ultraboost",
@@ -88,8 +89,8 @@ def webcam_submit():
 
     # Save bytes object to storage and predict.
     destination_filename = save_photo(pic)
-    pred_class, pred_idx, outputs = classify_photo(
-        os.path.join('app/static/img/tmp', destination_filename))
+    destination = os.path.join('app/static/img/tmp', destination_filename)
+    pred_class, pred_idx, outputs = classify_photo(destination)
 
     # If probability of classifying the image is less than 92%, ask user to
     # resubmit a different picture.

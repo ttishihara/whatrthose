@@ -2,10 +2,14 @@ import os.path
 from uuid import uuid4
 
 import boto3
+import cv2
 from fastai.vision import Path, load_learner, open_image
 from flask import flash
+import tensorflow as tf
 from werkzeug.utils import secure_filename
 from werkzeug.datastructures import FileStorage
+
+from app.models.frcnn_detector import frcnn
 
 
 def flash_errors(form):
@@ -89,12 +93,14 @@ def save_photo(pic):
     return destination_filename
 
 
-def classify_photo(pic):
+def classify_photo(pic, destination=None):
     """
     Feeds a picture through the sneaker detection pipeline.
 
     :param pic: Picture of a sneakers to be classified.
     :type pic: werkzeug.datastructures.FileStorage or Pathstr
+    :param pic_filename: UUID4 random filename of picture.
+    :type pic_filename: str
 
     :return: Prediction class, Prediction class index, Output probabilities.
     """
@@ -102,5 +108,35 @@ def classify_photo(pic):
     classifier_path = "app/models/cnn_classifier/"
     classifier = load_learner(classifier_path)
     pred_class, pred_idx, outputs = classifier.predict(img)
+
+    if max(outputs) < 0.92:
+        detector_weights = "app/models/frcnn_detector/weights/model_frcnn_vgg2.hdf5"
+        detector = frcnn.detector_model()
+        detector.load_model(detector_weights) 
+        global_graph = tf.get_default_graph() 
+
+        if destination is not None:
+            img_data = cv2.imread(destination)
+        else:
+            img_data = cv2.imread(pic)
+
+        with global_graph.as_default():
+            img_paths = detector.predict(img_data, destination)
+        img_paths.append(destination)
+
+        classifier_outputs = []
+
+        for path in img_paths:
+            img = open_image(path)
+            pred_class, pred_idx, outputs = classifier.predict(img)
+            classifier_outputs.append([max(outputs), pred_class, pred_idx, outputs])
+        classifier_outputs.sort(key = lambda x: x[0], reverse=True)
+
+        pred_class = classifier_outputs[0][1]
+        pred_idx = classifier_outputs[0][2]
+        outputs = classifier_outputs[0][3]
+        
+        return pred_class, pred_idx, outputs
+
 
     return pred_class, pred_idx, outputs
