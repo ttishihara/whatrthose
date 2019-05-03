@@ -1,7 +1,9 @@
 <!DOCTYPE html>
 {%- extends "base.html" %}
-{% block content %}
-<head>
+
+{% block head %}
+    {{ super () }}
+
     <link href="https://fonts.googleapis.com/css?family=Raleway" rel="stylesheet">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">
     <link rel="stylesheet" href="../static/css/about-us.css">
@@ -51,7 +53,9 @@
 
 
    </style>
-</head>
+{% endblock %}
+
+{% block content %}
 
 <div class="ct-pageWrapper" id="ct-js-wrapper">
 <section class="company-heading intro-type" id="parallax-one">
