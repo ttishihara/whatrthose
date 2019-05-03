@@ -37,7 +37,17 @@ $helpText.on('webkitAnimationEnd MSAnimationEnd oAnimationEnd animationend', fun
 
 function setup_camera() {
     $('#my_camera').show();
-    Webcam.reset();
+    //Webcam.reset();
+	Webcam.set({
+		width: 1280,
+		height: 720,
+		image_format: 'jpeg',
+		jpeg_quality: 90,
+		constraints: {
+			width: { exact: 1280 },
+			height: { exact: 720 }
+		}
+	});
     Webcam.attach('#my_camera');
 
     $('#start_camera').hide();  // Hide "Access Camera" button.
