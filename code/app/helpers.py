@@ -8,9 +8,17 @@ from flask import flash
 import tensorflow as tf
 from werkzeug.utils import secure_filename
 from werkzeug.datastructures import FileStorage
+import time
 
 from app.models.frcnn_detector import frcnn
 
+start = time.time()
+detector_weights = "app/models/frcnn_detector/weights/model_frcnn_vgg2.hdf5"
+detector = frcnn.detector_model()
+detector.load_model(detector_weights) 
+global_graph = tf.get_default_graph() 
+end = time.time()
+print(end-start)
 
 def flash_errors(form):
     """
@@ -93,7 +101,7 @@ def save_photo(pic):
     return destination_filename
 
 
-def classify_photo(pic, destination=None):
+def classify_photo(pic=None, destination=None):
     """
     Feeds a picture through the sneaker detection pipeline.
 
@@ -104,16 +112,15 @@ def classify_photo(pic, destination=None):
 
     :return: Prediction class, Prediction class index, Output probabilities.
     """
-    img = open_image(pic)
+    if pic is not None:
+        img = open_image(pic)
+    else:        
+        img = open_image(destination)
     classifier_path = "app/models/cnn_classifier/"
     classifier = load_learner(classifier_path)
     pred_class, pred_idx, outputs = classifier.predict(img)
 
     if max(outputs) < 0.92:
-        detector_weights = "app/models/frcnn_detector/weights/model_frcnn_vgg2.hdf5"
-        detector = frcnn.detector_model()
-        detector.load_model(detector_weights) 
-        global_graph = tf.get_default_graph() 
 
         if destination is not None:
             img_data = cv2.imread(destination)
