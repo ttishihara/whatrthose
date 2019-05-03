@@ -34,11 +34,14 @@
           <div class="body" role="main">
             
   <h1>Source code for app.helpers</h1><div class="highlight"><pre>
-<span></span><span class="kn">from</span> <span class="nn">uuid</span> <span class="k">import</span> <span class="n">uuid4</span>
+<span></span><span class="kn">import</span> <span class="nn">os.path</span>
+<span class="kn">from</span> <span class="nn">uuid</span> <span class="k">import</span> <span class="n">uuid4</span>
+
+<span class="kn">import</span> <span class="nn">boto3</span>
+<span class="kn">from</span> <span class="nn">fastai.vision</span> <span class="k">import</span> <span class="n">Path</span><span class="p">,</span> <span class="n">load_learner</span><span class="p">,</span> <span class="n">open_image</span>
 <span class="kn">from</span> <span class="nn">flask</span> <span class="k">import</span> <span class="n">flash</span>
 <span class="kn">from</span> <span class="nn">werkzeug.utils</span> <span class="k">import</span> <span class="n">secure_filename</span>
-<span class="kn">import</span> <span class="nn">boto3</span>
-<span class="kn">import</span> <span class="nn">os.path</span>
+<span class="kn">from</span> <span class="nn">werkzeug.datastructures</span> <span class="k">import</span> <span class="n">FileStorage</span>
 
 
 <div class="viewcode-block" id="flash_errors"><a class="viewcode-back" href="../../api_reference.html#app.helpers.flash_errors">[docs]</a><span class="k">def</span> <span class="nf">flash_errors</span><span class="p">(</span><span class="n">form</span><span class="p">):</span>
@@ -95,6 +98,48 @@
         <span class="nb">print</span><span class="p">(</span><span class="n">e</span><span class="p">)</span>
 
     <span class="k">return</span> <span class="s2">&quot;s3://&quot;</span> <span class="o">+</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">bucket_name</span><span class="p">,</span> <span class="n">destination_filename</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="save_photo"><a class="viewcode-back" href="../../api_reference.html#app.helpers.save_photo">[docs]</a><span class="k">def</span> <span class="nf">save_photo</span><span class="p">(</span><span class="n">pic</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Stores a picture to the app/static/img/tmp directory with a randomly</span>
+<span class="sd">    generated name.</span>
+
+<span class="sd">    :param pic: Picture of a sneakers to be classified.</span>
+<span class="sd">    :type pic: werkzeug.datastructures.FileStorage or bytes object</span>
+
+<span class="sd">    :return: Filename of saved picture.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">pic</span><span class="p">,</span> <span class="n">FileStorage</span><span class="p">):</span>
+        <span class="n">source_filename</span> <span class="o">=</span> <span class="n">secure_filename</span><span class="p">(</span><span class="n">pic</span><span class="o">.</span><span class="n">filename</span><span class="p">)</span>
+        <span class="n">source_extension</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">splitext</span><span class="p">(</span><span class="n">source_filename</span><span class="p">)[</span><span class="mi">1</span><span class="p">]</span>
+        <span class="n">destination_filename</span> <span class="o">=</span> <span class="n">uuid4</span><span class="p">()</span><span class="o">.</span><span class="n">hex</span> <span class="o">+</span> <span class="n">source_extension</span>
+        <span class="n">destination</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="s1">&#39;app/static/img/tmp&#39;</span><span class="p">,</span> <span class="n">destination_filename</span><span class="p">)</span>
+        <span class="n">pic</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="n">destination</span><span class="p">)</span>
+    <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">pic</span><span class="p">,</span> <span class="nb">bytes</span><span class="p">):</span>
+        <span class="n">destination_filename</span> <span class="o">=</span> <span class="n">uuid4</span><span class="p">()</span><span class="o">.</span><span class="n">hex</span> <span class="o">+</span> <span class="s1">&#39;.jpeg&#39;</span>
+        <span class="n">destination</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="s1">&#39;app/static/img/tmp&#39;</span><span class="p">,</span> <span class="n">destination_filename</span><span class="p">)</span>
+        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">destination</span><span class="p">,</span> <span class="s1">&#39;wb&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+            <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">pic</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">destination_filename</span></div>
+
+
+<div class="viewcode-block" id="classify_photo"><a class="viewcode-back" href="../../api_reference.html#app.helpers.classify_photo">[docs]</a><span class="k">def</span> <span class="nf">classify_photo</span><span class="p">(</span><span class="n">pic</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Feeds a picture through the sneaker detection pipeline.</span>
+
+<span class="sd">    :param pic: Picture of a sneakers to be classified.</span>
+<span class="sd">    :type pic: werkzeug.datastructures.FileStorage or Pathstr</span>
+
+<span class="sd">    :return: Prediction class, Prediction class index, Output probabilities.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">img</span> <span class="o">=</span> <span class="n">open_image</span><span class="p">(</span><span class="n">pic</span><span class="p">)</span>
+    <span class="n">classifier_path</span> <span class="o">=</span> <span class="s2">&quot;app/models/cnn_classifier/&quot;</span>
+    <span class="n">classifier</span> <span class="o">=</span> <span class="n">load_learner</span><span class="p">(</span><span class="n">classifier_path</span><span class="p">)</span>
+    <span class="n">pred_class</span><span class="p">,</span> <span class="n">pred_idx</span><span class="p">,</span> <span class="n">outputs</span> <span class="o">=</span> <span class="n">classifier</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">img</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">pred_class</span><span class="p">,</span> <span class="n">pred_idx</span><span class="p">,</span> <span class="n">outputs</span></div>
 </pre></div>
 
           </div>

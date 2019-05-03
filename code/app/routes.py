@@ -78,6 +78,8 @@ def index():
 
 @application.route('/webcam_submit', methods=['POST'])
 def webcam_submit():
+    """Handles photo submissions via webcam with POST method."""
+
     # Base64 string of image.
     pic_64 = request.form['file'].partition('base64,')[2]
 
@@ -100,7 +102,7 @@ def webcam_submit():
         return jsonify({"redirect": url_for('index')})
 
     else:
-        return jsonify({"results": 
+        return jsonify({"results":
                         url_for('results',
                                 pred_class=str(pred_class).replace('_', ' '),
                                 pred_prob=round(max(outputs).item()*100, 4),

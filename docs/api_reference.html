@@ -143,6 +143,22 @@ to execute calculate_driving_time.py every minute.</p>
 <div class="section" id="module-app.helpers">
 <span id="helpers-module"></span><h2>Helpers Module<a class="headerlink" href="#module-app.helpers" title="Permalink to this headline">¶</a></h2>
 <dl class="function">
+<dt id="app.helpers.classify_photo">
+<code class="descclassname">app.helpers.</code><code class="descname">classify_photo</code><span class="sig-paren">(</span><em>pic</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/app/helpers.html#classify_photo"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#app.helpers.classify_photo" title="Permalink to this definition">¶</a></dt>
+<dd><p>Feeds a picture through the sneaker detection pipeline.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>pic</strong> (<em>werkzeug.datastructures.FileStorage</em><em> or </em><em>Pathstr</em>) – Picture of a sneakers to be classified.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">Prediction class, Prediction class index, Output probabilities.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
 <dt id="app.helpers.flash_errors">
 <code class="descclassname">app.helpers.</code><code class="descname">flash_errors</code><span class="sig-paren">(</span><em>form</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/app/helpers.html#flash_errors"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#app.helpers.flash_errors" title="Permalink to this definition">¶</a></dt>
 <dd><p>Flashes Flask-WTF form errors.</p>
@@ -181,6 +197,23 @@ to execute calculate_driving_time.py every minute.</p>
 </table>
 </dd></dl>
 
+<dl class="function">
+<dt id="app.helpers.save_photo">
+<code class="descclassname">app.helpers.</code><code class="descname">save_photo</code><span class="sig-paren">(</span><em>pic</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/app/helpers.html#save_photo"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#app.helpers.save_photo" title="Permalink to this definition">¶</a></dt>
+<dd><p>Stores a picture to the app/static/img/tmp directory with a randomly
+generated name.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>pic</strong> (<em>werkzeug.datastructures.FileStorage</em><em> or </em><em>bytes object</em>) – Picture of a sneakers to be classified.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">Filename of saved picture.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
 </div>
 <div class="section" id="module-app.routes">
 <span id="routes-module"></span><h2>Routes Module<a class="headerlink" href="#module-app.routes" title="Permalink to this headline">¶</a></h2>
@@ -213,6 +246,12 @@ to execute calculate_driving_time.py every minute.</p>
 <code class="descclassname">app.routes.</code><code class="descname">results</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/app/routes.html#results"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#app.routes.results" title="Permalink to this definition">¶</a></dt>
 <dd><p>Results Page: Renders results.html where users see
 the results of their search</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="app.routes.webcam_submit">
+<code class="descclassname">app.routes.</code><code class="descname">webcam_submit</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/app/routes.html#webcam_submit"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#app.routes.webcam_submit" title="Permalink to this definition">¶</a></dt>
+<dd><p>Handles photo submissions via webcam with POST method.</p>
 </dd></dl>
 
 </div>
