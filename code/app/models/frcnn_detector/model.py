@@ -1,65 +1,65 @@
 import tensorflow as tf
 from keras import backend as K
-from keras.layers import Flatten, Dense, Input, Conv2D, MaxPooling2D, Dropout, \
-    TimeDistributed
-from keras.engine import Layer, InputSpec
+# from keras.layers import Layers.Flatten, Layers.Dense, Layers.Input, Layers.Conv2D, Layers.MaxPooling2D, Layers.Dropout, \
+    # Layers.TimeDistributed
+from keras.engine import Layer, Layers.InputSpec
 import keras.layers as Layers
 import numpy as np
 
 
-def nn_base(input_tensor=None, trainable=False):
-    input_shape = (None, None, 3)
+def nn_base(Layers.Input_tensor=None, trainable=False):
+    Layers.Input_shape = (None, None, 3)
 
-    if input_tensor is None:
-        img_input = Input(shape=input_shape)
+    if Layers.Input_tensor is None:
+        img_Layers.Input = Layers.Input(shape=Layers.Input_shape)
     else:
-        if not K.is_keras_tensor(input_tensor):
-            img_input = Input(tensor=input_tensor, shape=input_shape)
+        if not K.is_keras_tensor(Layers.Input_tensor):
+            img_Layers.Input = Layers.Input(tensor=Layers.Input_tensor, shape=Layers.Input_shape)
         else:
-            img_input = input_tensor
+            img_Layers.Input = Layers.Input_tensor
 
     bn_axis = 3
 
     # Block 1
-    x = Conv2D(64, (3, 3), activation='relu', padding='same',
-               name='block1_conv1')(img_input)
-    x = Conv2D(64, (3, 3), activation='relu', padding='same',
+    x = Layers.Conv2D(64, (3, 3), activation='relu', padding='same',
+               name='block1_conv1')(img_Layers.Input)
+    x = Layers.Conv2D(64, (3, 3), activation='relu', padding='same',
                name='block1_conv2')(x)
-    x = MaxPooling2D((2, 2), strides=(2, 2), name='block1_pool')(x)
+    x = Layers.MaxPooling2D((2, 2), strides=(2, 2), name='block1_pool')(x)
 
     # Block 2
-    x = Conv2D(128, (3, 3), activation='relu', padding='same',
+    x = Layers.Conv2D(128, (3, 3), activation='relu', padding='same',
                name='block2_conv1')(x)
-    x = Conv2D(128, (3, 3), activation='relu', padding='same',
+    x = Layers.Conv2D(128, (3, 3), activation='relu', padding='same',
                name='block2_conv2')(x)
-    x = MaxPooling2D((2, 2), strides=(2, 2), name='block2_pool')(x)
+    x = Layers.MaxPooling2D((2, 2), strides=(2, 2), name='block2_pool')(x)
 
     # Block 3
-    x = Conv2D(256, (3, 3), activation='relu', padding='same',
+    x = Layers.Conv2D(256, (3, 3), activation='relu', padding='same',
                name='block3_conv1')(x)
-    x = Conv2D(256, (3, 3), activation='relu', padding='same',
+    x = Layers.Conv2D(256, (3, 3), activation='relu', padding='same',
                name='block3_conv2')(x)
-    x = Conv2D(256, (3, 3), activation='relu', padding='same',
+    x = Layers.Conv2D(256, (3, 3), activation='relu', padding='same',
                name='block3_conv3')(x)
-    x = MaxPooling2D((2, 2), strides=(2, 2), name='block3_pool')(x)
+    x = Layers.MaxPooling2D((2, 2), strides=(2, 2), name='block3_pool')(x)
 
     # Block 4
-    x = Conv2D(512, (3, 3), activation='relu', padding='same',
+    x = Layers.Conv2D(512, (3, 3), activation='relu', padding='same',
                name='block4_conv1')(x)
-    x = Conv2D(512, (3, 3), activation='relu', padding='same',
+    x = Layers.Conv2D(512, (3, 3), activation='relu', padding='same',
                name='block4_conv2')(x)
-    x = Conv2D(512, (3, 3), activation='relu', padding='same',
+    x = Layers.Conv2D(512, (3, 3), activation='relu', padding='same',
                name='block4_conv3')(x)
-    x = MaxPooling2D((2, 2), strides=(2, 2), name='block4_pool')(x)
+    x = Layers.MaxPooling2D((2, 2), strides=(2, 2), name='block4_pool')(x)
 
     # Block 5
-    x = Conv2D(512, (3, 3), activation='relu', padding='same',
+    x = Layers.Conv2D(512, (3, 3), activation='relu', padding='same',
                name='block5_conv1')(x)
-    x = Conv2D(512, (3, 3), activation='relu', padding='same',
+    x = Layers.Conv2D(512, (3, 3), activation='relu', padding='same',
                name='block5_conv2')(x)
-    x = Conv2D(512, (3, 3), activation='relu', padding='same',
+    x = Layers.Conv2D(512, (3, 3), activation='relu', padding='same',
                name='block5_conv3')(x)
-    # x = MaxPooling2D((2, 2), strides=(2, 2), name='block5_pool')(x)
+    # x = Layers.MaxPooling2D((2, 2), strides=(2, 2), name='block5_pool')(x)
 
     return x
 
@@ -84,19 +84,19 @@ def rpn_layer(base_layers, num_anchors):
         x_regr: bboxes regression
         base_layers: vgg in here
     """
-    x = Conv2D(512, (3, 3), padding='same', activation='relu',
+    x = Layers.Conv2D(512, (3, 3), padding='same', activation='relu',
                kernel_initializer='normal', name='rpn_conv1')(base_layers)
 
-    x_class = Conv2D(num_anchors, (1, 1), activation='sigmoid',
+    x_class = Layers.Conv2D(num_anchors, (1, 1), activation='sigmoid',
                      kernel_initializer='uniform', name='rpn_out_class')(x)
-    x_regr = Conv2D(num_anchors * 4, (1, 1), activation='linear',
+    x_regr = Layers.Conv2D(num_anchors * 4, (1, 1), activation='linear',
                     kernel_initializer='zero', name='rpn_out_regress')(x)
 
     return [x_class, x_regr, base_layers]
 
 
 class RoiPoolingConv(Layer):
-    '''ROI pooling layer for 2D inputs.
+    '''ROI pooling layer for 2D Layers.Inputs.
     See Spatial Pyramid Pooling in Deep Convolutional Networks for Visual
     Recognition, K. He, X. Zhang, S. Ren, J. Sun
     # Arguments
@@ -104,7 +104,7 @@ class RoiPoolingConv(Layer):
             Size of pooling region to use. pool_size = 7 will result in a 7x7
             region.
         num_rois: number of regions of interest to be used
-    # Input shape
+    # Layers.Input shape
         list of two 4D tensors [X_img,X_roi] with shape:
         X_img:
         `(1, rows, cols, channels)`
@@ -121,10 +121,10 @@ class RoiPoolingConv(Layer):
 
         super(RoiPoolingConv, self).__init__(**kwargs)
 
-    def build(self, input_shape):
-        self.nb_channels = input_shape[0][3]
+    def build(self, Layers.Input_shape):
+        self.nb_channels = Layers.Input_shape[0][3]
 
-    def compute_output_shape(self, input_shape):
+    def compute_output_shape(self, Layers.Input_shape):
         return None, self.num_rois, self.pool_size, self.pool_size,\
                self.nb_channels
 
@@ -137,7 +137,7 @@ class RoiPoolingConv(Layer):
         # x[1] is roi with shape (num_rois,4) with ordering (x,y,w,h)
         rois = x[1]
 
-        input_shape = K.shape(img)
+        Layers.Input_shape = K.shape(img)
 
         outputs = []
 
@@ -177,12 +177,12 @@ class RoiPoolingConv(Layer):
         return dict(list(base_config.items()) + list(config.items()))
 
 
-def classifier_layer(base_layers, input_rois, num_rois, nb_classes=4):
+def classifier_layer(base_layers, Layers.Input_rois, num_rois, nb_classes=4):
     """Create a classifier layer
     
     Args:
         base_layers: vgg
-        input_rois: `(1,num_rois,4)` list of rois, with ordering (x,y,w,h)
+        Layers.Input_rois: `(1,num_rois,4)` list of rois, with ordering (x,y,w,h)
         num_rois: number of rois to be processed in one time (4 in here)
 
     Returns:
@@ -191,33 +191,33 @@ def classifier_layer(base_layers, input_rois, num_rois, nb_classes=4):
         out_regr: regression layer output
     """
 
-    input_shape = (num_rois, 7, 7, 512)
+    Layers.Input_shape = (num_rois, 7, 7, 512)
 
     pooling_regions = 7
 
     # out_roi_pool.shape = (1, num_rois, channels, pool_size, pool_size)
     # num_rois (4) 7x7 roi pooling
     out_roi_pool = RoiPoolingConv(pooling_regions, num_rois)(
-        [base_layers, input_rois])
+        [base_layers, Layers.Input_rois])
 
-    # Flatten the convlutional layer and connected to 2 FC and 2 dropout
-    out = TimeDistributed(Flatten(name='flatten'))(out_roi_pool)
-    out = TimeDistributed(Dense(4096, activation='relu', name='fc1'))(out)
-    out = TimeDistributed(Dropout(0.5))(out)
-    out = TimeDistributed(Dense(4096, activation='relu', name='fc2'))(out)
-    out = TimeDistributed(Dropout(0.5))(out)
+    # Layers.MaxPooling2D the convlutional layer and connected to 2 FC and 2 Layers.Dropout
+    out = Layers.TimeDistributed(Layers.Flatten(name='Layers.Flatten'))(out_roi_pool)
+    out = Layers.TimeDistributed(Layers.Dense(4096, activation='relu', name='fc1'))(out)
+    out = Layers.TimeDistributed(Layers.Dropout(0.5))(out)
+    out = Layers.TimeDistributed(Layers.Dense(4096, activation='relu', name='fc2'))(out)
+    out = Layers.TimeDistributed(Layers.Dropout(0.5))(out)
 
     # There are two output layer
     # out_class: softmax acivation function for classify the class name of the
     #           object
     # out_regr: linear activation function for bboxes coordinates regression
-    out_class = TimeDistributed(
-        Dense(nb_classes, activation='softmax', kernel_initializer='zero'),
-        name='dense_class_{}'.format(nb_classes))(out)
+    out_class = Layers.TimeDistributed(
+        Layers.Dense(nb_classes, activation='softmax', kernel_initializer='zero'),
+        name='Layers.Dense_class_{}'.format(nb_classes))(out)
     # note: no regression target for bg class
-    out_regr = TimeDistributed(Dense(4 * (nb_classes - 1), activation='linear',
+    out_regr = Layers.TimeDistributed(Layers.Dense(4 * (nb_classes - 1), activation='linear',
                                      kernel_initializer='zero'),
-                               name='dense_regress_{}'.format(nb_classes))(out)
+                               name='Layers.Dense_regress_{}'.format(nb_classes))(out)
 
     return [out_class, out_regr]
 
