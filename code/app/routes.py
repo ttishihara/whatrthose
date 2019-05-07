@@ -45,7 +45,8 @@ def index():
         # upload_destination = s3_upload(file.file_selector, bucket, 'images')
         destination_filename = save_photo(file.file_selector.data)
         destination = os.path.join('app/static/img/tmp', destination_filename)
-        pred_class, pred_idx, outputs = classify_photo(pic=file.file_selector.data, destination=destination)
+        pred_class, pred_idx, outputs = classify_photo(
+            pic=file.file_selector.data, destination=destination)
 
         classes = ["Addidas_Dame_5", "Addidas_Harden", "Addidas_Superstar",
                    "Addidas_Ultraboost",
@@ -67,14 +68,14 @@ def index():
                                    pred_class=str(
                                        pred_class).replace('_', ' '),
                                    pred_prob=round(
-                                       max(outputs).item()*100, 4),
+                                       max(outputs).item() * 100, 4),
                                    img=os.path.join(
                                        'img/tmp',
                                        destination_filename)
                                    )
     else:
         flash_errors(file)
-    return render_template("index.html",  form=file)
+    return render_template("index.html", form=file)
 
 
 @application.route('/webcam_submit', methods=['POST'])
@@ -104,13 +105,15 @@ def webcam_submit():
 
     else:
         return jsonify({"results":
-                        url_for('results',
-                                pred_class=str(pred_class).replace('_', ' '),
-                                pred_prob=round(max(outputs).item()*100, 4),
-                                img=os.path.join(
-                                    'img/tmp',
-                                    destination_filename)
-                                )
+                            url_for('results',
+                                    pred_class=str(pred_class).replace('_',
+                                                                       ' '),
+                                    pred_prob=round(max(outputs).item() * 100,
+                                                    4),
+                                    img=os.path.join(
+                                        'img/tmp',
+                                        destination_filename)
+                                    )
                         })
 
 
