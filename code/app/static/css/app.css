@@ -64,6 +64,7 @@ input[type=button].btn-block, input[type=reset].btn-block, input[type=submit].bt
     color: white;
     font-weight: 300;
     line-height:1.2;
+    margin-bottom: 16%;
 }
 
 .h2 h2 {
