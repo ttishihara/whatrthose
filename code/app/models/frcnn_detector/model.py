@@ -2,27 +2,27 @@ import tensorflow as tf
 from keras import backend as K
 # from keras.layers import Layers.Flatten, Layers.Dense, Layers.Input, Layers.Conv2D, Layers.MaxPooling2D, Layers.Dropout, \
     # Layers.TimeDistributed
-from keras.engine import Layer, Layers.InputSpec
+from keras.engine import Layer, InputSpec
 import keras.layers as Layers
 import numpy as np
 
 
-def nn_base(Layers.Input_tensor=None, trainable=False):
-    Layers.Input_shape = (None, None, 3)
+def nn_base(input_tensor=None, trainable=False):
+    input_shape = (None, None, 3)
 
-    if Layers.Input_tensor is None:
-        img_Layers.Input = Layers.Input(shape=Layers.Input_shape)
+    if input_tensor is None:
+        img_input = Layers.Input(shape=input_shape)
     else:
-        if not K.is_keras_tensor(Layers.Input_tensor):
-            img_Layers.Input = Layers.Input(tensor=Layers.Input_tensor, shape=Layers.Input_shape)
+        if not K.is_keras_tensor(input_tensor):
+            img_input = Layers.Input(tensor=input_tensor, shape=input_shape)
         else:
-            img_Layers.Input = Layers.Input_tensor
+            img_input = input_tensor
 
     bn_axis = 3
 
     # Block 1
     x = Layers.Conv2D(64, (3, 3), activation='relu', padding='same',
-               name='block1_conv1')(img_Layers.Input)
+               name='block1_conv1')(img_input)
     x = Layers.Conv2D(64, (3, 3), activation='relu', padding='same',
                name='block1_conv2')(x)
     x = Layers.MaxPooling2D((2, 2), strides=(2, 2), name='block1_pool')(x)
@@ -121,10 +121,10 @@ class RoiPoolingConv(Layer):
 
         super(RoiPoolingConv, self).__init__(**kwargs)
 
-    def build(self, Layers.Input_shape):
-        self.nb_channels = Layers.Input_shape[0][3]
+    def build(self, input_shape):
+        self.nb_channels = input_shape[0][3]
 
-    def compute_output_shape(self, Layers.Input_shape):
+    def compute_output_shape(self, input_shape):
         return None, self.num_rois, self.pool_size, self.pool_size,\
                self.nb_channels
 
@@ -137,7 +137,7 @@ class RoiPoolingConv(Layer):
         # x[1] is roi with shape (num_rois,4) with ordering (x,y,w,h)
         rois = x[1]
 
-        Layers.Input_shape = K.shape(img)
+        input_shape = K.shape(img)
 
         outputs = []
 
@@ -177,7 +177,7 @@ class RoiPoolingConv(Layer):
         return dict(list(base_config.items()) + list(config.items()))
 
 
-def classifier_layer(base_layers, Layers.Input_rois, num_rois, nb_classes=4):
+def classifier_layer(base_layers, input_rois, num_rois, nb_classes=4):
     """Create a classifier layer
     
     Args:
@@ -191,14 +191,14 @@ def classifier_layer(base_layers, Layers.Input_rois, num_rois, nb_classes=4):
         out_regr: regression layer output
     """
 
-    Layers.Input_shape = (num_rois, 7, 7, 512)
+    input_shape = (num_rois, 7, 7, 512)
 
     pooling_regions = 7
 
     # out_roi_pool.shape = (1, num_rois, channels, pool_size, pool_size)
     # num_rois (4) 7x7 roi pooling
     out_roi_pool = RoiPoolingConv(pooling_regions, num_rois)(
-        [base_layers, Layers.Input_rois])
+        [base_layers, input_rois])
 
     # Layers.MaxPooling2D the convlutional layer and connected to 2 FC and 2 Layers.Dropout
     out = Layers.TimeDistributed(Layers.Flatten(name='Layers.Flatten'))(out_roi_pool)
