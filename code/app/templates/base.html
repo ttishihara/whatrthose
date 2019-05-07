@@ -10,7 +10,7 @@
 		  	gtag('config', 'UA-139122771-1');
 		</script>
 
-    <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
+        <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
         <link rel="shortcut icon" href="{{ url_for('static',filename='favicon.ico') }}">
         <!-- Animate.css -->
         <link rel="stylesheet" href="{{ url_for('static',filename='css/animate.css') }}">
@@ -23,29 +23,11 @@
         <!-- Owl Carousel: for auto navi and autoplay  -->
         <link rel="stylesheet" href="{{ url_for('static', filename='css/owl.carousel.min.css') }}">
         <link rel="stylesheet" href="{{ url_for('static', filename='css/owl.theme.default.min.css') }}">
-
         <!-- Theme style  -->
         <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
-
         <!-- WhatRThose styles -->
         <link rel="stylesheet" href="{{ url_for('static', filename='css/app.css') }}">
 
-        <!-- Javascript files (.js) *ORDER MATTERS* -->
-        <!--jQuery-->
-        <script src="{{ url_for('static', filename='js/jquery.min.js') }}"></script>
-        <!-- Bootstrap -->
-        <script src="{{ url_for('static', filename='js/bootstrap.min.js') }}"></script>
-        <!-- Waypointer -->
-        <script src="{{ url_for('static', filename='js/jquery.waypoints.min.js') }}"></script>
-        <!-- Flexslider -->
-        <script src="{{ url_for('static', filename='js/jquery.flexslider-min.js') }}"></script>
-        <!-- MAIN JS -->
-        <script src="{{ url_for('static', filename='js/main.js') }}"></script>
-        <!-- WhatRThose JS -->
-        <script src="{{ url_for('static', filename='js/app.js') }}"></script>
-        <!--camera -->
-        <script src="{{ url_for('static', filename='js/webcam.min.js') }}"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
         {% endblock %}
     </head>
 
@@ -70,10 +52,6 @@
             </div>
         </div>
     </header>
-
-    <div class="container">
-
-    </div>
 
     <!-- <aside id="fh5co-hero" class="js-fullheight">
         <div class="flexslider js-fullheight">
@@ -154,5 +132,27 @@
         </div>
     </footer>
     </div>
+
+    {% block scripts %}
+        <!-- Javascript files (.js) *ORDER MATTERS* -->
+        <!--jQuery-->
+        <script src="{{ url_for('static', filename='js/jquery.min.js') }}"></script>
+        <!-- Waypointer -->
+        <script src="{{ url_for('static', filename='js/jquery.waypoints.min.js') }}"></script>
+        <!-- Flexslider -->
+        <script src="{{ url_for('static', filename='js/jquery.flexslider-min.js') }}"></script>
+        <!-- Bootstrap -->
+        <script src="{{ url_for('static', filename='js/bootstrap.min.js') }}"></script>
+        <!-- Owl Carousel -->
+        <script src="{{ url_for('static', filename='js/owl.carousel.min.js') }}"></script>
+        <!-- MAIN JS -->
+        <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+        <!-- WhatRThose JS -->
+        <script src="{{ url_for('static', filename='js/app.js') }}"></script>
+        <!--camera -->
+        <script src="{{ url_for('static', filename='js/webcam.min.js') }}"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    {% endblock scripts %}
+
     </body>
 </html>

@@ -1,37 +1,33 @@
-var $form = $("#upload_form");
-var $file = $("#file_selector");
-var $uploadedImg = $("#uploaded_image");
-var $helpText = $("#helpText");
-
 function readURL(input) {
   if (input.files && input.files[0]) {
     var reader = new FileReader();
 
     reader.onload = function (e) {
-      $uploadedImg.html('<img src="'+e.target.result+'"/>');
-      $uploadedImg.show();
+      $("#uploaded_image").html('<img src="'+e.target.result+'"/>');
+      $("#uploaded_image").show();
       $("#drag-files-label").html(input.files[0].name);
-      //$uploadedImg.css('background-image', 'url('+e.target.result+')');
-      //$uploadedImg.css('display', 'table-cell');
-    };
+      //$("#uploaded_image").css('background-image', 'url('+e.target.result+')');
+      //$("#uploaded_image").css('display', 'table-cell');
+    }
 
     reader.readAsDataURL(input.files[0]);
   }
 }
 
-$file.on('change', function(){
+$('#file_selector').on('change', function(){
+  console.log("HERE");
   readURL(this);
-  $form.addClass('loading');
+  $('#upload_form').addClass('loading');
 });
 
-$uploadedImg.on('webkitAnimationEnd MSAnimationEnd oAnimationEnd animationend', function(){
-  $form.addClass('loaded');
+$('#uploaded_image').on('webkitAnimationEnd MSAnimationEnd oAnimationEnd animationend', function(){
+  $("#upload_form").addClass('loaded');
 });
 
-$helpText.on('webkitAnimationEnd MSAnimationEnd oAnimationEnd animationend', function(){
+$("helpText").on('webkitAnimationEnd MSAnimationEnd oAnimationEnd animationend', function(){
   setTimeout(function() {
-    $file.val('');
-    $form.removeClass('loading').removeClass('loaded');
+    $('#file_selector').val('');
+    $('#upload_form').removeClass('loading').removeClass('loaded');
   }, 5000);
 });
 
@@ -69,6 +65,7 @@ function stop_camera() {
     $('#upload_form').show();
     $('#my_camera').html("");
     $('#webcam_submit_button').hide();
+    $('#uploaded_image').show();
 }
 
 function take_snapshot() {

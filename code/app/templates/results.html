@@ -74,25 +74,28 @@
 </section>
 
 
-<div class="row text-center text-lg-left ct-u-paddingBoth100 paddingBothHalf noTopMobilePadding">
-    <a href="#" class="d-block mb-4 h-100">
-        <img class="img-fluid img-thumbnail" src="{{ url_for('static', filename=img) }}" alt="">
-    </a>
-    <div class="footer">
-        <h3>{{ pred_class }} ({{ pred_prob }}%)</h3>
-        <span class="glyphicon glyphicon-thumbs-up" style="color:green"></span>
-        <span class="glyphicon glyphicon-thumbs-down" style="color:red"></span>
+<div class="container">
+    <div class="row justify-content-md-center mt-3 text-center text-lg-left ct-u-paddingBoth100 paddingBothHalf noTopMobilePadding">
+        <div id="result_image">
+            <img class="img-fluid img-thumbnail" src="{{ url_for('static', filename=img) }}" alt="">
+        </div>
         <br>
-        <h4>
-            <a href="https://lmgtfy.com?q=Where+to+buy+{{pred_class | replace('_', '+')}}">
-                Where to buy <span class="glyphicon glyphicon-shopping-cart"></span>
-            </a>
-        </h4>
-        <br>
-        <div id="retry_div" class="row justify-content-md-center col-md-auto">
-            <form>
-                <input id="retry_btn" class="btn btn-info btn-lg" type="button" value="Try Again" onClick="window.location = '/';">
-            </form>
+        <div class="footer">
+            <h3>{{ pred_class }} ({{ pred_prob }}%)</h3>
+            <span class="glyphicon glyphicon-thumbs-up" style="color:green"></span>
+            <span class="glyphicon glyphicon-thumbs-down" style="color:red"></span>
+            <br>
+            <h4>
+                <a href="https://lmgtfy.com?q=Where+to+buy+{{pred_class | replace('_', '+')}}">
+                    Where to buy <span class="glyphicon glyphicon-shopping-cart"></span>
+                </a>
+            </h4>
+            <br>
+            <div id="retry_div" class="row justify-content-md-center col-md-auto">
+                <form>
+                    <input id="retry_btn" class="btn btn-info btn-lg" type="button" value="Try Again" onClick="window.location = '/';">
+                </form>
+            </div>
         </div>
     </div>
 </div>

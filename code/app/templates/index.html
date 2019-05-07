@@ -22,7 +22,7 @@
         </ol>
         <div class="carousel-inner" role="listbox">
           <!-- Slide One - Set the background image for this slide in the line below -->
-          <div class="carousel-item active" style="background-image: url({{ url_for('static', filename='img/slide_1.jpg')}}" alt="First slide">
+          <div class="carousel-item item active" style="background-image: url({{ url_for('static', filename='img/slide_1.jpg')}}" alt="First slide">
             <div class="carousel-caption d-none d-md-block">
                 <div class="slider-text-inner">
                         <h2 class="display-4">SHOES ARE BORING <br> WEAR SNEAKERS</h2>
@@ -30,13 +30,13 @@
             </div>
           </div>
           <!-- Slide Two - Set the background image for this slide in the line below -->
-          <div class="carousel-item" style="background-image: url({{ url_for('static', filename='img/slide_2.jpg')}})" alt="Second slide">
+          <div class="carousel-item item" style="background-image: url({{ url_for('static', filename='img/slide_2.jpg')}})" alt="Second slide">
             <div class="carousel-caption d-none d-md-block">
               <h2 class="display-4">Good Sneakers Take You To Good Places</h2>
             </div>
           </div>
             <!-- Slide Three - Set the background image for this slide in the line below -->
-            <div class="carousel-item" style="background-image: url({{ url_for('static', filename='img/slide_3.jpg')}})" alt="Third slide">
+            <div class="carousel-item item" style="background-image: url({{ url_for('static', filename='img/slide_3.jpg')}})" alt="Third slide">
             <div class="carousel-caption d-none d-md-block">
               <h2 class="display-4">Shoes Speak Louder Than Words</h2>
             </div>
@@ -69,11 +69,13 @@
                             at the bottom of the shoe 😉
                         </li>
                     </ul>
-            <div id="uploaded_image"></div>
         </div>
     </div>
 
     <div class="container">
+        <div class="row justify-content-md-center mt-3">
+            <div id="uploaded_image"></div>
+        </div>
         <div class="row justify-content-md-center mt-3">
             <div class="col-md-auto">
                 <form id="upload_form" method="POST" class="drag-drop" enctype="multipart/form-data" novalidate> <!-- post : handle submission -->
