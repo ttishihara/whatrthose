@@ -1,6 +1,7 @@
 Requirements
 ============
-Below list the requirements needed to run the application.
+In order to deploy this product, it requires a remote computer setup with Amazon Web Services and a local computer.
+Follow the steps below before starting the tutorial.
 
 The full Github repository is located at `here <https://github.com/MSDS698/whatrthose>`_ where all necessary files for
 this application resides.
@@ -25,7 +26,7 @@ The process for deployment is detailed in the tutorial.  Here is what is require
   * git_repo_name: Name of the git repo of the application
   * git_user_id: User ID configured in the EC2 mentioned above
 
-Local Machine Setup
+Local Computer Setup
 -------------------
 1. Clone the What R Those `GitHub repository <https://github.com/MSDS698/whatrthose>`_ to your local machine, using
 :code:`git clone` on the terminal.

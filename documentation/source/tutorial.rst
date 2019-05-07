@@ -1,7 +1,7 @@
 Setup Tutorial
 ==============
 The following will walk through the setup, deployment, and execution of the application on a remote server. These steps
-are performed after the requirements have been met.
+are performed **after** the requirements have been met.
 
 Deployment
 ----------
