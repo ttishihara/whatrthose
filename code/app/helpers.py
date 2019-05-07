@@ -5,20 +5,20 @@ import boto3
 import cv2
 from fastai.vision import Path, load_learner, open_image
 from flask import flash
-import tensorflow as tf
+# import tensorflow as tf
 from werkzeug.utils import secure_filename
 from werkzeug.datastructures import FileStorage
 import time
 
-from app.models.frcnn_detector import frcnn
+# from app.models.frcnn_detector import frcnn
 
-start = time.time()
-detector_weights = "app/models/frcnn_detector/weights/model_frcnn_vgg2.hdf5"
-detector = frcnn.detector_model()
-detector.load_model(detector_weights)
-global_graph = tf.get_default_graph()
-end = time.time()
-print(end - start)
+# start = time.time()
+# detector_weights = "app/models/frcnn_detector/weights/model_frcnn_vgg2.hdf5"
+# detector = frcnn.detector_model()
+# detector.load_model(detector_weights)
+# global_graph = tf.get_default_graph()
+# end = time.time()
+# print(end - start)
 
 
 def flash_errors(form):
@@ -123,27 +123,27 @@ def classify_photo(pic=None, destination=None):
 
     if max(outputs) < 0.92:
 
-        if destination is not None:
-            img_data = cv2.imread(destination)
-        else:
-            img_data = cv2.imread(pic)
+        # if destination is not None:
+        #     img_data = cv2.imread(destination)
+        # else:
+        #     img_data = cv2.imread(pic)
 
-        with global_graph.as_default():
-            img_paths = detector.predict(img_data, destination)
-        img_paths.append(destination)
+        # with global_graph.as_default():
+        #     img_paths = detector.predict(img_data, destination)
+        # img_paths.append(destination)
 
-        classifier_outputs = []
+        # classifier_outputs = []
 
-        for path in img_paths:
-            img = open_image(path)
-            pred_class, pred_idx, outputs = classifier.predict(img)
-            classifier_outputs.append(
-                [max(outputs), pred_class, pred_idx, outputs])
-        classifier_outputs.sort(key=lambda x: x[0], reverse=True)
+        # for path in img_paths:
+        #     img = open_image(path)
+        #     pred_class, pred_idx, outputs = classifier.predict(img)
+        #     classifier_outputs.append(
+        #         [max(outputs), pred_class, pred_idx, outputs])
+        # classifier_outputs.sort(key=lambda x: x[0], reverse=True)
 
-        pred_class = classifier_outputs[0][1]
-        pred_idx = classifier_outputs[0][2]
-        outputs = classifier_outputs[0][3]
+        # pred_class = classifier_outputs[0][1]
+        # pred_idx = classifier_outputs[0][2]
+        # outputs = classifier_outputs[0][3]
 
         return pred_class, pred_idx, outputs
 
