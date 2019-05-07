@@ -141,7 +141,8 @@ form {
 #uploaded_image {
     display: none;
     width: 500px;
-    height: 500px;
+    max-height: 500px;
+    margin: auto;
 }
 
 #result_image {
