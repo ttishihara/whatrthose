@@ -6,6 +6,8 @@
 {% block head %}
     {{ super() }}
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <!-- icons -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css" integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">
 
      <!-- Theme style  -->
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
@@ -60,15 +62,18 @@
             <div class="row">
                 <div class="col-md-8 center-block text-center fh5co-heading animate-box">
                     <h2>Upload Your Sneaker Image</h2>
-                    <h3>Tips for the Best Prediction</h3>
-                    <ul>
-                        <li>Make sure to have good lighting to wear it's not too dark but not a lot of glare.</li>
-                        <li>Have a solid color background.</li>
-                        <li>Show just the shoe if possible without other objects. Having feet in them is okay.</li>
-                        <li>The sides, top, or an angle of the two would be best. Nobody wants to see the gum
-                            at the bottom of the shoe 😉
-                        </li>
-                    </ul>
+
+                    <div class="alert alert-secondary" role="alert">
+                        <h3 class="font-weight-bold" style="margin-bottom: 10px; margin-top: 10px;">Tips for the Best Prediction</h3>
+                        <hr>
+                            <ol class="fa-ul">
+                              <li class="text-left" style="margin-bottom: 3px;"><span class="fa-li"><i class="fas fa-check-square"></i></span> Make sure to have good lighting to wear it's not too dark but not a lot of glare.</li>
+                              <li class="text-left" style="margin-bottom: 3px;"><span class="fa-li"><i class="fas fa-check-square"></i></span> Have a solid color background.</li>
+                              <li class="text-left" style="margin-bottom: 3px;"><span class="fa-li"><i class="fas fa-check-square"></i></span> Show just the shoe if possible without other objects. Having feet in them is okay.</li>
+                              <li class="text-left" style="margin-bottom: 3px;"><span class="fa-li"><i class="fas fa-check-square"></i></span> The sides, top, or an angle of the two would be best. Nobody wants to see the gum at the bottom of the shoe 😉</li>
+                            </ol>
+                    </div>
+                    
         </div>
     </div>
 
