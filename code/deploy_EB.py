@@ -74,21 +74,13 @@ def deploy(ssh):
     :param ssh: SSH object
     :return: None
     """
-
+    stdin, stdout, stderr = ssh.exec_command("cd")
     stdin, stdout, stderr = ssh.exec_command("conda activate whatrthose")
     # print(stderr.read())
-    stdin, stdout, stderr = ssh.exec_command("conda activate whatrthose;which flask")
-    flask_dir = stdout.read().decode("utf-8").strip()
-    stdin, stdout, stderr = ssh.exec_command("conda activate whatrthose;which python")
-    python_dir = stdout.read().decode("utf-8").strip()
-    deploy_command = f"cd ~/whatrthose/code;nohup {python_dir} {flask_dir}"\
-                      " run --host 0.0.0.0 --port 5000 >/dev/null 2>&1 &"
-    print(deploy_command)
-    #transport = ssh.get_transport()
-    #channel = transport.open_session()
-    #channel.exec_command(deploy_command)
+    deploy_command = f"bash ~/{git_repo_name}/code/deploy.sh -bucket " \
+        f"whatrthose -region us-west-2 -ebname whatrthose-dev"
     stdin, stdout, stderr = ssh.exec_command(deploy_command)
-    #print(stderr.read().decode("utf-8"))
+    print(stdout.read().decode("utf-8"))
 
 
 def main():

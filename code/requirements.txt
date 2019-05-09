@@ -9,7 +9,11 @@ fastai==1.0.51
 Flask==1.0.2
 Flask-WTF==0.14.2
 Jinja2==2.10
+keras==2.2.4
 MarkupSafe==1.1.1
 nvidia-ml-py3==7.352.0
+opencv-python==4.1.0.25
+requests==2.20.1
+tensorflow==1.13.1
 Werkzeug==0.15.1
 WTForms==2.2.1
