@@ -64,6 +64,7 @@ input[type=button].btn-block, input[type=reset].btn-block, input[type=submit].bt
     color: white;
     font-weight: 300;
     line-height:1.2;
+    margin-bottom: 16%;
 }
 
 .h2 h2 {
@@ -141,7 +142,15 @@ form {
 #uploaded_image {
     display: none;
     width: 500px;
-    height: 500px;
+    max-height: 500px;
+    margin: auto;
+}
+
+#result_image {
+    width: 500px;
+    max-height: 500px;
+    display: block;
+    margin: auto;
 }
 
 img {

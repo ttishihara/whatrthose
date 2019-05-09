@@ -1,6 +1,16 @@
 <html>
    <head>
-    <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
+       {% block head %}
+		<!-- Global site tag (gtag.js) - Google Analytics -->
+		<script async src="https://www.googletagmanager.com/gtag/js?id=UA-139122771-1"></script>
+		<script>
+			window.dataLayer = window.dataLayer || [];
+		  	function gtag(){dataLayer.push(arguments);}
+		  	gtag('js', new Date());
+		  	gtag('config', 'UA-139122771-1');
+		</script>
+
+        <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
         <link rel="shortcut icon" href="{{ url_for('static',filename='favicon.ico') }}">
         <!-- Animate.css -->
         <link rel="stylesheet" href="{{ url_for('static',filename='css/animate.css') }}">
@@ -10,32 +20,13 @@
         <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.css') }}">
         <!-- Flexslider  -->
         <link rel="stylesheet" href="{{ url_for('static', filename='css/flexslider.css') }}">
-        <!-- Owl Carousel: for auto navi and autoplay  -->
-        <link rel="stylesheet" href="{{ url_for('static', filename='css/owl.carousel.min.css') }}">
-        <link rel="stylesheet" href="{{ url_for('static', filename='css/owl.theme.default.min.css') }}">
-
         <!-- Theme style  -->
         <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
-
         <!-- WhatRThose styles -->
         <link rel="stylesheet" href="{{ url_for('static', filename='css/app.css') }}">
 
-        <!-- Javascript files (.js) *ORDER MATTERS* -->
-        <!--jQuery-->
-        <script src="{{ url_for('static', filename='js/jquery.min.js') }}"></script>
-        <!-- Bootstrap -->
-        <script src="{{ url_for('static', filename='js/bootstrap.min.js') }}"></script>
-        <!-- Waypointer -->
-        <script src="{{ url_for('static', filename='js/jquery.waypoints.min.js') }}"></script>
-        <!-- Flexslider -->
-        <script src="{{ url_for('static', filename='js/jquery.flexslider-min.js') }}"></script>
-        <!-- MAIN JS -->
-        <script src="{{ url_for('static', filename='js/main.js') }}"></script>
-        <!-- image upload JS -->
-        <script src="{{ url_for('static', filename='js/image-upload.js') }}"></script>
-        <!--camera -->
-        <script src="{{ url_for('static', filename='js/webcam.min.js') }}"></script>
-    </head>    
+        {% endblock %}
+    </head>
 
 
 
@@ -52,9 +43,6 @@
                 <nav role="navigation">
                     <ul>
                         <li><a href="about">ABOUT</a></li>
-                        <li><a href="hotnnew">HOT'N NEW</a></li>
-                        <li><a href="favorites">FAVORITES</a></li>
-                        <li><a href="contact">CONTACT</a></li>
                         <li class="cta"><a href="#">SEARCH</a></li>
                     </ul>
                 </nav>
@@ -62,36 +50,6 @@
         </div>
     </header>
 
-    <div class="container">    
-
-    </div>
-
-    <!-- <aside id="fh5co-hero" class="js-fullheight">
-        <div class="flexslider js-fullheight">
-            <ul class="slides">
-
-
-            <li style="background-image: url({{ url_for('static', filename='img/slide_1.jpg')}})">
-                <div class="overlay-gradient"></div>
-                <div class="container">
-                    <div class="col-md-10 col-md-offset-1 text-center js-fullheight slider-text">
-                        <div class="slider-text-inner">
-                            <h2>Dream Chasers Wear Sneakers</h2>
-                        </div>
-                    </div>
-                </div>
-            </li>
-            <li style="background-image: url({{ url_for('static', filename='img/slide_2.jpg')}})">
-                <div class="container">
-                    <div class="col-md-10 col-md-offset-1 text-center js-fullheight slider-text">
-                        <div class="slider-text-inner">
-                            <h2>Good Shoes Take You Good Places</h2>
-                        </div>
-                    </div>
-                </div>
-            </li>
-            </ul>
-        </div>
     </aside> -->
 
     <main role="main" class="flex-shrik-0">
@@ -100,10 +58,10 @@
     </main>
 
 
-    
+
 
     <footer id="fh5co-footer" role="contentinfo">
-    
+
         <div class="container">
             <div class="col-md-3 col-sm-12 col-sm-push-0 col-xs-12 col-xs-push-0">
                 <h3>About Us</h3>
@@ -136,14 +94,32 @@
                     <li><a href="#"><i class="icon-instagram"></i></a></li>
                 </ul>
             </div>
-            
-            
+
+
             <div class="col-md-12 fh5co-copyright text-center">
-                <p>&copy; 2019 WHAT R THOSE. All Rights Reserved. <span>Designed with <i class="icon-heart"></i> by <a href="http://freehtml5.co/" target="_blank">MSDS2018</a> </span></p>    
+                <p>&copy; 2019 WHAT R THOSE. All Rights Reserved. <span>Designed with <i class="icon-heart"></i> by <a href="http://freehtml5.co/" target="_blank">MSDS2018</a> </span></p>
             </div>
-            
+
         </div>
     </footer>
     </div>
+
+    {% block scripts %}
+        <!-- Javascript files (.js) *ORDER MATTERS* -->
+        <!--jQuery-->
+        <script src="{{ url_for('static', filename='js/jquery.min.js') }}"></script>
+        <!-- Waypointer -->
+        <script src="{{ url_for('static', filename='js/jquery.waypoints.min.js') }}"></script>
+        <!-- Flexslider -->
+        <script src="{{ url_for('static', filename='js/jquery.flexslider-min.js') }}"></script>
+        <!-- Bootstrap -->
+        <script src="{{ url_for('static', filename='js/bootstrap.min.js') }}"></script>
+        <!-- WhatRThose JS -->
+        <script src="{{ url_for('static', filename='js/app.js') }}"></script>
+        <!--camera -->
+        <script src="{{ url_for('static', filename='js/webcam.min.js') }}"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    {% endblock scripts %}
+
     </body>
 </html>

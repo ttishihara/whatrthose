@@ -2,14 +2,18 @@
 {%- extends "base.html" %}
 {% import 'macros/flash_macros.html' as f %}
 
-{% block content %}
 
-<head>
+{% block head %}
+    {{ super() }}
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <!-- icons -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css" integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">
 
      <!-- Theme style  -->
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
-</head>
+{% endblock %}
+
+{% block content %}
     <!-- Carousel
     ================================================== -->
     <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
@@ -20,7 +24,7 @@
         </ol>
         <div class="carousel-inner" role="listbox">
           <!-- Slide One - Set the background image for this slide in the line below -->
-          <div class="carousel-item active" style="background-image: url({{ url_for('static', filename='img/slide_1.jpg')}}" alt="First slide">
+          <div class="carousel-item item active" style="background-image: url({{ url_for('static', filename='img/slide_1.jpg')}}" alt="First slide">
             <div class="carousel-caption d-none d-md-block">
                 <div class="slider-text-inner">
                         <h2 class="display-4">SHOES ARE BORING <br> WEAR SNEAKERS</h2>
@@ -28,13 +32,13 @@
             </div>
           </div>
           <!-- Slide Two - Set the background image for this slide in the line below -->
-          <div class="carousel-item" style="background-image: url({{ url_for('static', filename='img/slide_2.jpg')}})" alt="Second slide">
+          <div class="carousel-item item" style="background-image: url({{ url_for('static', filename='img/slide_2.jpg')}})" alt="Second slide">
             <div class="carousel-caption d-none d-md-block">
               <h2 class="display-4">Good Sneakers Take You To Good Places</h2>
             </div>
           </div>
             <!-- Slide Three - Set the background image for this slide in the line below -->
-            <div class="carousel-item" style="background-image: url({{ url_for('static', filename='img/slide_3.jpg')}})" alt="Third slide">
+            <div class="carousel-item item" style="background-image: url({{ url_for('static', filename='img/slide_3.jpg')}})" alt="Third slide">
             <div class="carousel-caption d-none d-md-block">
               <h2 class="display-4">Shoes Speak Louder Than Words</h2>
             </div>
@@ -56,154 +60,89 @@
     <div id="fh5co-services-section">
         <div class="container">
             <div class="row">
-                <div class="col-md-6 col-md-offset-3 text-center fh5co-heading animate-box">
-            <h2>Upload Your Sneaker Image</h2>
+                <div class="col-md-8 center-block text-center fh5co-heading animate-box">
+                    <h2>Upload Your Sneaker Image</h2>
+
+                    <div class="alert alert-secondary" role="alert">
+                        <h3 class="font-weight-bold" style="margin-bottom: 10px; margin-top: 10px;">Tips for the Best Prediction</h3>
+                        <hr>
+                            <ol class="fa-ul">
+                              <li class="text-left" style="margin-bottom: 3px;"><span class="fa-li"><i class="fas fa-check-square"></i></span> Make sure to have good lighting to wear it's not too dark but not a lot of glare.</li>
+                              <li class="text-left" style="margin-bottom: 3px;"><span class="fa-li"><i class="fas fa-check-square"></i></span> Have a solid color background.</li>
+                              <li class="text-left" style="margin-bottom: 3px;"><span class="fa-li"><i class="fas fa-check-square"></i></span> Show just the shoe if possible without other objects. Having feet in them is okay.</li>
+                              <li class="text-left" style="margin-bottom: 3px;"><span class="fa-li"><i class="fas fa-check-square"></i></span> The sides, top, or an angle of the two would be best. Nobody wants to see the gum at the bottom of the shoe 😉</li>
+                            </ol>
+                    </div>
+                    
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="row justify-content-md-center mt-3">
             <div id="uploaded_image"></div>
         </div>
-    </div>
-
-
-    <div class="row justify-content-md-center mt-3">
-        <div class="col-md-auto">
-            <form id="upload_form" method="POST" class="drag-drop" enctype="multipart/form-data" novalidate> <!-- post : handle submission -->
-                {{ form.csrf_token }} <!--  render the form's CSRF field like normal. -->
-                <div class="custom-file">
-                    {{ form.file_selector(class_="custom-file-input") }}
-                    <label id="drag-files-label" class="custom-file-label drag-files-label" for="file_selector" data-browse="Browse">Upload image or drag it here</label>
-                </div>
-                <div class="submit-button submit-cls">
-                    {{ form.submit(class_="btn-success btn-lg btn-block") }}
-                </div>
-            </form>
-            <form id="camera_form" method="POST" enctype="multipart/form-data novalidate">
-                <div class="submit-button submit-cls">
-                    <input id="start_camera"
-                        type="button"
-                        class="btn btn-secondary btn-lg btn-block"
-                        value="Access Camera"
-                        onClick="setup_camera()">
-                </div>
-            </form>
-
-            <div id="my_result"></div>
+        <div class="row justify-content-md-center mt-3">
+            <div class="col-md-auto">
+                <form id="upload_form" method="POST" class="drag-drop" enctype="multipart/form-data" novalidate> <!-- post : handle submission -->
+                    {{ form.csrf_token }} <!--  render the form's CSRF field like normal. -->
+                    <div class="custom-file">
+                        {{ form.file_selector(class_="custom-file-input") }}
+                        <label id="drag-files-label" class="custom-file-label drag-files-label" for="file_selector" data-browse="Browse">Upload image or drag it here</label>
+                    </div>
+                    <div class="submit-button submit-cls">
+                        {{ form.submit(class_="btn-success btn-lg btn-block") }}
+                    </div>
+                </form>
+                <form id="camera_form" method="POST" enctype="multipart/form-data novalidate">
+                    <div class="submit-button submit-cls">
+                        <input id="start_camera"
+                            type="button"
+                            class="btn btn-secondary btn-lg btn-block"
+                            value="Access Camera"
+                            onClick="setup_camera()">
+                    </div>
+                </form>
+                <div id="my_result"></div>
+            </div>
         </div>
 
-    </div>
+        <!-- Webcam -->
+        <div class="row">
+            <div class="container">
+                <div class="row justify-content-md-center col-md-auto">
+                    <div id="my_camera" style="display:none;">
+                    </div>
+                </div>
+                <div class="row justify-content-md-center col-md-auto">
+                    <form>
+                        <div class="btn-group justify-content-md-center mt-3" role="group" aria-label="Basic example">
+                            <input id="cancel_camera" class="btn btn-outline-danger cam-button" type="button" value="Cancel Camera" onClick="stop_camera();" style="display:none">
+                            <input id="snapshot" type="button" class="btn btn-outline-success cam-button" value="Take Snapshot" onClick="take_snapshot();" style="display:none">
+                            <input id="retake_snapshot" type="button" class="btn btn-outline-success cam-button" value="Retake Snapshot" onClick="setup_camera();" style="display:none">
+                        </div>
+                    </form>
+                </div>
+                <div id="webcam_submit_div" class="row justify-content-md-center col-md-auto">
+                    <form method="POST" enctype="multipart/form-data">
+                        <input id="webcam_submit_button" class="btn btn-success cam-button btn-lg btn-block" type="button" value="Submit" onClick="webcam_submit();" style="display:none">
+                    </form>
+                </div>
+                <div class="row justify-content-md-center col-md-auto">
+                    {% set flashes = {
+                    'danger':  get_flashed_messages(category_filter=['form-error']),
+                    'warning': get_flashed_messages(category_filter=['form-warning']),
+                    'info':    get_flashed_messages(category_filter=['form-info']),
+                    'success': get_flashed_messages(category_filter=['form-success'])
+                    } %}
 
-    <div class="row justify-content-md-center">
-        <div class="col-md-auto">
-            <div id="my_camera" style="width: 320px; height: 240px; display:none;">
+                    {{ f.form_message(flashes['danger'], header='Something went wrong.', class='danger') }}
+                    {{ f.form_message(flashes['warning'], header='Hmmm...', class='warning') }}
+                    {{ f.form_message(flashes['info'], header='Information', class='info') }}
+                    {{ f.form_message(flashes['success'], header='Success!', class='success') }}
+                </div>
             </div>
         </div>
     </div>
-    <div class="row justify-content-md-center">
-        <div class="col-md-auto">
-            <form>
-                <div class="btn-group justify-content-md-center mt-3" role="group" aria-label="Basic example">
-                    <input id="cancel_camera" class="btn btn-outline-danger cam-button" type="button" value="Cancel Camera" onClick="stop_camera();" style="display:none">
-                    <input id="snapshot" type="button" class="btn btn-outline-success cam-button" value="Take Snapshot" onClick="take_snapshot();" style="display:none">
-                    <input id="retake_snapshot" type="button" class="btn btn-outline-success cam-button" value="Retake Snapshot" onClick="setup_camera();" style="display:none">
-                </div>
-            </form>
-            {% set flashes = {
-            'danger':  get_flashed_messages(category_filter=['form-error']),
-            'warning': get_flashed_messages(category_filter=['form-warning']),
-            'info':    get_flashed_messages(category_filter=['form-info']),
-            'success': get_flashed_messages(category_filter=['form-success'])
-            } %}
-
-            {{ f.form_message(flashes['danger'], header='Something went wrong.', class='danger') }}
-            {{ f.form_message(flashes['warning'], header='Hmmm...', class='warning') }}
-            {{ f.form_message(flashes['info'], header='Information', class='info') }}
-            {{ f.form_message(flashes['success'], header='Success!', class='success') }}
-        </div>
-    </div>
 </div>
-
-<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
-
-<script language="JavaScript">
-    function setup_camera() {
-        $('#my_camera').show();
-        Webcam.reset();
-        Webcam.attach('#my_camera');
-
-        $('#start_camera').hide();  // Hide "Access Camera" button.
-        $('#cancel_camera').show();  // Show "Cancel Camera" and "Snapshot" buttons.
-        $('#snapshot').show();
-        $('#retake_snapshot').hide();  // Hide "Retake Snapshot" button.
-        $('#upload_form').replaceWith($('#upload_form').clone());  // Reset drag-and-drop form.
-        $('#upload_form').hide();  // Hide Flask-wtf upload forms.
-        $('#uploaded_image').hide();
-    }
-
-    function stop_camera() {
-        $('#my_camera').hide();
-        Webcam.reset();
-        $('#cancel_camera').hide();
-        $('#snapshot').hide();
-        $('#retake_snapshot').hide();
-        $('#start_camera').show();
-        $('#upload_form').show();
-        $('#my_camera').html("");
-    }
-
-    function take_snapshot() {
-        Webcam.snap( function(data_uri) {
-            $('#my_camera').html('<img src="'+data_uri+'"/>');
-        });
-        $('#snapshot').hide();
-        $('#retake_snapshot').show();
-    }
-
-    // drag and drop pictures
-    //var form = document.getElementById("drag_files");
-
-    //window.addEventListener('load', function(){
-    //    ['drag', 'dragstart', 'dragend', 'dragover', 'dragenter', 'dragleave', 'drop'].forEach(function (event) {
-    //         form.addEventListener(event, function (e) {
-    //         // preventing the unwanted behaviours
-    //                 e.preventDefault();
-    //                 e.stopPropagation();
-    //             });
-    //         });
-    //});
-
-    //['dragover', 'dragenter'].forEach(function (event) {
-    //     form.addEventListener(event, function () {
-    //         form.classList.add('dragover');
-    //     });
-    // });
-
-    //['dragleave', 'dragend', 'drop'].forEach(function (event) {
-    //    form.addEventListener(event, function () {
-    //        form.classList.remove('dragover');
-    //    });
-    //});
-
-    //var droppedFiles;
-
-    //form.addEventListener('drop', function (e) {
-    //    droppedFiles = e.dataTransfer.files; // the files that were dropped
-
-    //    if (droppedFiles.length > 0)
-    //    {
-    //        form.querySelector(".drag-files-label").innerHTML = droppedFiles[0].name;
-
-    //        // optional - submit the form on drop
-    //        var event = document.createEvent('HTMLEvents');
-    //        event.initEvent('submit', true, false);
-    //        form.dispatchEvent(event);
-    //    }
-    //});
-    </script>
-    
-    <!-- image upload JS -->
-    <script type="text/javascript" src="static/js/image-upload.js"></script>
-    
-
-
 
 {% endblock content %}

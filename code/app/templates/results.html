@@ -1,7 +1,9 @@
 <!DOCTYPE html>
 {%- extends "base.html" %}
-{% block content %}
-<head>
+
+{% block head %}
+    {{ super () }}
+
     <link href="https://fonts.googleapis.com/css?family=Raleway" rel="stylesheet">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">
     <link rel="stylesheet" href="../static/css/about-us.css">
@@ -51,7 +53,9 @@
 
 
    </style>
-</head>
+{% endblock %}
+
+{% block content %}
 
 <div class="ct-pageWrapper" id="ct-js-wrapper">
 <section class="company-heading intro-type" id="parallax-one">
@@ -70,20 +74,33 @@
 </section>
 
 
-<div class="row text-center text-lg-left ct-u-paddingBoth100 paddingBothHalf noTopMobilePadding">
-    <a href="#" class="d-block mb-4 h-100">
-        <img class="img-fluid img-thumbnail" src="{{ url_for('static', filename=img) }}" alt="">
-    </a>
-    <div class="footer">
-        <h3>{{ pred_class }} ({{ pred_prob }}%)</h3>
-        <span class="glyphicon glyphicon-thumbs-up" style="color:green"></span>
-        <span class="glyphicon glyphicon-thumbs-down" style="color:red"></span>
+<div class="container">
+    <div class="row justify-content-md-center mt-3 text-center text-lg-left ct-u-paddingBoth100 paddingBothHalf noTopMobilePadding">
+        <div id="result_image">
+            <img class="img-fluid img-thumbnail" src="{{ url_for('static', filename=img) }}" alt="">
+        </div>
         <br>
-        <h4>
-            <a href="https://lmgtfy.com?q=Where+to+buy+{{pred_class | replace('_', '+')}}">
-                Where to buy <span class="glyphicon glyphicon-shopping-cart"></span>
-            </a>
-        </h4>
+        <div class="footer">
+            <h3>{{ pred_class }} ({{ pred_prob }}%)</h3>
+            <span class="glyphicon glyphicon-thumbs-up" style="color:green"></span>
+            <span class="glyphicon glyphicon-thumbs-down" style="color:red"></span>
+            <br>
+            <h4>
+                Where to buy:
+                <a href="https://flightclub.com/catalogsearch/result/?q={{pred_class | replace('_', '%20')}}">
+                    <span class="icon-flightclub"></span>
+                </a>
+                <a href="https://stockx.com/search?s={{pred_class | replace('_', '%20')}}">
+                    <span class="icon-stockx"></span>
+                </a>
+            </h4>
+            <br>
+            <div id="retry_div" class="row justify-content-md-center col-md-auto">
+                <form>
+                    <input id="retry_btn" class="btn btn-info btn-lg" type="button" value="Try Again" onClick="window.location = '/';">
+                </form>
+            </div>
+        </div>
     </div>
 </div>
 
