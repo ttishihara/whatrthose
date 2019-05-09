@@ -86,8 +86,12 @@
             <span class="glyphicon glyphicon-thumbs-down" style="color:red"></span>
             <br>
             <h4>
-                <a href="https://lmgtfy.com?q=Where+to+buy+{{pred_class | replace('_', '+')}}">
-                    Where to buy <span class="glyphicon glyphicon-shopping-cart"></span>
+                Where to buy:
+                <a href="https://flightclub.com/catalogsearch/result/?q={{pred_class | replace('_', '%20')}}">
+                    <span class="icon-flightclub"></span>
+                </a>
+                <a href="https://stockx.com/search?s={{pred_class | replace('_', '%20')}}">
+                    <span class="icon-stockx"></span>
                 </a>
             </h4>
             <br>
