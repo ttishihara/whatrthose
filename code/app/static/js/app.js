@@ -95,3 +95,23 @@ function webcam_submit() {
         }
     });
 }
+
+
+// Google analytics event tracking
+$('#webcam_submit_button').click(function() {
+    console.log("HMM");
+    gtag('event', 'submit', {'event_category': 'submission',
+        'event_label': 'webcam'});
+});
+$('#submit').click(function() {
+    gtag('event', 'submit', {'event_category': 'submission',
+        'event_label': 'upload'});
+});
+$('#flightclub').click(function() {
+    gtag('event', 'click', {'event_category': 'shop',
+        'event_label': 'flightclub'});
+});
+$('#stockx').click(function() {
+    gtag('event', 'click', {'event_category': 'shop',
+        'event_label': 'stockx'});
+});
