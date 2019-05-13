@@ -55,7 +55,7 @@ def index():
 
         # If probability of classifying the image is less than 92%, ask user to
         # resubmit a different picture.
-        if max(outputs) < 0.92:
+        if max(outputs) < 0.80:
             print(f"{pred_class}: {max(outputs)}")
             flash(
                 "We are unsure about What Those R. Please try another image.",

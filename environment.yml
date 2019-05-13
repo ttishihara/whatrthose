@@ -219,5 +219,4 @@ dependencies:
     - virtualenv-clone==0.5.1
     - websocket-client==0.56.0
     - wtforms==2.2.1
-prefix: /Users/benjaminkhuong/anaconda3/envs/whatrthose
 

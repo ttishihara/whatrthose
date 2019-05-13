@@ -80,7 +80,9 @@
     <span class="k">if</span> <span class="n">file</span><span class="o">.</span><span class="n">validate_on_submit</span><span class="p">():</span>
         <span class="c1"># upload_destination = s3_upload(file.file_selector, bucket, &#39;images&#39;)</span>
         <span class="n">destination_filename</span> <span class="o">=</span> <span class="n">save_photo</span><span class="p">(</span><span class="n">file</span><span class="o">.</span><span class="n">file_selector</span><span class="o">.</span><span class="n">data</span><span class="p">)</span>
-        <span class="n">pred_class</span><span class="p">,</span> <span class="n">pred_idx</span><span class="p">,</span> <span class="n">outputs</span> <span class="o">=</span> <span class="n">classify_photo</span><span class="p">(</span><span class="n">file</span><span class="o">.</span><span class="n">file_selector</span><span class="o">.</span><span class="n">data</span><span class="p">)</span>
+        <span class="n">destination</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="s1">&#39;app/static/img/tmp&#39;</span><span class="p">,</span> <span class="n">destination_filename</span><span class="p">)</span>
+        <span class="n">pred_class</span><span class="p">,</span> <span class="n">pred_idx</span><span class="p">,</span> <span class="n">outputs</span> <span class="o">=</span> <span class="n">classify_photo</span><span class="p">(</span>
+            <span class="n">pic</span><span class="o">=</span><span class="n">file</span><span class="o">.</span><span class="n">file_selector</span><span class="o">.</span><span class="n">data</span><span class="p">,</span> <span class="n">destination</span><span class="o">=</span><span class="n">destination</span><span class="p">)</span>
 
         <span class="n">classes</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;Addidas_Dame_5&quot;</span><span class="p">,</span> <span class="s2">&quot;Addidas_Harden&quot;</span><span class="p">,</span> <span class="s2">&quot;Addidas_Superstar&quot;</span><span class="p">,</span>
                    <span class="s2">&quot;Addidas_Ultraboost&quot;</span><span class="p">,</span>
@@ -89,7 +91,7 @@
 
         <span class="c1"># If probability of classifying the image is less than 92%, ask user to</span>
         <span class="c1"># resubmit a different picture.</span>
-        <span class="k">if</span> <span class="nb">max</span><span class="p">(</span><span class="n">outputs</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mf">0.92</span><span class="p">:</span>
+        <span class="k">if</span> <span class="nb">max</span><span class="p">(</span><span class="n">outputs</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mf">0.80</span><span class="p">:</span>
             <span class="nb">print</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;</span><span class="si">{pred_class}</span><span class="s2">: {max(outputs)}&quot;</span><span class="p">)</span>
             <span class="n">flash</span><span class="p">(</span>
                 <span class="s2">&quot;We are unsure about What Those R. Please try another image.&quot;</span><span class="p">,</span>
@@ -102,14 +104,14 @@
                                    <span class="n">pred_class</span><span class="o">=</span><span class="nb">str</span><span class="p">(</span>
                                        <span class="n">pred_class</span><span class="p">)</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;_&#39;</span><span class="p">,</span> <span class="s1">&#39; &#39;</span><span class="p">),</span>
                                    <span class="n">pred_prob</span><span class="o">=</span><span class="nb">round</span><span class="p">(</span>
-                                       <span class="nb">max</span><span class="p">(</span><span class="n">outputs</span><span class="p">)</span><span class="o">.</span><span class="n">item</span><span class="p">()</span><span class="o">*</span><span class="mi">100</span><span class="p">,</span> <span class="mi">4</span><span class="p">),</span>
+                                       <span class="nb">max</span><span class="p">(</span><span class="n">outputs</span><span class="p">)</span><span class="o">.</span><span class="n">item</span><span class="p">()</span> <span class="o">*</span> <span class="mi">100</span><span class="p">,</span> <span class="mi">4</span><span class="p">),</span>
                                    <span class="n">img</span><span class="o">=</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span>
                                        <span class="s1">&#39;img/tmp&#39;</span><span class="p">,</span>
                                        <span class="n">destination_filename</span><span class="p">)</span>
                                    <span class="p">)</span>
     <span class="k">else</span><span class="p">:</span>
         <span class="n">flash_errors</span><span class="p">(</span><span class="n">file</span><span class="p">)</span>
-    <span class="k">return</span> <span class="n">render_template</span><span class="p">(</span><span class="s2">&quot;index.html&quot;</span><span class="p">,</span>  <span class="n">form</span><span class="o">=</span><span class="n">file</span><span class="p">)</span></div>
+    <span class="k">return</span> <span class="n">render_template</span><span class="p">(</span><span class="s2">&quot;index.html&quot;</span><span class="p">,</span> <span class="n">form</span><span class="o">=</span><span class="n">file</span><span class="p">)</span></div>
 
 
 <div class="viewcode-block" id="webcam_submit"><a class="viewcode-back" href="../../api_reference.html#app.routes.webcam_submit">[docs]</a><span class="nd">@application</span><span class="o">.</span><span class="n">route</span><span class="p">(</span><span class="s1">&#39;/webcam_submit&#39;</span><span class="p">,</span> <span class="n">methods</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;POST&#39;</span><span class="p">])</span>
@@ -124,8 +126,8 @@
 
     <span class="c1"># Save bytes object to storage and predict.</span>
     <span class="n">destination_filename</span> <span class="o">=</span> <span class="n">save_photo</span><span class="p">(</span><span class="n">pic</span><span class="p">)</span>
-    <span class="n">pred_class</span><span class="p">,</span> <span class="n">pred_idx</span><span class="p">,</span> <span class="n">outputs</span> <span class="o">=</span> <span class="n">classify_photo</span><span class="p">(</span>
-        <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="s1">&#39;app/static/img/tmp&#39;</span><span class="p">,</span> <span class="n">destination_filename</span><span class="p">))</span>
+    <span class="n">destination</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="s1">&#39;app/static/img/tmp&#39;</span><span class="p">,</span> <span class="n">destination_filename</span><span class="p">)</span>
+    <span class="n">pred_class</span><span class="p">,</span> <span class="n">pred_idx</span><span class="p">,</span> <span class="n">outputs</span> <span class="o">=</span> <span class="n">classify_photo</span><span class="p">(</span><span class="n">destination</span><span class="o">=</span><span class="n">destination</span><span class="p">)</span>
 
     <span class="c1"># If probability of classifying the image is less than 92%, ask user to</span>
     <span class="c1"># resubmit a different picture.</span>
@@ -139,13 +141,15 @@
 
     <span class="k">else</span><span class="p">:</span>
         <span class="k">return</span> <span class="n">jsonify</span><span class="p">({</span><span class="s2">&quot;results&quot;</span><span class="p">:</span>
-                        <span class="n">url_for</span><span class="p">(</span><span class="s1">&#39;results&#39;</span><span class="p">,</span>
-                                <span class="n">pred_class</span><span class="o">=</span><span class="nb">str</span><span class="p">(</span><span class="n">pred_class</span><span class="p">)</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;_&#39;</span><span class="p">,</span> <span class="s1">&#39; &#39;</span><span class="p">),</span>
-                                <span class="n">pred_prob</span><span class="o">=</span><span class="nb">round</span><span class="p">(</span><span class="nb">max</span><span class="p">(</span><span class="n">outputs</span><span class="p">)</span><span class="o">.</span><span class="n">item</span><span class="p">()</span><span class="o">*</span><span class="mi">100</span><span class="p">,</span> <span class="mi">4</span><span class="p">),</span>
-                                <span class="n">img</span><span class="o">=</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span>
-                                    <span class="s1">&#39;img/tmp&#39;</span><span class="p">,</span>
-                                    <span class="n">destination_filename</span><span class="p">)</span>
-                                <span class="p">)</span>
+                            <span class="n">url_for</span><span class="p">(</span><span class="s1">&#39;results&#39;</span><span class="p">,</span>
+                                    <span class="n">pred_class</span><span class="o">=</span><span class="nb">str</span><span class="p">(</span><span class="n">pred_class</span><span class="p">)</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;_&#39;</span><span class="p">,</span>
+                                                                       <span class="s1">&#39; &#39;</span><span class="p">),</span>
+                                    <span class="n">pred_prob</span><span class="o">=</span><span class="nb">round</span><span class="p">(</span><span class="nb">max</span><span class="p">(</span><span class="n">outputs</span><span class="p">)</span><span class="o">.</span><span class="n">item</span><span class="p">()</span> <span class="o">*</span> <span class="mi">100</span><span class="p">,</span>
+                                                    <span class="mi">4</span><span class="p">),</span>
+                                    <span class="n">img</span><span class="o">=</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span>
+                                        <span class="s1">&#39;img/tmp&#39;</span><span class="p">,</span>
+                                        <span class="n">destination_filename</span><span class="p">)</span>
+                                    <span class="p">)</span>
                         <span class="p">})</span></div>
 
 

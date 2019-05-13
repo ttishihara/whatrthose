@@ -38,10 +38,23 @@
 <span class="kn">from</span> <span class="nn">uuid</span> <span class="k">import</span> <span class="n">uuid4</span>
 
 <span class="kn">import</span> <span class="nn">boto3</span>
+<span class="kn">import</span> <span class="nn">cv2</span>
 <span class="kn">from</span> <span class="nn">fastai.vision</span> <span class="k">import</span> <span class="n">Path</span><span class="p">,</span> <span class="n">load_learner</span><span class="p">,</span> <span class="n">open_image</span>
 <span class="kn">from</span> <span class="nn">flask</span> <span class="k">import</span> <span class="n">flash</span>
+<span class="c1"># import tensorflow as tf</span>
 <span class="kn">from</span> <span class="nn">werkzeug.utils</span> <span class="k">import</span> <span class="n">secure_filename</span>
 <span class="kn">from</span> <span class="nn">werkzeug.datastructures</span> <span class="k">import</span> <span class="n">FileStorage</span>
+<span class="kn">import</span> <span class="nn">time</span>
+
+<span class="c1"># from app.models.frcnn_detector import frcnn</span>
+
+<span class="c1"># start = time.time()</span>
+<span class="c1"># detector_weights = &quot;app/models/frcnn_detector/weights/model_frcnn_vgg2.hdf5&quot;</span>
+<span class="c1"># detector = frcnn.detector_model()</span>
+<span class="c1"># detector.load_model(detector_weights)</span>
+<span class="c1"># global_graph = tf.get_default_graph()</span>
+<span class="c1"># end = time.time()</span>
+<span class="c1"># print(end - start)</span>
 
 
 <div class="viewcode-block" id="flash_errors"><a class="viewcode-back" href="../../api_reference.html#app.helpers.flash_errors">[docs]</a><span class="k">def</span> <span class="nf">flash_errors</span><span class="p">(</span><span class="n">form</span><span class="p">):</span>
@@ -125,19 +138,50 @@
     <span class="k">return</span> <span class="n">destination_filename</span></div>
 
 
-<div class="viewcode-block" id="classify_photo"><a class="viewcode-back" href="../../api_reference.html#app.helpers.classify_photo">[docs]</a><span class="k">def</span> <span class="nf">classify_photo</span><span class="p">(</span><span class="n">pic</span><span class="p">):</span>
+<div class="viewcode-block" id="classify_photo"><a class="viewcode-back" href="../../api_reference.html#app.helpers.classify_photo">[docs]</a><span class="k">def</span> <span class="nf">classify_photo</span><span class="p">(</span><span class="n">pic</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">destination</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Feeds a picture through the sneaker detection pipeline.</span>
 
 <span class="sd">    :param pic: Picture of a sneakers to be classified.</span>
 <span class="sd">    :type pic: werkzeug.datastructures.FileStorage or Pathstr</span>
+<span class="sd">    :param pic_filename: UUID4 random filename of picture.</span>
+<span class="sd">    :type pic_filename: str</span>
 
 <span class="sd">    :return: Prediction class, Prediction class index, Output probabilities.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">img</span> <span class="o">=</span> <span class="n">open_image</span><span class="p">(</span><span class="n">pic</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">pic</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">img</span> <span class="o">=</span> <span class="n">open_image</span><span class="p">(</span><span class="n">pic</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">img</span> <span class="o">=</span> <span class="n">open_image</span><span class="p">(</span><span class="n">destination</span><span class="p">)</span>
     <span class="n">classifier_path</span> <span class="o">=</span> <span class="s2">&quot;app/models/cnn_classifier/&quot;</span>
     <span class="n">classifier</span> <span class="o">=</span> <span class="n">load_learner</span><span class="p">(</span><span class="n">classifier_path</span><span class="p">)</span>
     <span class="n">pred_class</span><span class="p">,</span> <span class="n">pred_idx</span><span class="p">,</span> <span class="n">outputs</span> <span class="o">=</span> <span class="n">classifier</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">img</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="nb">max</span><span class="p">(</span><span class="n">outputs</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mf">0.92</span><span class="p">:</span>
+
+        <span class="c1"># if destination is not None:</span>
+        <span class="c1">#     img_data = cv2.imread(destination)</span>
+        <span class="c1"># else:</span>
+        <span class="c1">#     img_data = cv2.imread(pic)</span>
+
+        <span class="c1"># with global_graph.as_default():</span>
+        <span class="c1">#     img_paths = detector.predict(img_data, destination)</span>
+        <span class="c1"># img_paths.append(destination)</span>
+
+        <span class="c1"># classifier_outputs = []</span>
+
+        <span class="c1"># for path in img_paths:</span>
+        <span class="c1">#     img = open_image(path)</span>
+        <span class="c1">#     pred_class, pred_idx, outputs = classifier.predict(img)</span>
+        <span class="c1">#     classifier_outputs.append(</span>
+        <span class="c1">#         [max(outputs), pred_class, pred_idx, outputs])</span>
+        <span class="c1"># classifier_outputs.sort(key=lambda x: x[0], reverse=True)</span>
+
+        <span class="c1"># pred_class = classifier_outputs[0][1]</span>
+        <span class="c1"># pred_idx = classifier_outputs[0][2]</span>
+        <span class="c1"># outputs = classifier_outputs[0][3]</span>
+
+        <span class="k">return</span> <span class="n">pred_class</span><span class="p">,</span> <span class="n">pred_idx</span><span class="p">,</span> <span class="n">outputs</span>
 
     <span class="k">return</span> <span class="n">pred_class</span><span class="p">,</span> <span class="n">pred_idx</span><span class="p">,</span> <span class="n">outputs</span></div>
 </pre></div>
