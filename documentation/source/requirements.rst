@@ -16,6 +16,7 @@ The process for deployment is detailed in the tutorial.  Here is what is require
   * At least 50GB of storage 
   * Git installed and user configured
   * Anaconda installed
+  * Port 5000 opened inbound and outbound
 
 2. The following must be configured in code/user_definition.py:
 
