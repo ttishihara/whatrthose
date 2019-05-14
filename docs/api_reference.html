@@ -140,125 +140,11 @@ to execute calculate_driving_time.py every minute.</p>
 </dd></dl>
 
 </div>
-<div class="section" id="module-app.helpers">
-<span id="helpers-module"></span><h2>Helpers Module<a class="headerlink" href="#module-app.helpers" title="Permalink to this headline">¶</a></h2>
-<dl class="function">
-<dt id="app.helpers.classify_photo">
-<code class="descclassname">app.helpers.</code><code class="descname">classify_photo</code><span class="sig-paren">(</span><em>pic=None</em>, <em>destination=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/app/helpers.html#classify_photo"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#app.helpers.classify_photo" title="Permalink to this definition">¶</a></dt>
-<dd><p>Feeds a picture through the sneaker detection pipeline.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>pic</strong> (<em>werkzeug.datastructures.FileStorage</em><em> or </em><em>Pathstr</em>) – Picture of a sneakers to be classified.</li>
-<li><strong>pic_filename</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – UUID4 random filename of picture.</li>
-</ul>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">Prediction class, Prediction class index, Output probabilities.</p>
-</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-<dl class="function">
-<dt id="app.helpers.flash_errors">
-<code class="descclassname">app.helpers.</code><code class="descname">flash_errors</code><span class="sig-paren">(</span><em>form</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/app/helpers.html#flash_errors"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#app.helpers.flash_errors" title="Permalink to this definition">¶</a></dt>
-<dd><p>Flashes Flask-WTF form errors.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>form</strong> (<a class="reference internal" href="#app.routes.UploadFileForm" title="app.routes.UploadFileForm"><em>UploadFileForm</em></a>) – Form object that contains errors.</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">None</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-<dl class="function">
-<dt id="app.helpers.s3_upload">
-<code class="descclassname">app.helpers.</code><code class="descname">s3_upload</code><span class="sig-paren">(</span><em>source_file</em>, <em>bucket_name='s3://whatrthose'</em>, <em>upload_dir=None</em>, <em>acl='public-read'</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/app/helpers.html#s3_upload"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#app.helpers.s3_upload" title="Permalink to this definition">¶</a></dt>
-<dd><p>Uploads data within Flask-WTForm File Objects to Amazon S3.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>source_file</strong> (<em>flask_wtf.file.FileField</em>) – File to be uploaded to s3 bucket.</li>
-<li><strong>bucket_name</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – Name of s3 bucket.</li>
-<li><strong>upload_dir</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – Directory within the s3 bucket to upload the file into.</li>
-<li><strong>acl</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – Access Control List.</li>
-</ul>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">Location of uploaded s3 object.</p>
-</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-<dl class="function">
-<dt id="app.helpers.save_photo">
-<code class="descclassname">app.helpers.</code><code class="descname">save_photo</code><span class="sig-paren">(</span><em>pic</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/app/helpers.html#save_photo"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#app.helpers.save_photo" title="Permalink to this definition">¶</a></dt>
-<dd><p>Stores a picture to the app/static/img/tmp directory with a randomly
-generated name.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>pic</strong> (<em>werkzeug.datastructures.FileStorage</em><em> or </em><em>bytes object</em>) – Picture of a sneakers to be classified.</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">Filename of saved picture.</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
+<div class="section" id="helpers-module">
+<h2>Helpers Module<a class="headerlink" href="#helpers-module" title="Permalink to this headline">¶</a></h2>
 </div>
-<div class="section" id="module-app.routes">
-<span id="routes-module"></span><h2>Routes Module<a class="headerlink" href="#module-app.routes" title="Permalink to this headline">¶</a></h2>
-<dl class="class">
-<dt id="app.routes.UploadFileForm">
-<em class="property">class </em><code class="descclassname">app.routes.</code><code class="descname">UploadFileForm</code><span class="sig-paren">(</span><em>formdata=&lt;object object&gt;</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/app/routes.html#UploadFileForm"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#app.routes.UploadFileForm" title="Permalink to this definition">¶</a></dt>
-<dd><p>Class for Flask-WTF form for uploading photo.</p>
-</dd></dl>
-
-<dl class="function">
-<dt id="app.routes.about">
-<code class="descclassname">app.routes.</code><code class="descname">about</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/app/routes.html#about"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#app.routes.about" title="Permalink to this definition">¶</a></dt>
-<dd><p>About Us Page: Renders about.html where introduces the company and the team</p>
-</dd></dl>
-
-<dl class="function">
-<dt id="app.routes.favicon">
-<code class="descclassname">app.routes.</code><code class="descname">favicon</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/app/routes.html#favicon"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#app.routes.favicon" title="Permalink to this definition">¶</a></dt>
-<dd><p>Display favicon in browser tab</p>
-</dd></dl>
-
-<dl class="function">
-<dt id="app.routes.index">
-<code class="descclassname">app.routes.</code><code class="descname">index</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/app/routes.html#index"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#app.routes.index" title="Permalink to this definition">¶</a></dt>
-<dd><p>Index Page : Renders index.html where users can upload files</p>
-</dd></dl>
-
-<dl class="function">
-<dt id="app.routes.results">
-<code class="descclassname">app.routes.</code><code class="descname">results</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/app/routes.html#results"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#app.routes.results" title="Permalink to this definition">¶</a></dt>
-<dd><p>Results Page: Renders results.html where users see
-the results of their search</p>
-</dd></dl>
-
-<dl class="function">
-<dt id="app.routes.webcam_submit">
-<code class="descclassname">app.routes.</code><code class="descname">webcam_submit</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/app/routes.html#webcam_submit"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#app.routes.webcam_submit" title="Permalink to this definition">¶</a></dt>
-<dd><p>Handles photo submissions via webcam with POST method.</p>
-</dd></dl>
-
+<div class="section" id="routes-module">
+<h2>Routes Module<a class="headerlink" href="#routes-module" title="Permalink to this headline">¶</a></h2>
 </div>
 </div>
 
@@ -287,8 +173,8 @@ the results of their search</p>
 <li class="toctree-l1"><a class="reference internal" href="tutorial.html">Setup Tutorial</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">API Reference</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#module-deploy">Deploy Script</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#module-app.helpers">Helpers Module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#module-app.routes">Routes Module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#helpers-module">Helpers Module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#routes-module">Routes Module</a></li>
 </ul>
 </li>
 </ul>
